@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>グルメポータル｜今日は、どこで食べる？ — エリア・ジャンルから探せる飲食店ガイド</title>
+<meta name="description" content="エリア・ジャンル・今日の気分から、行きたい一軒が見つかる飲食店ポータル。写真と動画で“食べたい”を直感で選ぶ、新しいグルメガイド。">
+<meta name="theme-color" content="#fbf7f0">
+
+<!-- ════════════════════════════════════════════════════════════
+     GOURMET PORTAL — 明るい「食欲設計」版（クリーンルーム・完全オリジナル）
+     目的: 料理を旨そうに見せ、予約/来店に繋げる（=飲食ポータル本来の仕事）。
+     ガードレール: 参考サイトのアセット/コピー/ロゴ/実店名/実動画ID/見出し画像は複製しない。
+       写真=Unsplash(License)/LoremFlickr(CC)、データ=架空、ブランド独自、WCAG AA。
+     ════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="preconnect" href="https://loremflickr.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Shippori+Mincho:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<a href="#main" class="skip-link">本文へスキップ</a>
+
+<!-- 自作インラインSVGアイコン -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-yen" viewBox="0 0 24 24"><path d="M12 4l-5 8m5-8l5 8m-5 0v8m-4-5h8m-8 3h8"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6 12l6-6 6 6"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 2c2.4 4 1.2 6.4-.5 8.2-1.5 1.6-2.7 3.4-1.3 5.6.6-1 1.4-1.7 2.1-2.2-.3 1.6.2 2.7 1 3.6 1.9-1.8 3-4.1 3-6.8C16 14.6 18 17 18 19.5 18 23 15.3 25 12 25S6 23 6 19.5C6 13.8 11 11 12 2Z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+  <symbol id="i-partner" viewBox="0 0 24 24"><circle cx="8.5" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.4"/><path d="M3.5 19c0-3 2.4-4.6 5-4.6S13.5 16 13.5 19M14.5 19c0-2.4 1.6-3.8 3.5-3.8S21 16.6 21 19"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></symbol>
+</svg>
+
+<!-- ============ ヘッダー ============ -->
+<header class="site-header">
+  <div class="inner">
+    <a href="#" class="brand" aria-label="グルメポータル トップ">
+      <span class="mark" aria-hidden="true"><svg><use href="#i-fire"/></svg></span>
+      <span class="word">グルメポータル</span>
+      <span class="en">GOURMET&nbsp;PORTAL</span>
+    </a>
+    <form class="hsearch" onsubmit="return false;" role="search">
+      <span class="hs-ico" aria-hidden="true"><svg><use href="#i-search"/></svg></span>
+      <input type="text" placeholder="店名・料理・駅で探す" aria-label="キーワードで探す">
+      <select aria-label="エリアで絞り込む"><option>エリア</option><option>北海道</option><option>東北</option><option>関東</option><option>中部</option><option>近畿</option><option>中国・四国</option><option>九州・沖縄</option></select>
+      <select id="genreSel" aria-label="ジャンルで絞り込む"><option>ジャンル</option></select>
+      <button class="btn-search" type="submit">探す</button>
+    </form>
+    <a href="#" class="header-loc" aria-label="現在地から探す" title="現在地から探す"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>現在地</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ 1. ヒーロー（食欲・大判・高さ抑制） ============ -->
+  <section class="hero" aria-label="特集">
+    <div class="hero-stage">
+      <div class="hero-media media"><img class="ph cover" id="heroImg" src="" alt="" decoding="async" fetchpriority="high"></div>
+    </div>
+    <div class="inner hero-inner">
+      <div class="hero-copy">
+        <span class="hero-kicker"><span class="dot"></span>今日のおすすめ</span>
+        <h1 class="hero-title">今日は、<em>どこで</em>食べる？</h1>
+        <p class="hero-lead">エリア・ジャンル・今日の気分から、<br>“食べたい一軒”が見つかる。</p>
+        <div class="hero-actions">
+          <a href="#genre" class="btn-cta">お店を探す<span class="arr" aria-hidden="true">→</span></a>
+          <a href="#ranking" class="btn-ghost">人気ランキング</a>
+        </div>
+        <ul class="hero-stats" aria-hidden="true">
+          <li><b class="tnum">8,400</b>掲載店</li>
+          <li><b class="tnum">47</b>都道府県</li>
+          <li><b class="tnum">12万</b>件のクチコミ</li>
+        </ul>
+      </div>
+      <div class="hero-feature" id="heroFeature"></div>
+    </div>
+    <div class="hero-dots" id="heroDots" role="tablist" aria-label="特集を切り替え"></div>
+  </section>
+
+  <!-- ============ 流れるジャンル ticker ============ -->
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+  <!-- ============ 2. ジャンルから（丸アイコン横スクロール） ============ -->
+  <section class="section" id="genre" aria-labelledby="t-genre">
+    <div class="inner">
+      <div class="head">
+        <span class="kicker">Genre</span>
+        <h2 class="title" id="t-genre"><em>ジャンル</em>から探す</h2>
+      </div>
+      <div class="genre-rail reveal" id="genreRail"></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. 今週のランキング（非対称・1位大） ============ -->
+  <section class="section section--panel" id="ranking" aria-labelledby="t-rank">
+    <div class="inner">
+      <div class="head head--row">
+        <div>
+          <span class="kicker">Weekly Ranking</span>
+          <h2 class="title" id="t-rank">今週、<em>予約が動いた</em>店</h2>
+        </div>
+        <a href="#" class="seeall">ランキングをすべて見る</a>
+      </div>
+      <div class="rank-grid reveal" id="rankGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 新着・注目のお店（カード横カルーセル） ============ -->
+  <section class="section" aria-labelledby="t-new">
+    <div class="inner">
+      <div class="head head--row">
+        <div>
+          <span class="kicker">Pick Up</span>
+          <h2 class="title" id="t-new">いま<em>注目</em>のお店</h2>
+        </div>
+        <span class="swiper-nav"><button class="vp" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button><button class="vn" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button></span>
+      </div>
+    </div>
+    <div class="inner">
+      <div class="swiper card-swiper reveal"><div class="swiper-wrapper" id="cardWrap"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. 今夜の気分から（2枚重ねタイル） ============ -->
+  <section class="section section--panel" aria-labelledby="t-mood">
+    <div class="inner">
+      <div class="head">
+        <span class="kicker">By Mood</span>
+        <h2 class="title" id="t-mood">今夜の<em>気分</em>から</h2>
+      </div>
+      <div class="mood-grid reveal" id="moodGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. エリアから ============ -->
+  <section class="section" aria-labelledby="t-area">
+    <div class="inner">
+      <div class="head">
+        <span class="kicker">By Area</span>
+        <h2 class="title" id="t-area"><em>エリア</em>から探す</h2>
+      </div>
+      <nav class="area-grid reveal" aria-label="エリアから探す">
+        <a href="#" class="area-chip">北海道</a><a href="#" class="area-chip">宮城・仙台</a>
+        <a href="#" class="area-chip">東京</a><a href="#" class="area-chip">横浜・神奈川</a>
+        <a href="#" class="area-chip">名古屋・愛知</a><a href="#" class="area-chip">京都</a>
+        <a href="#" class="area-chip">大阪</a><a href="#" class="area-chip">神戸・兵庫</a>
+        <a href="#" class="area-chip">広島</a><a href="#" class="area-chip">福岡</a>
+        <a href="#" class="area-chip">沖縄</a><a href="#" class="area-chip">金沢・北陸</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ 7. Instagram ============ -->
+  <section class="section section--panel" aria-labelledby="t-ig">
+    <div class="inner">
+      <div class="head head--row">
+        <div>
+          <span class="kicker">Instagram</span>
+          <h2 class="title" id="t-ig"><em>@gourmet_portal</em></h2>
+        </div>
+        <a href="#" class="seeall">フォローする</a>
+      </div>
+      <div class="insta-grid reveal" id="instaGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta-band" aria-label="アクション">
+    <div class="inner">
+      <div class="cta-grid">
+        <a href="#" class="cta-item reveal">
+          <span class="ico" aria-hidden="true"><svg><use href="#i-list"/></svg></span>
+          <span class="lbl">お店を掲載する</span><span class="en">List your shop</span>
+        </a>
+        <a href="#" class="cta-item reveal" style="--d:.06s">
+          <span class="ico" aria-hidden="true"><svg><use href="#i-mail"/></svg></span>
+          <span class="lbl">お問い合わせ</span><span class="en">Contact</span>
+        </a>
+        <a href="#" class="cta-item reveal" style="--d:.12s">
+          <span class="ico" aria-hidden="true"><svg><use href="#i-ig"/></svg></span>
+          <span class="lbl">Instagram</span><span class="en">Follow us</span>
+        </a>
+        <a href="#" class="cta-item reveal" style="--d:.18s">
+          <span class="ico" aria-hidden="true"><svg><use href="#i-partner"/></svg></span>
+          <span class="lbl">代理店募集</span><span class="en">Partner</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <ul class="footer-links"><li><a href="#">利用規約</a></li><li><a href="#">プライバシーポリシー</a></li><li><a href="#">特定商取引法に基づく表記</a></li><li><a href="#">運営会社</a></li><li><a href="#">ヘルプ</a></li></ul>
+    <p class="copyright">© GOURMET PORTAL — 飲食店ガイド（架空デモ）</p>
+  </div>
+</footer>
+
+<!-- 固定 footer-bar -->
+<nav class="footer-bar" aria-label="クイックアクション">
+  <a href="#"><span class="fbi" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</a>
+  <a href="#"><span class="fbi" aria-hidden="true"><svg><use href="#i-bookmark"/></svg></span>お気に入り</a>
+  <a href="#" class="accent"><span class="fbi" aria-hidden="true"><svg><use href="#i-list"/></svg></span>お店を掲載</a>
+</nav>
+
+<button class="page-top" id="pageTop" type="button" aria-label="ページトップへ戻る"><svg aria-hidden="true"><use href="#i-up"/></svg></button>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+/* ════════════════════════════════════════════════════════════
+   画像: Unsplash(License) 厳選 + LoremFlickr(CC) フォールバック。
+   全 <img> に width/height（CLS=0）。著作物の複製なし。
+   コンテンツ（店名/評価/営業時間/価格）は世界観の一貫した架空データ。
+   ════════════════════════════════════════════════════════════ */
+const U = {
+  ramen:'1569718212165-3a8278d5f624', barbecue:'1529692236671-f1f6cf9683ba',
+  sushi:'1583623025817-d180a2221d0a', steak:'1546964124-0cce460f38ef',
+  pizza:'1513104890138-7c749659a591', coffee:'1495474472287-4d71bcdd2085',
+  cocktail:'1551024709-8f23befc6f87', izakaya:'1517248135467-4c7edcad34c4',
+  dumpling:'1496116218417-1a781b1c416c', cheesecake:'1565958011703-44f9829ba187',
+  soba:'1612929633738-8fe44f7ec841', tacos:'1565299624946-b28f40a0ae38',
+  kaiseki:'1580822184713-fc5400e7fe10', curry:'1455619452474-d2be8b1e70cd',
+  wine:'1510812431401-41d2bd2722f3', interior:'1414235077428-338989a2e8c0',
+  dining:'1424847651672-bf20a4b0982b', bread:'1509440159596-0249088772ff',
+  pancake:'1567620905732-2d1ec7ab7445', salad:'1512621776951-a57141f2eefd',
+  burger:'1568901346375-23c9450c58cd', tempura:'1606491956689-2ea866880c84'
+};
+const key = kw => kw.split(',')[0];
+const uURL = (kw,w,h,d=1) => U[key(kw)] ? `https://images.unsplash.com/photo-${U[key(kw)]}?auto=format&fit=crop&w=${w}&h=${h}&q=80&dpr=${d}` : '';
+const lURL = (kw,w,h,lock) => `https://loremflickr.com/${w}/${h}/${key(kw)},food?lock=${lock}`;
+const imgTag = (kw,w,h,lock,cls='cover',alt='',eager=false) => {
+  const u1=uURL(kw,w,h,1), u2=uURL(kw,w,h,2), l=lURL(kw,w,h,lock);
+  const ss = u1 ? ` srcset="${u1} 1x, ${u2} 2x"` : '';
+  const oe = u1 ? ` onerror="this.onerror=null;this.removeAttribute('srcset');this.src='${l}'"` : '';
+  const ld = eager ? ' fetchpriority="high"' : ' loading="lazy"';
+  return `<img class="ph ${cls}" src="${u1||l}"${ss} width="${w}" height="${h}" alt="${alt}" decoding="async"${ld}${oe}>`;
+};
+const imgFlickr = (kw,w,h,lock,cls,alt='') => `<img class="ph ${cls}" src="${lURL(kw,w,h,lock)}" width="${w}" height="${h}" alt="${alt}" decoding="async" loading="lazy">`;
+const svgUse = id => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
+
+/* ── 架空データ（一貫した世界観） ──
+   [店名, ジャンル, エリア, 駅, 価格帯, ★, クチコミ数, 画像kw, lock, タグ, 営業, ひとこと] */
+const SHOPS = [
+  ["炭火焼鳥 とり源","焼き鳥","東京","恵比寿","¥3,000〜","4.7","312","barbecue",11,"hot","17:00–24:00","備長炭で香ばしく、軍鶏の旨みを一本ずつ。"],
+  ["鮨 はる凪","寿司","東京","銀座","¥12,000〜","4.9","186","sushi",12,"","18:00–22:30","旬の握りをおまかせで。カウンター8席の隠れ家。"],
+  ["Trattoria Sole","イタリアン","横浜","元町","¥4,500〜","4.6","241","pizza",13,"new","11:30–22:00","薪窯ピッツァと自家製パスタ。港町の陽だまり。"],
+  ["麺屋 燈火","ラーメン","札幌","すすきの","¥1,000〜","4.8","528","ramen",14,"hot","11:00–翌2:00","濃厚味噌に焦がしバター。深夜まで賑わう一杯。"],
+  ["焼肉 蔓牛","焼肉","大阪","梅田","¥6,000〜","4.7","403","steak",15,"","17:00–23:30","希少部位を炭火で。肉好きが通う名店。"],
+  ["割烹 みかげ","和食","京都","祇園","¥10,000〜","4.8","132","kaiseki",16,"","17:30–22:00","季節の懐石を町家の個室で静かに。"],
+  ["BISTRO La Lune","ビストロ","神戸","三宮","¥5,000〜","4.5","198","wine",17,"new","18:00–24:00","自然派ワインと炭火フレンチの小さな店。"],
+  ["餃子と中華 鳳来","中華","福岡","天神","¥2,500〜","4.6","367","dumpling",18,"hot","11:30–23:00","羽根つき餃子と紹興酒。下町の活気そのまま。"],
+  ["珈琲と焼菓子 朱","カフェ","鎌倉","鎌倉","¥1,200〜","4.7","289","coffee",19,"","9:00–18:00","自家焙煎の一杯と、季節のチーズケーキ。"],
+  ["蕎麦切り 凪","蕎麦","金沢","香林坊","¥2,000〜","4.6","154","soba",20,"","11:00–15:00","石臼挽きの十割。昼だけの静かな蕎麦屋。"],
+  ["酒場 とりゐ","居酒屋","広島","八丁堀","¥3,500〜","4.5","276","izakaya",21,"","17:00–24:00","瀬戸内の魚と地酒。気取らない大衆酒場。"],
+  ["天ぷら 海と畑","天ぷら","名古屋","栄","¥7,000〜","4.7","167","tempura",22,"","11:30–21:30","ごま油でからりと。旬の素材を一品ずつ。"]
+];
+const GENRES = [
+  ["焼肉","steak"],["寿司","sushi"],["ラーメン","ramen"],["イタリアン","pizza"],["焼き鳥","barbecue"],
+  ["和食・割烹","kaiseki"],["カフェ","coffee"],["居酒屋","izakaya"],["中華","dumpling"],
+  ["フレンチ","wine"],["蕎麦","soba"],["天ぷら","tempura"]
+];
+const MOODS = [
+  ["記念日・デートに","wine"],["がっつり、肉の夜","steak"],["ひとりで静かに","interior"],
+  ["接待・会食で外さない","kaiseki"],["みんなでワイワイ","izakaya"],["コスパで選ぶ","ramen"]
+];
+const IG = ["sushi","barbecue","pizza","steak","ramen","cheesecake"];
+const HERO = [
+  ["steak","炭火が呼ぶ、肉の夜。","蔓牛・大阪 梅田",10],
+  ["sushi","旬を、ひと握り。","鮨 はる凪・銀座",20],
+  ["ramen","深夜の、ご褒美の一杯。","麺屋 燈火・札幌",30],
+  ["pizza","薪窯から、港町の陽だまり。","Trattoria Sole・横浜",40]
+];
+
+const starHTML = r => `<span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg></span><b class="tnum">${r}</b>`;
+const tagHTML = t => t==='hot'?'<span class="tag hot">人気</span>':t==='new'?'<span class="tag new">NEW</span>':'';
+
+/* ── ジャンル select 再構築 ── */
+document.getElementById('genreSel').innerHTML =
+  '<option>ジャンル</option>' + GENRES.map(g=>`<option>${g[0]}</option>`).join('');
+
+/* ── ヒーロー（自動切替・キーボード可） ── */
+let hi=0, htimer;
+function setHero(i){
+  hi=(i+HERO.length)%HERO.length; const v=HERO[hi];
+  const img=document.getElementById('heroImg');
+  img.src=uURL(v[0],1600,1000,1)||lURL(v[0],1600,1000,v[3]);
+  img.alt=v[2]+'のおすすめ料理';
+  img.onerror=function(){this.onerror=null;this.removeAttribute('srcset');this.src=lURL(v[0],1600,1000,v[3]);};
+  document.getElementById('heroFeature').innerHTML=`<span class="hf-cap">特集</span><b>${v[1]}</b><span class="hf-shop">${v[2]}</span>`;
+  [...document.querySelectorAll('#heroDots .dot-btn')].forEach((d,j)=>{const on=j===hi;d.classList.toggle('active',on);d.setAttribute('aria-selected',on);});
+}
+document.getElementById('heroDots').innerHTML=HERO.map((v,i)=>`<button class="dot-btn${i===0?' active':''}" role="tab" aria-selected="${i===0}" data-i="${i}" aria-label="特集${i+1}「${v[1]}」"></button>`).join('');
+document.getElementById('heroDots').addEventListener('click',e=>{const b=e.target.closest('.dot-btn');if(b){setHero(+b.dataset.i);restart();}});
+function restart(){clearInterval(htimer);htimer=setInterval(()=>setHero(hi+1),6000);}
+setHero(0); restart();
+
+/* ── ジャンル rail ── */
+document.getElementById('genreRail').innerHTML=GENRES.map((g,i)=>`
+  <a href="#" class="genre-item" aria-label="${g[0]}を探す">
+    <span class="g-thumb media">${imgTag(g[1],120,120,200+i,'cover','')}</span>
+    <span class="g-label">${g[0]}</span>
+  </a>`).join('');
+
+/* ── ランキング（1位大・★gold・メダル） ── */
+document.getElementById('rankGrid').innerHTML=SHOPS.slice(0,7).map((s,i)=>{
+  const big=i===0;
+  return `
+  <a href="store.html" class="rank-card${i<3?' top':''}${big?' lead':''}" aria-label="${i+1}位 ${s[0]}（${s[1]}・${s[2]}）★${s[5]}">
+    <span class="rank-no" aria-hidden="true">${i+1}</span>
+    <span class="rank-thumb media">${imgTag(s[7], big?520:200, big?330:150, s[8]+90,'cover',s[0])}${tagHTML(s[9])}</span>
+    <span class="rank-info">
+      <span class="rank-name">${s[0]}</span>
+      <span class="rank-meta"><span class="genre">${s[1]}</span>・${s[2]} ${s[3]}駅</span>
+      <span class="rank-row"><span class="rating">${starHTML(s[5])}<span class="rc tnum">(${s[6]})</span></span><span class="price"><span class="yen" aria-hidden="true">${svgUse('i-yen')}</span>${s[4]}</span></span>
+      ${big?`<span class="rank-catch">${s[11]}</span>`:''}
+    </span>
+  </a>`;
+}).join('');
+
+/* ── 注目カード（横カルーセル） ── */
+const cardHTML = (s,i,eager)=>`
+  <a href="store.html" class="shop-card">
+    <span class="sc-thumb media">
+      ${imgTag(s[7],360,234,s[8],'cover',s[0]+'（'+s[1]+'）',eager)}
+      ${tagHTML(s[9])}
+      <span class="sc-save" aria-hidden="true">${svgUse('i-bookmark')}</span>
+    </span>
+    <span class="sc-body">
+      <span class="sc-name">${s[0]}</span>
+      <span class="sc-meta"><span class="genre">${s[1]}</span><span class="sep">/</span>${s[2]} ${s[3]}駅</span>
+      <span class="sc-catch">${s[11]}</span>
+      <span class="sc-row">
+        <span class="rating">${starHTML(s[5])}<span class="rc tnum">(${s[6]})</span></span>
+        <span class="open"><span class="dot-open" aria-hidden="true"></span>営業中</span>
+      </span>
+      <span class="sc-foot"><span class="price">${s[4]}</span><span class="hours tnum">${s[10]}</span></span>
+    </span>
+  </a>`;
+document.getElementById('cardWrap').innerHTML=SHOPS.map((s,i)=>`<div class="swiper-slide">${cardHTML(s,i,i<4)}</div>`).join('');
+
+/* ── 気分タイル（2枚重ね） ── */
+document.getElementById('moodGrid').innerHTML=MOODS.map((m,i)=>`
+  <a href="#" class="mood-tile media" aria-label="${m[0]}">
+    ${imgTag(m[1],440,300,300+i,'img1','')}
+    ${imgFlickr(m[1],440,300,400+i,'img2','')}
+    <span class="m-label">${m[0]}</span>
+  </a>`).join('');
+
+/* ── Instagram ── */
+document.getElementById('instaGrid').innerHTML=IG.map((kw,i)=>`
+  <a href="#" class="insta-item media" aria-label="@gourmet_portal の投稿を見る">${imgTag(kw,360,360,60+i,'cover','')}<span class="ov" aria-hidden="true">${svgUse('i-ig')}</span></a>`).join('');
+
+/* ── 流れる ticker ── */
+(function(){const tr=document.getElementById('tickerTrack');const base=(GENRES.map(g=>`<span class="tk">${g[0]}</span>`).join('')).repeat(3);tr.innerHTML=base+base;})();
+
+/* ── Swiper ── */
+new Swiper('.card-swiper',{slidesPerView:'auto',spaceBetween:18,navigation:{nextEl:'.vn',prevEl:'.vp'},a11y:{enabled:true}});
+
+/* ── page top ── */
+const pt=document.getElementById('pageTop');
+addEventListener('scroll',()=>pt.classList.toggle('show',scrollY>700),{passive:true});
+pt.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+
+/* ── reveal（staggered・フェイルセーフ） ── */
+const reveals=[...document.querySelectorAll('.reveal')];
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}}),{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+  reveals.forEach(s=>io.observe(s));
+  setTimeout(()=>reveals.forEach(s=>s.classList.add('in')),1600);
+} else reveals.forEach(s=>s.classList.add('in'));
+addEventListener('load',()=>document.body.classList.add('imgs-ready'));
+</script>
+</body>
+</html>

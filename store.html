@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>炭火焼鳥 とり源｜恵比寿の焼き鳥 — グルメポータル</title>
+<meta name="description" content="恵比寿・炭火焼鳥 とり源の店舗情報。備長炭で焼き上げる軍鶏の焼き鳥。メニュー・クチコミ・営業時間・地図・ネット予約はこちら。">
+<meta name="theme-color" content="#fbf7f0">
+<!-- クリーンルーム: 架空店舗。写真=Unsplash/LoremFlickr、データ=架空、WCAG AA。 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="preconnect" href="https://loremflickr.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Shippori+Mincho:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── 店舗詳細ページ専用（tokens は style.css を継承） ── */
+.crumb { font-size: 12px; color: var(--ink-mid); padding: 16px 0 4px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.crumb a:hover { color: var(--cta); }
+.crumb .sep { color: var(--ink-low); }
+.crumb .cur { color: var(--ink); font-weight: 700; }
+
+/* ヒーローギャラリー */
+.store-gallery { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; margin-top: 8px;
+  height: clamp(280px, 42vw, 460px); border-radius: 18px; overflow: hidden; }
+.store-gallery .g-main { grid-row: span 2; position: relative; }
+.store-gallery .media { width: 100%; height: 100%; }
+.store-gallery .g-more { position: absolute; right: 12px; bottom: 12px; z-index: 3; background: rgba(43,37,33,.82); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 8px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; }
+.store-gallery .g-more svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* タイトルブロック */
+.store-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 26px; }
+.store-head .badges { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.badge-genre { background: var(--cta-soft); color: var(--accent-text); font-weight: 700; font-size: 12px; padding: 5px 13px; border-radius: 999px; }
+.badge-open { display: inline-flex; align-items: center; gap: 6px; background: rgba(47,125,35,.1); color: var(--open); font-weight: 700; font-size: 12px; padding: 5px 13px; border-radius: 999px; }
+.badge-open .d { width: 7px; height: 7px; border-radius: 50%; background: var(--open); }
+.store-name { font-family: var(--f-display); font-weight: 800; font-size: clamp(26px,3.4vw,42px); color: var(--ink); line-height: 1.2; letter-spacing: .01em; }
+.store-sub { margin-top: 10px; color: var(--ink-mid); font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; }
+.store-sub .rating b { font-size: 18px; }
+.store-sub .price { font-weight: 700; color: var(--ink); }
+.store-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.icon-btn { width: 50px; height: 50px; border-radius: 13px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-mid);
+  display: grid; place-items: center; cursor: pointer; box-shadow: var(--sh-sm); transition: color var(--t-fast), border-color var(--t-fast), transform var(--t-fast); }
+.icon-btn svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.icon-btn:hover { color: var(--cta); border-color: var(--cta); transform: translateY(-2px); }
+
+/* 本文2カラム */
+.store-body { display: grid; grid-template-columns: 1fr 340px; gap: clamp(24px,3vw,48px); margin-top: 30px; align-items: start; padding-bottom: 60px; }
+.store-main { min-width: 0; }
+.block { margin-bottom: 44px; }
+.block h2 { font-family: var(--f-display); font-weight: 800; font-size: clamp(20px,2.2vw,26px); color: var(--ink);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.block h2::before { content: ""; width: 5px; height: 22px; background: var(--cta); border-radius: 3px; }
+.lead-text { font-size: 15px; line-height: 1.95; color: var(--ink); }
+.lead-text + .lead-text { margin-top: 14px; }
+
+/* メニュー */
+.menu-list { display: grid; gap: 12px; }
+.menu-item { display: flex; gap: 14px; align-items: center; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: var(--sh-sm); transition: transform var(--t-mid), box-shadow var(--t-mid); }
+.menu-item:hover { transform: translateY(-2px); box-shadow: var(--sh-md); }
+.menu-item .m-thumb { flex: 0 0 92px; width: 92px; aspect-ratio: 1/1; border-radius: 10px; }
+.menu-item .m-info { flex: 1; min-width: 0; }
+.menu-item .m-name { font-family: var(--f-display); font-weight: 700; font-size: 16px; color: var(--ink); }
+.menu-item .m-name .reco { font-family: var(--f-latin); font-size: 10px; font-weight: 700; color: #fff; background: var(--cta); padding: 2px 7px; border-radius: 4px; margin-left: 8px; vertical-align: 2px; }
+.menu-item .m-desc { font-size: 12.5px; color: var(--ink-mid); margin-top: 4px; line-height: 1.6; }
+.menu-item .m-price { flex-shrink: 0; font-family: var(--f-latin); font-weight: 800; font-size: 17px; color: var(--accent-text); }
+
+/* 写真グリッド */
+.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.photo-grid .media { aspect-ratio: 1/1; border-radius: 11px; }
+.photo-grid .media:hover .cover { transform: scale(1.07); }
+
+/* クチコミ */
+.review { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; box-shadow: var(--sh-sm); }
+.review + .review { margin-top: 12px; }
+.review .r-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.review .r-av { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; }
+.review .r-name { font-weight: 700; font-size: 14px; color: var(--ink); }
+.review .r-date { font-size: 11.5px; color: var(--ink-low); }
+.review .r-stars { margin-left: auto; }
+.review .r-text { font-size: 14px; line-height: 1.85; color: var(--ink); }
+
+/* 情報テーブル */
+.info-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.info-table th, .info-table td { text-align: left; padding: 14px 4px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.info-table th { width: 96px; color: var(--ink-mid); font-weight: 700; white-space: nowrap; }
+.info-table td { color: var(--ink); }
+
+/* 地図プレースホルダ（自作・外部不使用） */
+.map-stub { position: relative; height: 220px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(0deg, #eee6d8, #eee6d8 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(90deg, #eee6d8, #eee6d8 1px, transparent 1px, transparent 26px),
+    linear-gradient(135deg, #f3ecdf, #e8dfce); }
+.map-stub::before { content: ""; position: absolute; left: 18%; top: 30%; width: 64%; height: 8px; background: #d8cdb8; border-radius: 4px; transform: rotate(18deg); }
+.map-stub::after { content: ""; position: absolute; left: 8%; top: 60%; width: 80%; height: 8px; background: #d8cdb8; border-radius: 4px; transform: rotate(-12deg); }
+.map-pin { position: absolute; left: 50%; top: 48%; z-index: 2; transform: translate(-50%,-100%); color: var(--cta); }
+.map-pin svg { width: 38px; height: 38px; filter: drop-shadow(0 4px 6px rgba(43,37,33,.3)); fill: var(--cta); stroke: #fff; stroke-width: 1.4; }
+.map-stub .m-label { position: absolute; left: 12px; bottom: 12px; z-index: 2; background: var(--surface); color: var(--ink);
+  font-size: 12px; font-weight: 700; padding: 7px 13px; border-radius: 999px; box-shadow: var(--sh-sm); }
+
+/* 予約サイドバー（sticky） */
+.reserve { position: sticky; top: calc(var(--header-h) + 16px); background: var(--surface); border: 1px solid var(--line-2);
+  border-radius: 18px; padding: 20px; box-shadow: var(--sh-md); }
+.reserve h3 { font-family: var(--f-display); font-weight: 800; font-size: 18px; color: var(--ink); margin-bottom: 14px; }
+.reserve .field { margin-bottom: 12px; }
+.reserve label { display: block; font-size: 12px; font-weight: 700; color: var(--ink-mid); margin-bottom: 5px; }
+.reserve select, .reserve input { width: 100%; height: 46px; border: 1px solid var(--line-2); border-radius: 10px; padding: 0 12px;
+  font-family: var(--f-body); font-size: 14px; color: var(--ink); background: var(--surface); }
+.reserve select:focus, .reserve input:focus { border-color: var(--cta); outline: none; box-shadow: 0 0 0 3px var(--cta-soft); }
+.reserve .btn-reserve { width: 100%; height: 54px; border: none; border-radius: 12px; background: var(--cta); color: #fff;
+  font-family: var(--f-body); font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 6px; box-shadow: 0 10px 24px -8px rgba(200,51,26,.6);
+  transition: background var(--t-fast), transform var(--t-fast); }
+.reserve .btn-reserve:hover { background: var(--cta-deep); transform: translateY(-2px); }
+.reserve .tel { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; padding-top: 14px; border-top: 1px solid var(--line);
+  font-weight: 700; color: var(--ink); font-size: 18px; font-family: var(--f-latin); }
+.reserve .tel svg { width: 18px; height: 18px; fill: none; stroke: var(--cta); stroke-width: 1.8; }
+.reserve .note { font-size: 11px; color: var(--ink-low); text-align: center; margin-top: 8px; }
+
+/* 関連店 */
+.related { background: var(--ground-2); padding: clamp(40px,5vw,72px) 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 900px) {
+  .store-body { grid-template-columns: 1fr; }
+  .reserve { position: static; }
+  .store-gallery { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
+  .store-gallery .g-main { aspect-ratio: 16/10; }
+  .store-gallery .g-sub { display: none; }
+}
+@media (max-width: 600px) {
+  .photo-grid { grid-template-columns: repeat(3, 1fr); }
+  .store-actions { width: 100%; }
+}
+</style>
+</head>
+
+<body>
+<a href="#main" class="skip-link">本文へスキップ</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 2c2.4 4 1.2 6.4-.5 8.2-1.5 1.6-2.7 3.4-1.3 5.6.6-1 1.4-1.7 2.1-2.2-.3 1.6.2 2.7 1 3.6 1.9-1.8 3-4.1 3-6.8C16 14.6 18 17 18 19.5 18 23 15.3 25 12 25S6 23 6 19.5C6 13.8 11 11 12 2Z"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M4 17l5-5 4 4 3-3 4 4"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+</svg>
+
+<!-- ヘッダー（index と共通） -->
+<header class="site-header">
+  <div class="inner">
+    <a href="index.html" class="brand" aria-label="グルメポータル トップ">
+      <span class="mark" aria-hidden="true"><svg><use href="#i-fire"/></svg></span>
+      <span class="word">グルメポータル</span>
+      <span class="en">GOURMET&nbsp;PORTAL</span>
+    </a>
+    <form class="hsearch" onsubmit="return false;" role="search">
+      <input type="text" placeholder="店名・料理・駅で探す" aria-label="キーワードで探す">
+      <select aria-label="エリア"><option>エリア</option></select>
+      <select aria-label="ジャンル"><option>ジャンル</option></select>
+      <button class="btn-search" type="submit">探す</button>
+    </form>
+    <a href="#" class="header-loc" aria-label="現在地から探す"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>現在地</span></a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="inner">
+    <nav class="crumb" aria-label="パンくず">
+      <a href="index.html">トップ</a><span class="sep">›</span>
+      <a href="index.html">焼き鳥</a><span class="sep">›</span>
+      <a href="index.html">東京</a><span class="sep">›</span>
+      <span class="cur">炭火焼鳥 とり源</span>
+    </nav>
+
+    <!-- ギャラリー -->
+    <div class="store-gallery">
+      <div class="g-main media"><img class="ph cover" id="gMain" src="" alt="炭火焼鳥 とり源の店内と料理" width="800" height="500" decoding="async" fetchpriority="high">
+        <span class="g-more"><svg aria-hidden="true"><use href="#i-image"/></svg>写真をすべて見る（48枚）</span></div>
+      <div class="g-sub media" id="gSub1"></div>
+      <div class="g-sub media" id="gSub2"></div>
+    </div>
+
+    <!-- タイトル -->
+    <div class="store-head">
+      <div>
+        <div class="badges">
+          <span class="badge-genre">焼き鳥</span>
+          <span class="badge-open"><span class="d" aria-hidden="true"></span>営業中 〜24:00</span>
+        </div>
+        <h1 class="store-name">炭火焼鳥 とり源</h1>
+        <div class="store-sub">
+          <span class="rating"><span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg></span><b>4.7</b><span class="rc">（312件のクチコミ）</span></span>
+          <span>焼き鳥・恵比寿駅 徒歩4分</span>
+          <span class="price">¥3,000〜¥4,999</span>
+        </div>
+      </div>
+      <div class="store-actions">
+        <button class="icon-btn" aria-label="お気に入りに保存"><svg><use href="#i-bookmark"/></svg></button>
+        <button class="icon-btn" aria-label="共有する"><svg><use href="#i-share"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 本文 + 予約 -->
+    <div class="store-body">
+      <div class="store-main">
+
+        <section class="block">
+          <h2>このお店について</h2>
+          <p class="lead-text">恵比寿の路地裏、カウンター10席の小さな焼き鳥屋。毎朝市場から届く朝引きの軍鶏を、備長炭でじっくりと焼き上げます。香ばしい皮目とジューシーな中身、塩は淡路島の藻塩、タレは創業からの継ぎ足し。</p>
+          <p class="lead-text">名物は希少部位の食べ比べと、白レバーのレアな火入れ。日本酒は全国から月替わりで20種ほど。落ち着いた木の空間で、一本ずつ供される焼き鳥と一杯を、ゆっくりとお楽しみください。</p>
+        </section>
+
+        <section class="block">
+          <h2>おすすめメニュー</h2>
+          <div class="menu-list" id="menuList"></div>
+        </section>
+
+        <section class="block">
+          <h2>写真</h2>
+          <div class="photo-grid" id="photoGrid"></div>
+        </section>
+
+        <section class="block">
+          <h2>クチコミ</h2>
+          <div id="reviewList"></div>
+        </section>
+
+        <section class="block">
+          <h2>店舗情報</h2>
+          <table class="info-table">
+            <tr><th>店名</th><td>炭火焼鳥 とり源（すみびやきとり とりげん）</td></tr>
+            <tr><th>住所</th><td>東京都渋谷区恵比寿◯-◯-◯ とり源ビル 1F<br>恵比寿駅 西口より徒歩4分</td></tr>
+            <tr><th>電話</th><td>03-XXXX-XXXX（予約優先）</td></tr>
+            <tr><th>営業時間</th><td>17:00〜24:00（L.O. 23:00）</td></tr>
+            <tr><th>定休日</th><td>日曜・第2月曜</td></tr>
+            <tr><th>席数</th><td>カウンター10席 / テーブル4席（個室なし）</td></tr>
+            <tr><th>予算</th><td>夜 ¥3,000〜¥4,999</td></tr>
+            <tr><th>支払い</th><td>現金・各種カード・QR決済</td></tr>
+          </table>
+        </section>
+
+        <section class="block">
+          <h2>地図・アクセス</h2>
+          <div class="map-stub" role="img" aria-label="店舗周辺の地図（デモ）">
+            <span class="map-pin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.4" fill="#fff" stroke="none"/></svg></span>
+            <span class="m-label">恵比寿駅 西口 徒歩4分</span>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- 予約サイドバー -->
+      <aside>
+        <div class="reserve">
+          <h3>ネット予約</h3>
+          <div class="field"><label for="rdate">来店日</label><input type="date" id="rdate" value="2026-06-05"></div>
+          <div class="field"><label for="rtime">時間</label>
+            <select id="rtime"><option>17:00</option><option>18:00</option><option selected>19:00</option><option>20:00</option><option>21:00</option></select></div>
+          <div class="field"><label for="rppl">人数</label>
+            <select id="rppl"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option><option>5名以上</option></select></div>
+          <button class="btn-reserve" type="button" id="reserveBtn">この内容で予約する</button>
+          <div class="tel"><svg aria-hidden="true"><use href="#i-tel"/></svg>03-XXXX-XXXX</div>
+          <p class="note">※架空のデモ店舗です。実際の予約はできません。</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- 関連店 -->
+  <section class="related">
+    <div class="inner">
+      <div class="head"><span class="kicker">Similar</span><h2 class="title">近くの<em>似たお店</em></h2></div>
+      <div class="card-swiper-static" id="relatedGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <ul class="footer-links"><li><a href="index.html">トップ</a></li><li><a href="#">利用規約</a></li><li><a href="#">プライバシーポリシー</a></li><li><a href="#">運営会社</a></li></ul>
+    <p class="copyright">© GOURMET PORTAL — 飲食店ガイド（架空デモ）</p>
+  </div>
+</footer>
+
+<nav class="footer-bar" aria-label="クイックアクション">
+  <a href="index.html"><span class="fbi" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</a>
+  <a href="#"><span class="fbi" aria-hidden="true"><svg><use href="#i-bookmark"/></svg></span>保存</a>
+  <a href="#reserveBtn" class="accent"><span class="fbi" aria-hidden="true"><svg><use href="#i-tel"/></svg></span>予約する</a>
+</nav>
+
+<script>
+const U = { barbecue:'1529692236671-f1f6cf9683ba', izakaya:'1517248135467-4c7edcad34c4', interior:'1414235077428-338989a2e8c0',
+  dining:'1424847651672-bf20a4b0982b', cocktail:'1551024709-8f23befc6f87', steak:'1546964124-0cce460f38ef',
+  ramen:'1569718212165-3a8278d5f624', sushi:'1583623025817-d180a2221d0a', wine:'1510812431401-41d2bd2722f3' };
+const key = kw => kw.split(',')[0];
+const uURL = (kw,w,h,d=1) => U[key(kw)] ? `https://images.unsplash.com/photo-${U[key(kw)]}?auto=format&fit=crop&w=${w}&h=${h}&q=80&dpr=${d}` : '';
+const lURL = (kw,w,h,lock) => `https://loremflickr.com/${w}/${h}/${key(kw)},food?lock=${lock}`;
+const imgTag = (kw,w,h,lock,cls='cover',alt='')=>{const u1=uURL(kw,w,h,1),l=lURL(kw,w,h,lock);
+  const oe=u1?` onerror="this.onerror=null;this.src='${l}'"`:'';
+  return `<img class="ph ${cls}" src="${u1||l}" width="${w}" height="${h}" alt="${alt}" decoding="async" loading="lazy"${oe}>`;};
+const svgUse = id => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
+const stars = r => `<span class="r-stars rating" aria-hidden="true"><span class="stars">${svgUse('i-star')}</span><b>${r}</b></span>`;
+
+/* ギャラリー */
+document.getElementById('gMain').src = uURL('barbecue',800,500,1) || lURL('barbecue',800,500,11);
+document.getElementById('gMain').onerror = function(){this.onerror=null;this.src=lURL('barbecue',800,500,11);};
+document.getElementById('gSub1').innerHTML = imgTag('izakaya',400,260,31,'cover','焼き鳥の盛り合わせ');
+document.getElementById('gSub2').innerHTML = imgTag('interior',400,260,32,'cover','店内のカウンター席');
+
+/* メニュー */
+const MENU = [
+  ["おまかせ串 8本盛り","本日の希少部位を含む人気コース。塩・タレ選べます。","barbecue","¥1,980","reco"],
+  ["白レバー（レア火入れ）","とろける食感の名物。臭みのない朝引きならでは。","barbecue","¥480",""],
+  ["つくね 月見","粗挽きの軍鶏つくねに卵黄を絡めて。","izakaya","¥420","reco"],
+  ["せせり塩焼き","希少な首肉を香ばしく。日本酒に好相性。","barbecue","¥390",""],
+  ["軍鶏スープの〆そば","一日かけて取る鶏白湯の〆。","ramen","¥680",""]
+];
+document.getElementById('menuList').innerHTML = MENU.map((m,i)=>`
+  <div class="menu-item">
+    <span class="m-thumb media">${imgTag(m[2],180,180,50+i,'cover',m[0])}</span>
+    <span class="m-info"><span class="m-name">${m[0]}${m[4]?'<span class="reco">人気</span>':''}</span><span class="m-desc">${m[1]}</span></span>
+    <span class="m-price">${m[3]}</span>
+  </div>`).join('');
+
+/* 写真グリッド */
+document.getElementById('photoGrid').innerHTML = ['barbecue','izakaya','interior','dining','cocktail','steak','wine','sushi']
+  .map((kw,i)=>`<span class="media">${imgTag(kw,300,300,70+i,'cover','店舗写真')}</span>`).join('');
+
+/* クチコミ */
+const REVIEWS = [
+  ["山あさ","2026年5月","5.0","一本ずつ丁寧に焼いてくれて、白レバーが本当にとろける。カウンターで大将と話しながらの一杯は最高でした。再訪確定。"],
+  ["k_morita","2026年4月","4.5","軍鶏の食べ比べが面白い。塩の質が良くて素材が引き立つ。人気店なので予約必須です。"],
+  ["のんべえ","2026年4月","4.0","日本酒の品揃えが渋い。〆の鶏白湯そばまで完璧。少し席が狭いのが惜しいけど雰囲気は◎。"]
+];
+document.getElementById('reviewList').innerHTML = REVIEWS.map((r,i)=>`
+  <div class="review">
+    <div class="r-top">
+      <img class="r-av" src="https://loremflickr.com/84/84/portrait?lock=${90+i}" width="42" height="42" alt="" loading="lazy">
+      <div><div class="r-name">${r[0]}</div><div class="r-date">${r[1]} 訪問</div></div>
+      ${stars(r[2])}
+    </div>
+    <p class="r-text">${r[3]}</p>
+  </div>`).join('');
+
+/* 関連店 */
+const REL = [
+  ["焼鳥 炭治","焼き鳥","代官山","barbecue","4.6","¥3,500〜",61],
+  ["地鶏個室 鳥彩","焼き鳥","中目黒","izakaya","4.5","¥4,000〜",62],
+  ["串と純米 とり花","焼き鳥","渋谷","barbecue","4.7","¥3,000〜",63],
+  ["鶏割烹 まる鶏","和食","広尾","kaiseki","4.8","¥8,000〜",64]
+];
+const U2 = Object.assign(U,{kaiseki:'1580822184713-fc5400e7fe10'});
+document.getElementById('relatedGrid').innerHTML =
+  '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)">' +
+  REL.map((s,i)=>`
+  <a href="store.html" class="shop-card" style="box-shadow:var(--sh-sm)">
+    <span class="sc-thumb media" style="aspect-ratio:16/10">${imgTag(s[3],360,225,s[6],'cover',s[0])}</span>
+    <span class="sc-body" style="padding:13px 14px 14px;display:flex;flex-direction:column;gap:6px">
+      <span class="sc-name">${s[0]}</span>
+      <span class="sc-meta"><span class="genre">${s[1]}</span><span class="sep">/</span>${s[2]}</span>
+      <span class="sc-row" style="display:flex;justify-content:space-between;align-items:center">
+        <span class="rating"><span class="stars">${svgUse('i-star')}</span><b>${s[4]}</b></span>
+        <span class="price" style="font-weight:700;font-size:13px">${s[5]}</span>
+      </span>
+    </span>
+  </a>`).join('') + '</div>';
+
+/* 予約 */
+document.getElementById('reserveBtn').addEventListener('click',()=>{
+  const d=document.getElementById('rdate').value, t=document.getElementById('rtime').value, p=document.getElementById('rppl').value;
+  alert(`【架空デモ】予約内容\n日付: ${d}\n時間: ${t}\n人数: ${p}\n\n実際の予約はできません。`);
+});
+addEventListener('load',()=>document.body.classList.add('imgs-ready'));
+</script>
+</body>
+</html>
