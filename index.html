@@ -53,7 +53,7 @@
       <span class="word">グルメポータル</span>
       <span class="en">GOURMET&nbsp;PORTAL</span>
     </a>
-    <form class="hsearch" onsubmit="return false;" role="search">
+    <form class="hsearch" onsubmit="var v=this.querySelector('input').value.trim();location.href='list.html'+(v?'?kw='+encodeURIComponent(v):'');return false;" role="search">
       <span class="hs-ico" aria-hidden="true"><svg><use href="#i-search"/></svg></span>
       <input type="text" placeholder="店名・料理・駅で探す" aria-label="キーワードで探す">
       <select aria-label="エリアで絞り込む"><option>エリア</option><option>北海道</option><option>東北</option><option>関東</option><option>中部</option><option>近畿</option><option>中国・四国</option><option>九州・沖縄</option></select>
@@ -77,8 +77,8 @@
         <h1 class="hero-title">今日は、<em>どこで</em>食べる？</h1>
         <p class="hero-lead">エリア・ジャンル・今日の気分から、<br>“食べたい一軒”が見つかる。</p>
         <div class="hero-actions">
-          <a href="#genre" class="btn-cta">お店を探す<span class="arr" aria-hidden="true">→</span></a>
-          <a href="#ranking" class="btn-ghost">人気ランキング</a>
+          <a href="list.html" class="btn-cta">お店を探す<span class="arr" aria-hidden="true">→</span></a>
+          <a href="list.html?sort=rating" class="btn-ghost">人気ランキング</a>
         </div>
         <ul class="hero-stats" aria-hidden="true">
           <li><b class="tnum">8,400</b>掲載店</li>
@@ -113,7 +113,7 @@
           <span class="kicker">Weekly Ranking</span>
           <h2 class="title" id="t-rank">今週、<em>予約が動いた</em>店</h2>
         </div>
-        <a href="#" class="seeall">ランキングをすべて見る</a>
+        <a href="list.html?sort=rating" class="seeall">ランキングをすべて見る</a>
       </div>
       <div class="rank-grid reveal" id="rankGrid"></div>
     </div>
@@ -213,7 +213,7 @@
 
 <!-- 固定 footer-bar -->
 <nav class="footer-bar" aria-label="クイックアクション">
-  <a href="#"><span class="fbi" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</a>
+  <a href="list.html"><span class="fbi" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</a>
   <a href="#"><span class="fbi" aria-hidden="true"><svg><use href="#i-bookmark"/></svg></span>お気に入り</a>
   <a href="#" class="accent"><span class="fbi" aria-hidden="true"><svg><use href="#i-list"/></svg></span>お店を掲載</a>
 </nav>
@@ -311,7 +311,7 @@ setHero(0); restart();
 
 /* ── ジャンル rail ── */
 document.getElementById('genreRail').innerHTML=GENRES.map((g,i)=>`
-  <a href="#" class="genre-item" aria-label="${g[0]}を探す">
+  <a href="list.html?genre=${encodeURIComponent(g[0])}" class="genre-item" aria-label="${g[0]}を探す">
     <span class="g-thumb media">${imgTag(g[1],120,120,200+i,'cover','')}</span>
     <span class="g-label">${g[0]}</span>
   </a>`).join('');
