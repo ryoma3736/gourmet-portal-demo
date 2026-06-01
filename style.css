@@ -37,6 +37,8 @@
 
   --line:   rgba(43,37,33,.10);
   --line-2: rgba(43,37,33,.17);
+  --tan:      #8c7355;            /* 暖タン系（datasheet主役色#b69e84をAA可能な濃度に・装飾/小見出し用） */
+  --tan-line: rgba(140,115,85,.28); /* タン罫（セクション区切り） */
 
   /* layout */
   --container: 1200px;
@@ -229,9 +231,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* ════════════════════════════════════════════════════════════
    SECTION / 見出し
    ════════════════════════════════════════════════════════════ */
-.section { padding: clamp(48px, 6.4vw, 92px) 0; position: relative; }
-.section--panel { background: var(--ground-2); }
-.head { margin-bottom: clamp(26px, 3.2vw, 44px); }
+.section { padding: clamp(32px, 4vw, 56px) 0; position: relative; }
+.section--panel { background: var(--ground-2); border-top: 1px solid var(--tan-line); border-bottom: 1px solid var(--tan-line); }
+.head { margin-bottom: clamp(18px, 2.2vw, 30px); }
 .head .kicker { font-family: var(--f-latin); font-weight: 700; font-size: var(--t-kicker); letter-spacing: var(--tr-kicker);
   text-transform: uppercase; color: var(--accent-text); display: inline-flex; align-items: center; gap: 9px; }
 .head .kicker::before { content: ""; width: 22px; height: 2px; background: var(--cta); border-radius: 2px; }
@@ -299,12 +301,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    4. 注目カード（横カルーセル）
    ════════════════════════════════════════════════════════════ */
 .card-swiper { overflow: visible; }
-.card-swiper .swiper-slide { width: 300px; height: auto; }
+.card-swiper .swiper-slide { width: 350px; height: auto; }
 .shop-card { display: flex; flex-direction: column; height: 100%; background: var(--surface);
   border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--sh-sm);
   transition: transform var(--t-mid), box-shadow var(--t-mid), border-color var(--t-mid); }
 .shop-card:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); border-color: color-mix(in srgb, var(--cta) 40%, var(--line)); }
-.sc-thumb { width: 100%; aspect-ratio: 16/10; }
+.sc-thumb { width: 100%; aspect-ratio: 16/9; }
 .shop-card:hover .sc-thumb .cover { transform: scale(1.06); }
 .sc-thumb .tag { position: absolute; left: 10px; top: 10px; z-index: 2; }
 .sc-save { position: absolute; right: 10px; top: 10px; z-index: 2; width: 34px; height: 34px; border-radius: 50%;
