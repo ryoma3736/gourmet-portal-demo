@@ -415,6 +415,47 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .page-top:hover { background: var(--cta); color: var(--on-cta); border-color: var(--cta); }
 
 /* ════════════════════════════════════════════════════════════
+   署名コンセプト「熱量(HEAT)」
+   ── 営業中=発熱 / 時間外=冷却 / スクロールで店が"温まる"。食欲×即時性。
+   ── 熱の差し色・グローは一点抑制（brand: AI slop回避）。色のみ非依存。
+   ════════════════════════════════════════════════════════════ */
+:root { --heat: #ff5a1f; --heat-glow: rgba(255,90,31,.42); }
+
+/* 署名演出: カードは初期"冷"→ビューインで"温"（写真が温まる） */
+.shop-card .cover, .rank-thumb .cover { filter: saturate(.78) contrast(1.0) brightness(.95); transition: filter .75s var(--ease-out); }
+.shop-card.warm .cover, .rank-card.warm .cover { filter: saturate(1.12) contrast(1.05) brightness(1.04); }
+/* 湯気: 温まる瞬間に一度だけ立つ（署名の決め） */
+.shop-card .sc-thumb::after { content:""; position:absolute; left:50%; bottom:2px; width:58%; height:46%; z-index:2; pointer-events:none;
+  background: radial-gradient(58% 80% at 50% 100%, rgba(255,247,238,.55), transparent 72%); opacity:0; transform: translateX(-50%); }
+.shop-card.warm .sc-thumb::after { animation: steam 1.15s var(--ease-out) 1; }
+@keyframes steam { 0%{opacity:0;transform:translateX(-50%) translateY(10px) scaleY(.8)} 35%{opacity:.55} 100%{opacity:0;transform:translateX(-50%) translateY(-16px) scaleY(1.25)} }
+
+/* 営業中=発熱（温度ドット脈動＋hoverで微熱グロー一点） */
+.shop-card.is-open .dot-open { background: var(--heat); box-shadow: 0 0 0 0 var(--heat-glow); animation: tempPulse 2.4s var(--ease) infinite; }
+@keyframes tempPulse { 0%,100%{box-shadow:0 0 0 0 var(--heat-glow)} 50%{box-shadow:0 0 0 5px rgba(255,90,31,0)} }
+.shop-card.is-open:hover { box-shadow: var(--sh-lg), 0 0 26px -8px var(--heat-glow); }
+/* 時間外=冷却（彩度を落として"冷めている"を視覚化・ラベルでも明示） */
+.shop-card.is-closed .cover { filter: saturate(.48) brightness(.93) !important; }
+
+/* 熱量チップ（炎＋スコア・温度計表情の数字） */
+.heat-chip { display:inline-flex; align-items:center; gap:5px; font-family:var(--f-latin); font-weight:800; font-size:12px; color:var(--heat); }
+.heat-chip svg { width:13px; height:13px; fill:var(--heat); }
+.heat-chip .deg { font-variant-numeric: tabular-nums; letter-spacing:.01em; }
+/* ライブ指標（いま◯人/◯分前に予約） */
+.live-badge { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; color:var(--accent-text); }
+.live-badge .ld { width:6px; height:6px; border-radius:50%; background:#e23b14; flex-shrink:0; animation: livePulse 1.7s var(--ease) infinite; }
+@keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:.28} }
+/* ランキング: 1位の熱量を強調（温度バー） */
+.rank-card.lead .heat-chip { font-size:14px; }
+.heat-bar { position:relative; height:4px; border-radius:2px; background:var(--line); overflow:hidden; margin-top:7px; }
+.heat-bar i { position:absolute; inset:0 auto 0 0; border-radius:2px; background:linear-gradient(90deg,#ffb24d,var(--heat)); }
+
+@media (prefers-reduced-motion: reduce){
+  .shop-card .cover,.rank-thumb .cover{ transition:none; filter: saturate(1.08) contrast(1.04) brightness(1.0) !important; }
+  .shop-card.warm .sc-thumb::after,.shop-card.is-open .dot-open,.live-badge .ld{ animation:none }
+}
+
+/* ════════════════════════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
