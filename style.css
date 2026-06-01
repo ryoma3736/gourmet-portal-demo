@@ -188,6 +188,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .btn-cta .arr { transition: transform var(--t-fast); }
 .btn-cta:hover { background: var(--cta-deep); transform: translateY(-2px); box-shadow: 0 16px 34px -8px rgba(200,51,26,.75); }
 .btn-cta:hover .arr { transform: translateX(4px); }
+.btn-cta .cta-play { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.22); margin-right: 9px; flex-shrink: 0; }
+.btn-cta .cta-play svg { width: 10px; height: 10px; fill: #fff; margin-left: 1px; }
 .btn-ghost { display: inline-flex; align-items: center; padding: 14px 26px; min-height: 50px; border-radius: 999px;
   background: rgba(255,255,255,.16); color: #fff; font-weight: 700; font-size: 14px; border: 1px solid rgba(255,255,255,.5);
   backdrop-filter: blur(4px); transition: background var(--t-fast), border-color var(--t-fast); }
