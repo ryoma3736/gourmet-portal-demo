@@ -4,7 +4,7 @@
 依存ゼロ（バニラ + Swiper のみ）の静的フロントエンド一式。完全オリジナル・クリーンルーム。
 
 ## ライブ
-GitHub Pages: https://ryoma3736.github.io/my-project20260530/
+GitHub Pages: https://ryoma3736.github.io/gourmet-portal-demo/
 
 ## ページ
 | ファイル | 役割 |
