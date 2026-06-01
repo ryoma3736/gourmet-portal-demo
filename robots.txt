@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gourmet-portal.example.com/sitemap.xml
+Sitemap: https://ryoma3736.github.io/my-project20260530/sitemap.xml
