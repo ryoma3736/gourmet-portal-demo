@@ -1,0 +1,13 @@
+{
+  "name": "グルメポータル — GOURMET PORTAL",
+  "short_name": "グルメポータル",
+  "description": "エリア・ジャンル・今日の気分から、行きたい一軒が見つかる飲食店ポータル。",
+  "lang": "ja",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fbf7f0",
+  "theme_color": "#c8331a",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

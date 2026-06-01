@@ -40,6 +40,12 @@ URLクエリ着地：`list.html?genre=寿司` / `?area=関東` / `?kw=...` / `?s
 - 製品として: ファサード期 ~30 → P2で~78 → **P3で約86**（多段予約完了＋会員lite＋状態網羅）。
 - 残（100への差）: 写真・SEO体系/JSON-LD(P4) / 品質監査Lighthouse95+(P5) / デプロイ=本番URL(P6) / 実撮影写真・実API（環境外＝差替点）。
 
+## P4 機能（写真・SEO・コンテンツ体系）
+- **構造化データ(JSON-LD)**: index=WebSite+SearchAction / list=CollectionPage / store=Restaurant+AggregateRating+OpeningHoursSpecification（全て JSON.parse 妥当・架空値）。
+- **SEO/メタ**: OGP/Twitter card（content各ページ og=6）・canonical・`favicon.svg`（自作炎マーク）・`manifest.json`・`robots.txt`・`sitemap.xml`。favorites は noindex。
+- **perf**: CLS0(全img寸法)・lazy・preconnect・hero fetchpriority・font display=swap（既達）。
+- 残: Wave 4.4 複数店舗の詳細 data-driven 化（実データ差替点）。
+
 ## 検証ログ（P3・CDP機械検証）
 - 多段予約: 開く→空名前/不正電話/過去日でエラー表示（step0留まる）→正入力で確認→完了（予約番号生成）=全PASS
 - お気に入り: list/index/store で保存→バッジ更新→localStorage永続→favorites.html反映→削除→空状態=全PASS
