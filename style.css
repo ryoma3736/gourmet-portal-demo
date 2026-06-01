@@ -1,78 +1,88 @@
 /* ============================================================
-   GOURMET PORTAL — 明るい「食欲設計」版（完全オリジナル / クリーンルーム）
+   GOURMET PORTAL — buzz-gourmet 忠実複製版（クリーンルーム）
    ------------------------------------------------------------
-   目的: 料理を旨そうに見せ、予約/来店に繋げる（飲食ポータル本来の仕事）。
-   暗いシネマ版の“逆”—— 暖色グラウンド・食欲色CTA・明るい写真グレード。
+   基準: docs/design/design-replication-spec.md §0.1(改訂2) 実測SSOT。
+   方針: レイアウト構造・デザイントークン値(色/寸法=機能的事実)のみ複製。
    GUARDRAILS:
-   - 参考サイトの実測トークン/アセット/寸法/コピー/実名/実動画ID は不使用（IPクリーン）
-   - フォント: Shippori Mincho / Schibsted Grotesk / Zen Kaku Gothic New（Arial/Roboto/Inter 不使用）
-   - 配色: 全ペア WCAG AA 実測合格（本文14.15 / muted5.94 / CTA白5.32 / 赤文字6.05 / 営業中緑4.82）
-   - 写真: Unsplash(License)/LoremFlickr(CC)。appetizing grade で明るく統一。
+   - 著作物(アセット/コピー/ロゴ/実店名/実動画ID/見出し画像)は複製しない（IPクリーン）
+   - フォント: Arial + Roboto 300/400 + Hiragino（フォント例外Decision 2026-05-30 承認済）
+   - 配色: buzz実測(黄#e8c900/タン#b69e84/緑#5cba3c/橙#ff6c00)。AA違反箇所は§1.3で補強しWCAG AA両立。
+   - 写真: Unsplash(License)/LoremFlickr(CC)。データ・店名・クチコミは架空。
    - グラフィック: 自作CSS + インラインSVG / OSS: Swiper.js (MIT)
    ============================================================ */
 
 :root {
-  /* ── 暖色グラウンド（食欲の地） ── */
-  --ground:   #fbf7f0;          /* page 背景（暖クリーム） */
-  --ground-2: #f4ede0;          /* panel section */
+  /* ============================================================
+     buzz-gourmet 忠実トークン (design-replication-spec §0.1 改訂2)
+     変数名は維持・値のみ buzz実測へ。全CSSが自動再配色。
+     ============================================================ */
+  /* ── ベース（buzz: 白地・フラット） ── */
+  --ground:   #ffffff;          /* page 背景（白 #fff・頻度75） */
+  --ground-2: #f7f7f7;          /* セクション淡背景 / hover（#f7f7f7・頻度13） */
   --surface:  #ffffff;          /* card */
-  --surface-2:#fffdf9;          /* raised */
+  --surface-2:#ffffff;          /* raised */
 
-  /* ── ink（warm charcoal・全AA） ── */
-  --ink:     #2b2521;           /* 14.15:1 */
-  --ink-mid: #6b5d51;           /*  5.94:1 */
-  --ink-low: #9a8f82;           /* 装飾 / 罫 */
+  /* ── ink（#000 系・全AA） ── */
+  --ink:     #1a1a1a;           /* 本文（≈#000・17.4:1） */
+  --ink-mid: #555555;           /* 補助テキスト（7.46:1） */
+  --ink-low: #8a8a8a;           /* 装飾/罫（大文字のみ・本文非使用） */
 
-  /* ── 食欲アクセント（トマト赤）── */
-  --cta:      #c8331a;          /* button bg（白文字5.32:1） */
-  --cta-deep: #b82e16;          /* hover（白文字6.10:1） */
+  /* ── buzz アクセント3層（支配=黄 / 差し色=タン / CTA=緑 / section=橙） ── */
+  --primary:    #e8c900;        /* 黄: ヘッダー支配色（黒文字12.79:1・頻度11） */
+  --primary-2:  #FFD700;        /* 黄バリエ（検索アクセント・#FFD700） */
+  --on-primary: #000000;        /* 黄上の黒文字 */
+  --tan:      #b69e84;          /* 主役アクセント: リンクhover/タイトル/サブメニュー（装飾・大文字用・頻度35） */
+  --tan-deep: #92785f;          /* 濃タン: サブメニューhover（頻度7） */
+  --cta:      #3f7e29;          /* buzz緑#5cba3c を §1.3 AA調整(白文字4.97:1・色相維持の最明AA緑)。decoration/CTA共通 */
+  --cta-deep: #2f6b1f;          /* hover/濃緑（白文字 高コントラスト） */
   --on-cta:   #ffffff;
-  --cta-soft: rgba(200,51,26,.09);
-  --accent-text: #b22b14;       /* cream 上の赤文字 6.05:1 */
+  --cta-soft: rgba(92,186,60,.10);
+  --section-orange: #ff6c00;    /* 「今の気分は？」セクション背景（§3.1/§1.1） */
+  --accent-text: #2f7d23;       /* 白地上の緑文字（補助・4.82:1） */
 
   /* ── 補助 ── */
   --open:  #2f7d23;             /* 営業中（4.82:1） */
   --amber: #9a6a18;             /* 価格/補助（大文字 4.42:1） */
   --gold:  #e0a73b;             /* ★アイコン（装飾） */
 
-  --line:   rgba(43,37,33,.10);
-  --line-2: rgba(43,37,33,.17);
-  --tan:      #8c7355;            /* 暖タン系（datasheet主役色#b69e84をAA可能な濃度に・装飾/小見出し用） */
-  --tan-line: rgba(140,115,85,.28); /* タン罫（セクション区切り） */
+  --line:   #dddddd;            /* 境界線/区切り（buzz #ddd・頻度33） */
+  --line-2: #cccccc;            /* フォーム境界（buzz #ccc・頻度13） */
+  --tan-line: rgba(182,158,132,.30); /* タン罫（セクション区切り） */
 
-  /* layout */
-  --container: 1200px;
-  --pad: clamp(16px, 4.2vw, 48px);
-  --gutter: clamp(12px, 1.5vw, 22px);
-  --header-h: 66px;
+  /* layout（buzz §0.1） */
+  --container: 1200px;          /* .inner max-width */
+  --pad: 15px;                  /* .inner 左右 padding（net 1170px） */
+  --gutter: clamp(12px, 1.5vw, 20px);
+  --header-h: 70px;             /* .new-header（§4.4） */
   --footerbar-h: 58px;
 
-  /* type */
-  --f-display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
-  --f-body:    "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-  --f-latin:   "Schibsted Grotesk", "Zen Kaku Gothic New", sans-serif;
+  /* type（buzz §2: Arial+Roboto+Hiragino / 本文14px） */
+  --f-display: "Roboto", Arial, "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", メイリオ, Meiryo, sans-serif;
+  --f-body:    Arial, "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", メイリオ, Meiryo, sans-serif;
+  --f-latin:   "Roboto", Arial, sans-serif;
 
   --t-kicker: clamp(11px, .82vw, 12px);
   --t-cap:    clamp(11px, .86vw, 12.5px);
   --t-meta:   clamp(12px, .96vw, 13.5px);
-  --t-body:   clamp(14.5px, 1.0vw, 16px);
+  --t-body:   14px;             /* buzz §2 本文14px */
   --t-card:   clamp(15px, 1.15vw, 17px);
   --t-h4:     clamp(17px, 1.7vw, 21px);
-  --t-h-sec:  clamp(27px, 3.6vw, 44px);
-  --t-h-hero: clamp(38px, 5.6vw, 72px);
+  --t-h-sec:  clamp(24px, 3.2vw, 38px);
+  --t-h-hero: clamp(34px, 5.0vw, 60px);
 
   --tr-kicker: .26em;
 
-  /* motion */
+  /* motion（buzz: link .2s / menu .3s / card .3s / 第2ヘッダー .3s） */
   --ease:     cubic-bezier(.22,.68,.16,1);
   --ease-out: cubic-bezier(.16,1,.3,1);
   --t-fast: .2s var(--ease);
-  --t-mid:  .4s var(--ease);
-  --t-slow: .8s var(--ease-out);
+  --t-mid:  .3s var(--ease);
+  --t-slow: .5s var(--ease-out);
 
-  --sh-sm: 0 2px 8px rgba(43,37,33,.06);
-  --sh-md: 0 12px 28px -12px rgba(43,37,33,.22);
-  --sh-lg: 0 22px 48px -18px rgba(43,37,33,.30);
+  /* shadow（buzz §4.1: card base 影なし / hover で浮き） */
+  --sh-sm: none;
+  --sh-md: 0 6px 18px -8px rgba(0,0,0,.22);
+  --sh-lg: 0 14px 32px -14px rgba(0,0,0,.28);
 }
 
 /* ── reset / base ── */
@@ -132,13 +142,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    HEADER
    ════════════════════════════════════════════════════════════ */
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: 1000; height: var(--header-h);
-  background: rgba(251,247,240,.88); backdrop-filter: blur(12px) saturate(1.3); border-bottom: 1px solid var(--line); }
+  background: var(--primary); border-bottom: 2px solid rgba(0,0,0,.12); }
 .site-header .inner { height: var(--header-h); display: flex; align-items: center; gap: clamp(14px,2.2vw,28px); }
 .brand { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
-.brand .mark { width: 28px; height: 28px; color: var(--cta); flex-shrink: 0; }
+.brand .mark { width: 28px; height: 28px; color: var(--on-primary); flex-shrink: 0; }
 .brand .mark svg { width: 100%; height: 100%; fill: currentColor; }
 .brand .word { font-family: var(--f-display); font-weight: 800; font-size: clamp(17px,1.5vw,20px); color: var(--ink); letter-spacing: .02em; }
-.brand .en { font-family: var(--f-latin); font-weight: 700; font-size: 8.5px; letter-spacing: .24em; color: var(--ink-low); align-self: center; }
+.brand .en { font-family: var(--f-latin); font-weight: 700; font-size: 8.5px; letter-spacing: .24em; color: rgba(0,0,0,.55); align-self: center; }
 
 .hsearch { flex: 1; display: flex; gap: 7px; align-items: center; min-width: 0; }
 .hsearch .hs-ico { display: none; }
@@ -148,14 +158,30 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .hsearch input[type=text] { flex: 1 1 auto; min-width: 90px; }
 .hsearch input:focus, .hsearch select:focus { border-color: var(--cta); box-shadow: 0 0 0 3px var(--cta-soft); }
 .hsearch select { cursor: pointer; flex: 0 1 auto; max-width: 130px; color: var(--ink-mid); }
-.hsearch .btn-search { height: 42px; padding: 0 20px; border: none; border-radius: 9px; cursor: pointer; flex-shrink: 0;
-  background: var(--cta); color: var(--on-cta); font-family: var(--f-body); font-weight: 700; font-size: 14px;
+.hsearch .btn-search { height: 42px; padding: 0 22px; border: none; border-radius: 6px; cursor: pointer; flex-shrink: 0;
+  background: #1a1a1a; color: #ffffff; font-family: var(--f-latin); font-weight: 700; font-size: 14px;
   transition: background var(--t-fast), transform var(--t-fast); }
-.hsearch .btn-search:hover { background: var(--cta-deep); transform: translateY(-1px); }
-.header-loc { flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; height: 42px; padding: 0 12px; border-radius: 9px;
-  border: 1px solid var(--line-2); color: var(--ink-mid); font-size: 12px; font-weight: 700; transition: color var(--t-fast), border-color var(--t-fast); }
+.hsearch .btn-search:hover { background: #000; transform: translateY(-1px); }
+.header-loc { flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; height: 42px; padding: 0 12px; border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.35); color: #1a1a1a; font-size: 12px; font-weight: 700; transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast); }
 .header-loc svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.header-loc:hover { color: var(--cta); border-color: var(--cta); }
+.header-loc:hover { background: rgba(0,0,0,.08); border-color: #000; }
+
+/* ── スクロール第2ヘッダー (buzz .fixed-header: rgba(0,0,0,.9) slideDown 0.3s ease-in-out) ── */
+@keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+.fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1100; height: 56px;
+  background: rgba(0,0,0,.9); color: #fff; transform: translateY(-100%);
+  transition: transform .3s ease-in-out; will-change: transform; }
+.fixed-header.show { transform: translateY(0); }
+.fixed-header .inner { height: 56px; display: flex; align-items: center; gap: 16px; }
+.fh-brand { display: flex; align-items: center; gap: 8px; color: #fff; font-family: var(--f-display); font-weight: 700; font-size: 16px; }
+.fh-brand .mark { width: 22px; height: 22px; color: var(--primary); flex-shrink: 0; }
+.fh-brand .mark svg { width: 100%; height: 100%; fill: currentColor; }
+.fh-nav { margin-left: auto; display: flex; gap: clamp(12px,1.6vw,22px); font-size: 13px; font-weight: 700; }
+.fh-nav a { color: #fff; transition: color var(--t-fast); }
+.fh-nav a:hover { color: var(--tan); }
+@media (max-width: 560px){ .fh-nav { display: none; } }
+@media (prefers-reduced-motion: reduce){ .fixed-header { transition: none; } }
 
 /* ════════════════════════════════════════════════════════════
    1. HERO（食欲・高さ抑制）
@@ -194,7 +220,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .btn-cta .cta-play svg { width: 10px; height: 10px; fill: #fff; margin-left: 1px; }
 .btn-ghost { display: inline-flex; align-items: center; padding: 14px 26px; min-height: 50px; border-radius: 999px;
   background: rgba(255,255,255,.16); color: #fff; font-weight: 700; font-size: 14px; border: 1px solid rgba(255,255,255,.5);
-  backdrop-filter: blur(4px); transition: background var(--t-fast), border-color var(--t-fast); }
+  transition: background var(--t-fast), border-color var(--t-fast); }
 .btn-ghost:hover { background: rgba(255,255,255,.28); border-color: #fff; }
 .hero-stats { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px 26px; }
 .hero-stats li { display: inline-flex; align-items: baseline; gap: 6px; font-size: 12.5px; color: #f0e4d4; }
@@ -303,9 +329,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .card-swiper { overflow: visible; }
 .card-swiper .swiper-slide { width: 350px; height: auto; }
 .shop-card { display: flex; flex-direction: column; height: 100%; background: var(--surface);
-  border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--sh-sm);
+  border: 1px solid var(--line); border-radius: 0; overflow: hidden; box-shadow: var(--sh-sm);
   transition: transform var(--t-mid), box-shadow var(--t-mid), border-color var(--t-mid); }
-.shop-card:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); border-color: color-mix(in srgb, var(--cta) 40%, var(--line)); }
+.shop-card:hover { transform: translateY(-3px); box-shadow: var(--sh-md); border-color: var(--tan-deep); }
 .sc-thumb { width: 100%; aspect-ratio: 16/9; }
 .shop-card:hover .sc-thumb .cover { transform: scale(1.06); }
 .sc-thumb .tag { position: absolute; left: 10px; top: 10px; z-index: 2; }
@@ -343,16 +369,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    ════════════════════════════════════════════════════════════ */
 .mood-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
 .mood-grid .mood-tile:first-child { grid-column: span 2; grid-row: span 2; }
-.mood-tile { position: relative; display: block; aspect-ratio: 3/2; min-height: 140px; border-radius: 16px; overflow: hidden;
+.mood-tile { position: relative; display: block; aspect-ratio: 3/2; min-height: 140px; border-radius: 0; overflow: hidden;
   box-shadow: var(--sh-sm); transition: transform var(--t-mid), box-shadow var(--t-mid); }
-.mood-tile:hover { transform: translateY(-4px); box-shadow: var(--sh-md); }
+.mood-tile:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
 .mood-tile .img1, .mood-tile .img2 { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   filter: saturate(1.08) contrast(1.04) brightness(1.0); transition: opacity var(--t-mid), transform var(--t-slow); }
 .mood-tile .img2 { opacity: 0; transform: scale(1.05); }
 .mood-tile:hover .img1 { opacity: 0; transform: scale(1.05); }
 .mood-tile:hover .img2 { opacity: 1; transform: scale(1.1); }
 .mood-tile::after { content: ""; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, transparent 40%, rgba(28,20,14,.72)); }
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.62)); }
 .mood-tile .m-label { position: absolute; left: 16px; right: 16px; bottom: 14px; z-index: 2; color: #fff;
   font-family: var(--f-display); font-weight: 700; font-size: var(--t-card); line-height: 1.35; text-wrap: balance; text-shadow: 0 1px 10px rgba(28,20,14,.5); }
 .mood-tile .m-label::after { content: ""; display: block; width: 0; height: 2px; margin-top: 8px; background: var(--cta); transition: width var(--t-mid); }
@@ -372,9 +398,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    7. Instagram
    ════════════════════════════════════════════════════════════ */
 .insta-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 11px; }
-.insta-item { position: relative; aspect-ratio: 1/1; border-radius: 13px; overflow: hidden; box-shadow: var(--sh-sm); }
+.insta-item { position: relative; aspect-ratio: 1/1; border-radius: 0; overflow: hidden; box-shadow: var(--sh-sm); }
 .insta-item .ov { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; opacity: 0;
-  background: linear-gradient(180deg, transparent, rgba(200,51,26,.55)); color: #fff; transition: opacity var(--t-mid); }
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.5)); color: #fff; transition: opacity var(--t-mid); }
 .insta-item .ov svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.7; }
 .insta-item:hover .ov { opacity: 1; }
 .insta-item:hover .cover { transform: scale(1.08); }
@@ -385,9 +411,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .cta-band { background: var(--ground-2); padding: clamp(46px,6vw,84px) 0; border-top: 1px solid var(--line); }
 .cta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); }
 .cta-item { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 30px 14px; background: var(--surface);
-  border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--sh-sm); min-height: 44px;
+  border: 1px solid var(--line); border-radius: 0; box-shadow: var(--sh-sm); min-height: 44px;
   transition: transform var(--t-mid), box-shadow var(--t-mid), border-color var(--t-mid); }
-.cta-item:hover { transform: translateY(-5px); box-shadow: var(--sh-md); border-color: color-mix(in srgb, var(--cta) 40%, var(--line)); }
+.cta-item:hover { transform: translateY(-3px); box-shadow: var(--sh-md); border-color: var(--tan-deep); }
 .cta-item .ico { width: 38px; height: 38px; color: var(--cta); transition: transform var(--t-mid); }
 .cta-item:hover .ico { transform: translateY(-2px) scale(1.06); }
 .cta-item .ico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -401,7 +427,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .copyright { text-align: center; font-size: 11px; color: #9a8f82; font-family: var(--f-latin); letter-spacing: .08em; }
 
 .footer-bar { position: fixed; inset: auto 0 0 0; z-index: 998; height: var(--footerbar-h); display: flex;
-  background: rgba(251,247,240,.97); backdrop-filter: blur(12px); border-top: 1px solid var(--line-2); }
+  background: #ffffff; border-top: 1px solid var(--line-2); }
 .footer-bar a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
   font-size: 11px; font-weight: 700; color: var(--ink-mid); border-right: 1px solid var(--line); transition: color var(--t-fast), background var(--t-fast); }
 .footer-bar a:last-child { border-right: none; }
@@ -433,8 +459,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    ════════════════════════════════════════════════════════════ */
 .facade { cursor: pointer; }
 .facade .play { position: absolute; left: 50%; top: 50%; z-index: 3; transform: translate(-50%,-50%);
-  width: 54px; height: 54px; border-radius: 50%; background: rgba(28,20,14,.46); border: 1.5px solid rgba(255,255,255,.85);
-  display: grid; place-items: center; backdrop-filter: blur(2px); transition: transform var(--t-mid), background var(--t-mid); }
+  width: 54px; height: 54px; border-radius: 50%; background: rgba(0,0,0,.5); border: 1.5px solid rgba(255,255,255,.85);
+  display: grid; place-items: center; transition: transform var(--t-mid), background var(--t-mid); }
 .facade .play svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
 .facade:hover .play, .facade:focus-visible .play { transform: translate(-50%,-50%) scale(1.1); background: var(--cta); border-color: var(--cta); }
 .facade .dur { position: absolute; right: 9px; bottom: 9px; z-index: 3; font-size: 11px; font-weight: 700;
@@ -505,3 +531,39 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .area-chip { padding: 10px 18px; }
   .card-swiper .swiper-slide { width: 80vw; }
 }
+
+/* ════════════════════════════════════════════════════════════
+   buzz §3.1 セクション override (P3) — 順序: 動画→人気の動画→今の気分(橙)→好きな投稿→IG
+   ════════════════════════════════════════════════════════════ */
+/* 今の気分は？ — 橙背景 (#ff6c00) */
+.section--mood { background: var(--section-orange); }
+.section--mood .kicker { color: rgba(0,0,0,.62); }
+.section--mood .title { color: #1a1a1a; }            /* 橙上は黒文字 (7.40:1 AA) */
+.section--mood .title em { font-style: normal; color: #1a1a1a; background: var(--primary);
+  box-shadow: .14em 0 0 var(--primary), -.14em 0 0 var(--primary); } /* 黄ハイライト見出し (buzz §0.1) */
+
+/* MORE ボタン (buzz §4.2: 緑・radius0・10px30px・Roboto) — AA は P5 で --cta-deep 化 */
+.more-wrap { display: flex; justify-content: center; margin-top: clamp(18px,2.4vw,28px); }
+.btn-more { display: inline-block; background: var(--cta); color: var(--on-cta);
+  font-family: var(--f-latin); font-weight: 700; font-size: 14px; letter-spacing: .04em;
+  padding: 10px 30px; border-radius: 0; border: none; cursor: pointer;
+  transition: background var(--t-fast), transform var(--t-fast); }
+.btn-more:hover { background: var(--cta-deep); transform: translateY(-2px); }
+
+/* ── 好きな投稿はどれ — ジャンルタイル (buzz cb_3: 2枚重ねホバー / 下部ラベルoverlay) ── */
+.genre-rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); overflow: visible; padding: 0; }
+.genre-tile { position: relative; display: block; aspect-ratio: 16/10; min-height: 104px; border-radius: 0; overflow: hidden;
+  box-shadow: var(--sh-sm); transition: transform var(--t-mid), box-shadow var(--t-mid); }
+.genre-tile:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
+.genre-tile .img1, .genre-tile .img2 { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(1.06) contrast(1.03); transition: opacity var(--t-mid), transform var(--t-slow); }
+.genre-tile .img2 { opacity: 0; transform: scale(1.05); }
+.genre-tile:hover .img1 { opacity: 0; transform: scale(1.05); }
+.genre-tile:hover .img2 { opacity: 1; transform: scale(1.1); }
+.genre-tile::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(0,0,0,.3); transition: background var(--t-mid); }
+.genre-tile:hover::after { background: rgba(0,0,0,.18); }
+.genre-tile .g-label { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; color: #fff; text-align: center;
+  font-family: var(--f-display); font-weight: 700; font-size: var(--t-card); padding: 9px 8px; letter-spacing: .02em;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.6)); text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+@media (max-width: 767px){ .genre-rail { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px){ .genre-rail { grid-template-columns: 1fr; } }

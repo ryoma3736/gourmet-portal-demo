@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>グルメポータル｜今日は、どこで食べる？ — エリア・ジャンルから探せる飲食店ガイド</title>
 <meta name="description" content="エリア・ジャンル・今日の気分から、行きたい一軒が見つかる飲食店ポータル。写真と動画で“食べたい”を直感で選ぶ、新しいグルメガイド。">
-<meta name="theme-color" content="#fbf7f0">
+<meta name="theme-color" content="#e8c900">
 <link rel="canonical" href="https://ryoma3736.github.io/gourmet-portal-demo/index.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.json">
@@ -34,7 +34,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preconnect" href="https://loremflickr.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Shippori+Mincho:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -82,6 +82,26 @@
   </div>
 </header>
 
+<!-- スクロール第2ヘッダー (buzz .fixed-header / rgba(0,0,0,.9) slideDown) -->
+<header class="fixed-header" id="fixedHeader" aria-hidden="true">
+  <div class="inner">
+    <a href="#main" class="fh-brand" aria-label="グルメポータル トップへ">
+      <span class="mark" aria-hidden="true"><svg><use href="#i-fire"/></svg></span>
+      <span>グルメポータル</span>
+    </a>
+    <nav class="fh-nav" aria-label="セクションへ移動">
+      <a href="#prmovie">PR動画</a>
+      <a href="#genre">ジャンル</a>
+      <a href="list.html">お店を探す</a>
+    </nav>
+  </div>
+</header>
+<script>
+(function(){var fh=document.getElementById('fixedHeader');if(!fh)return;var on=false;
+addEventListener('scroll',function(){var y=(window.scrollY||document.documentElement.scrollTop)>420;
+if(y!==on){on=y;fh.classList.toggle('show',on);fh.setAttribute('aria-hidden',String(!on));}},{passive:true});})();
+</script>
+
 <main id="main">
 
   <!-- ============ 1. ヒーロー（食欲・大判・高さ抑制） ============ -->
@@ -109,41 +129,13 @@
     <div class="hero-dots" id="heroDots" role="tablist" aria-label="特集を切り替え"></div>
   </section>
 
-  <!-- ============ 流れるジャンル ticker ============ -->
-  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
-
-  <!-- ============ 2. ジャンルから（丸アイコン横スクロール） ============ -->
-  <section class="section" id="genre" aria-labelledby="t-genre">
-    <div class="inner">
-      <div class="head">
-        <span class="kicker">Genre</span>
-        <h2 class="title" id="t-genre"><em>ジャンル</em>から探す</h2>
-      </div>
-      <div class="genre-rail reveal" id="genreRail"></div>
-    </div>
-  </section>
-
-  <!-- ============ 3. 今週のランキング（非対称・1位大） ============ -->
-  <section class="section section--panel" id="ranking" aria-labelledby="t-rank">
-    <div class="inner">
-      <div class="head head--row">
-        <div>
-          <span class="kicker">Weekly Ranking</span>
-          <h2 class="title" id="t-rank">今週、<em>予約が動いた</em>店</h2>
-        </div>
-        <a href="list.html?sort=rating" class="seeall">ランキングをすべて見る</a>
-      </div>
-      <div class="rank-grid reveal" id="rankGrid"></div>
-    </div>
-  </section>
-
-  <!-- ============ 4. PR動画（観てから、行く） ============ -->
+  <!-- ============ 2. 人気の動画は？（PR動画カルーセル / buzz §3.1） ============ -->
   <section class="section" id="prmovie" aria-labelledby="t-new" style="scroll-margin-top:80px">
     <div class="inner">
       <div class="head head--row">
         <div>
-          <span class="kicker">PR Movie</span>
-          <h2 class="title" id="t-new">観てから、<em>行く</em>。</h2>
+          <span class="kicker">Popular Movie</span>
+          <h2 class="title" id="t-new"><em>人気の動画</em>は？</h2>
         </div>
         <span class="swiper-nav"><button class="vp" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button><button class="vn" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button></span>
       </div>
@@ -151,16 +143,28 @@
     <div class="inner">
       <div class="swiper card-swiper reveal"><div class="swiper-wrapper" id="cardWrap"></div></div>
     </div>
+    <div class="inner more-wrap"><a href="list.html?sort=rating" class="btn-more">MORE</a></div>
   </section>
 
-  <!-- ============ 5. 今夜の気分から（2枚重ねタイル） ============ -->
-  <section class="section section--panel" aria-labelledby="t-mood">
+  <!-- ============ 3. 今の気分は？（橙背景・2枚重ねタイル / buzz §3.1 #ff6c00） ============ -->
+  <section class="section section--mood" id="mood" aria-labelledby="t-mood">
     <div class="inner">
       <div class="head">
         <span class="kicker">By Mood</span>
-        <h2 class="title" id="t-mood">今夜の<em>気分</em>から</h2>
+        <h2 class="title" id="t-mood"><em>今の気分</em>は？</h2>
       </div>
       <div class="mood-grid reveal" id="moodGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 好きな投稿はどれ（ジャンルタイル / buzz §3.1） ============ -->
+  <section class="section" id="genre" aria-labelledby="t-genre">
+    <div class="inner">
+      <div class="head">
+        <span class="kicker">Genre</span>
+        <h2 class="title" id="t-genre"><em>好きな投稿</em>はどれ</h2>
+      </div>
+      <div class="genre-rail reveal" id="genreRail"></div>
     </div>
   </section>
 
@@ -330,28 +334,13 @@ setHero(0); restart();
 
 /* ── ジャンル rail ── */
 document.getElementById('genreRail').innerHTML=GENRES.map((g,i)=>`
-  <a href="list.html?genre=${encodeURIComponent(g[0])}" class="genre-item" aria-label="${g[0]}を探す">
-    <span class="g-thumb media">${imgTag(g[1],120,120,200+i,'cover','')}</span>
+  <a href="list.html?genre=${encodeURIComponent(g[0])}" class="genre-tile media" aria-label="${g[0]}を探す">
+    ${imgTag(g[1],360,260,200+i,'img1','')}
+    ${imgFlickr(g[1],360,260,260+i,'img2','')}
     <span class="g-label">${g[0]}</span>
   </a>`).join('');
 
-/* ── ランキング（1位大・★・メダル） ── */
-document.getElementById('rankGrid').innerHTML=SHOPS.slice(0,7).map((s,i)=>{
-  const big=i===0;
-  return `
-  <a href="store.html" class="rank-card${i<3?' top':''}${big?' lead':''}" aria-label="${i+1}位 ${s[0]}（${s[1]}・${s[2]}）★${s[5]}">
-    <span class="rank-no" aria-hidden="true">${i+1}</span>
-    <span class="rank-thumb media">${imgTag(s[7], big?520:200, big?330:150, s[8]+90,'cover',s[0])}${tagHTML(s[9])}</span>
-    <span class="rank-info">
-      <span class="rank-name">${s[0]}</span>
-      <span class="rank-meta"><span class="genre">${s[1]}</span>・${s[2]} ${s[3]}駅</span>
-      <span class="rank-row"><span class="rating">${starHTML(s[5])}<span class="rc tnum">(${s[6]})</span></span><span class="price"><span class="yen" aria-hidden="true">${svgUse('i-yen')}</span>${s[4]}</span></span>
-      ${big?`<span class="rank-catch">${s[11]}</span>`:''}
-    </span>
-  </a>`;
-}).join('');
-
-/* ── PR動画カード（横カルーセル・"観てから、行く"） ── */
+/* ── PR動画カード（横カルーセル・"人気の動画は？"） ── */
 const DUR = ['2:24','3:05','2:41','3:38','2:12','4:02','2:33','3:16','2:51','3:24','2:07','1:58'];
 const cardHTML = (s,i,eager)=>`
   <article class="shop-card">
@@ -399,9 +388,6 @@ document.getElementById('moodGrid').innerHTML=MOODS.map((m,i)=>`
 /* ── Instagram ── */
 document.getElementById('instaGrid').innerHTML=IG.map((kw,i)=>`
   <a href="#" class="insta-item media" aria-label="@gourmet_portal の投稿を見る">${imgTag(kw,360,360,60+i,'cover','')}<span class="ov" aria-hidden="true">${svgUse('i-ig')}</span></a>`).join('');
-
-/* ── 流れる ticker ── */
-(function(){const tr=document.getElementById('tickerTrack');const base=(GENRES.map(g=>`<span class="tk">${g[0]}</span>`).join('')).repeat(3);tr.innerHTML=base+base;})();
 
 /* ── Swiper ── */
 new Swiper('.card-swiper',{slidesPerView:'auto',spaceBetween:18,navigation:{nextEl:'.vn',prevEl:'.vp'},a11y:{enabled:true}});
