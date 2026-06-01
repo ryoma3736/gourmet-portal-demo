@@ -244,10 +244,8 @@ document.getElementById('hGenre').innerHTML = '<option>ジャンル</option>'+GE
 const state = { kw:'', area:'', genre:'', budget:'', rating:0, open:false, sort:'recommend' };
 let shown = 12;
 
-/* 熱量スコア（架空: 評価×クチコミ） */
-const heatScore = s => Math.min(99, Math.round(s.rating*16 + s.reviews/40));
 const cardHTML = (s,eager) => `
-  <a href="store.html" class="shop-card ${s.open?'is-open':'is-closed'}">
+  <a href="store.html" class="shop-card">
     <span class="sc-thumb media">${imgTag(s.kw,360,225,s.lock,s.name+'（'+s.genre+'）',eager)}
       ${s.tags.includes('hot')?'<span class="tag hot">人気</span>':s.tags.includes('new')?'<span class="tag new">NEW</span>':''}
       <span class="sc-save" role="button" tabindex="0" data-fav-id="${s.id}" aria-label="${s.name} をお気に入りに保存">${svgUse('i-bookmark')}</span></span>
@@ -257,9 +255,6 @@ const cardHTML = (s,eager) => `
       <span class="sc-catch">${s.catch}</span>
       <span class="sc-row">
         <span class="rating"><span class="stars" aria-hidden="true">${svgUse('i-star')}</span><b>${s.rating.toFixed(1)}</b><span class="rc tnum">(${s.reviews})</span></span>
-        <span class="heat-chip" title="熱量スコア">${svgUse('i-fire')}<span class="deg">${heatScore(s)}°</span></span>
-      </span>
-      <span class="sc-row" style="margin-top:-3px">
         ${s.open?'<span class="open"><span class="dot-open" aria-hidden="true"></span>営業中</span>':'<span class="open" style="color:var(--ink-low)"><span class="dot-open" style="background:var(--ink-low)" aria-hidden="true"></span>営業時間外</span>'}
       </span>
       <span class="sc-foot"><span class="price">${s.blabel}</span><span class="hours tnum">${s.hours}</span></span>
@@ -296,8 +291,7 @@ function render(){
   if(r.length===0){ grid.innerHTML=''; empty.hidden=false; more.hidden=true; }
   else { empty.hidden=true; const slice=r.slice(0,shown);
     grid.innerHTML = slice.map((s,i)=>cardHTML(s,i<6)).join('');
-    more.hidden = r.length<=shown; GPFav.reflect(grid);
-    requestAnimationFrame(()=>grid.querySelectorAll('.shop-card').forEach(c=>c.classList.add('warm'))); }
+    more.hidden = r.length<=shown; GPFav.reflect(grid); }
   renderChips();
 }
 

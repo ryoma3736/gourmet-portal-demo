@@ -48,6 +48,8 @@
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
   <symbol id="i-yen" viewBox="0 0 24 24"><path d="M12 4l-5 8m5-8l5 8m-5 0v8m-4-5h8m-8 3h8"/></symbol>
   <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
@@ -89,7 +91,7 @@
     </div>
     <div class="inner hero-inner">
       <div class="hero-copy">
-        <span class="hero-kicker"><span class="dot"></span>いま、熱い一軒</span>
+        <span class="hero-kicker"><span class="dot"></span>観てから、行く。</span>
         <h1 class="hero-title">今日は、<em>どこで</em>食べる？</h1>
         <p class="hero-lead">エリア・ジャンル・今日の気分から、<br>“食べたい一軒”が見つかる。</p>
         <div class="hero-actions">
@@ -140,8 +142,8 @@
     <div class="inner">
       <div class="head head--row">
         <div>
-          <span class="kicker">Pick Up</span>
-          <h2 class="title" id="t-new">いま<em>注目</em>のお店</h2>
+          <span class="kicker">PR Movie</span>
+          <h2 class="title" id="t-new">観てから、<em>行く</em>。</h2>
         </div>
         <span class="swiper-nav"><button class="vp" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button><button class="vn" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button></span>
       </div>
@@ -305,8 +307,6 @@ const HERO = [
 
 const starHTML = r => `<span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg></span><b class="tnum">${r}</b>`;
 const tagHTML = t => t==='hot'?'<span class="tag hot">人気</span>':t==='new'?'<span class="tag new">NEW</span>':'';
-/* 熱量スコア（架空: 評価×クチコミから算出。"今この店が熱いか"の指標） */
-const heatScore = s => Math.min(99, Math.round(parseFloat(s[5])*16 + parseInt(String(s[6]).replace(/,/g,''))/40));
 
 /* ── ジャンル select 再構築 ── */
 document.getElementById('genreSel').innerHTML =
@@ -335,48 +335,43 @@ document.getElementById('genreRail').innerHTML=GENRES.map((g,i)=>`
     <span class="g-label">${g[0]}</span>
   </a>`).join('');
 
-/* ── ランキング（熱量順・1位大・温度バー） ── */
-document.getElementById('rankGrid').innerHTML=[...SHOPS].sort((a,b)=>heatScore(b)-heatScore(a)).slice(0,7).map((s,i)=>{
-  const big=i===0; const heat=heatScore(s);
+/* ── ランキング（1位大・★・メダル） ── */
+document.getElementById('rankGrid').innerHTML=SHOPS.slice(0,7).map((s,i)=>{
+  const big=i===0;
   return `
-  <a href="store.html" class="rank-card is-open${i<3?' top':''}${big?' lead':''}" aria-label="熱量${i+1}位 ${s[0]}（${s[1]}・${s[2]}）熱量${heat}・★${s[5]}">
+  <a href="store.html" class="rank-card${i<3?' top':''}${big?' lead':''}" aria-label="${i+1}位 ${s[0]}（${s[1]}・${s[2]}）★${s[5]}">
     <span class="rank-no" aria-hidden="true">${i+1}</span>
     <span class="rank-thumb media">${imgTag(s[7], big?520:200, big?330:150, s[8]+90,'cover',s[0])}${tagHTML(s[9])}</span>
     <span class="rank-info">
       <span class="rank-name">${s[0]}</span>
       <span class="rank-meta"><span class="genre">${s[1]}</span>・${s[2]} ${s[3]}駅</span>
-      <span class="rank-row"><span class="rating">${starHTML(s[5])}<span class="rc tnum">(${s[6]})</span></span><span class="heat-chip" title="熱量スコア">${svgUse('i-fire')}<span class="deg">${heat}°</span></span><span class="price"><span class="yen" aria-hidden="true">${svgUse('i-yen')}</span>${s[4]}</span></span>
-      ${big?`<span class="heat-bar" aria-hidden="true"><i style="width:${heat}%"></i></span><span class="rank-catch">${s[11]}</span>`:''}
+      <span class="rank-row"><span class="rating">${starHTML(s[5])}<span class="rc tnum">(${s[6]})</span></span><span class="price"><span class="yen" aria-hidden="true">${svgUse('i-yen')}</span>${s[4]}</span></span>
+      ${big?`<span class="rank-catch">${s[11]}</span>`:''}
     </span>
   </a>`;
 }).join('');
 
-/* ── 注目カード（横カルーセル・熱量） ── */
-const cardHTML = (s,i,eager)=>{
-  const heat=heatScore(s);
-  const live = s[9]==='hot' ? `<span class="live-badge"><span class="ld" aria-hidden="true"></span>いま${4+parseInt(String(s[6]).replace(/,/g,''))%9}人が見ています</span>` : '';
-  return `
-  <a href="store.html" class="shop-card is-open">
-    <span class="sc-thumb media">
-      ${imgTag(s[7],360,234,s[8],'cover',s[0]+'（'+s[1]+'）',eager)}
+/* ── PR動画カード（横カルーセル・"観てから、行く"） ── */
+const DUR = ['2:24','3:05','2:41','3:38','2:12','4:02','2:33','3:16','2:51','3:24','2:07','1:58'];
+const cardHTML = (s,i,eager)=>`
+  <article class="shop-card">
+    <span class="sc-thumb media facade" role="button" tabindex="0" aria-label="${s[0]}（${s[1]}）のPR動画を観る">
+      ${imgTag(s[7],360,234,s[8],'cover',s[0]+'（'+s[1]+'）のPR動画',eager)}
       ${tagHTML(s[9])}
+      <span class="play" aria-hidden="true">${svgUse('i-play')}</span>
+      <span class="dur tnum">${DUR[i%DUR.length]}</span>
       <span class="sc-save" role="button" tabindex="0" data-fav-id="${GPFav.slug(s[0])}" aria-label="${s[0]} をお気に入りに保存">${svgUse('i-bookmark')}</span>
     </span>
-    <span class="sc-body">
+    <a href="store.html" class="sc-body">
       <span class="sc-name">${s[0]}</span>
       <span class="sc-meta"><span class="genre">${s[1]}</span><span class="sep">/</span>${s[2]} ${s[3]}駅</span>
-      <span class="sc-catch">${s[11]}</span>
       <span class="sc-row">
         <span class="rating">${starHTML(s[5])}<span class="rc tnum">(${s[6]})</span></span>
-        <span class="heat-chip" title="熱量スコア（視聴・保存・予約から算出）">${svgUse('i-fire')}<span class="deg">${heat}°</span></span>
-      </span>
-      <span class="sc-row" style="margin-top:-3px">
         <span class="open"><span class="dot-open" aria-hidden="true"></span>営業中</span>
-        ${live}
       </span>
       <span class="sc-foot"><span class="price">${s[4]}</span><span class="hours tnum">${s[10]}</span></span>
-    </span>
-  </a>`;};
+    </a>
+  </article>`;
 document.getElementById('cardWrap').innerHTML=SHOPS.map((s,i)=>`<div class="swiper-slide">${cardHTML(s,i,i<4)}</div>`).join('');
 
 /* お気に入り保存（TOPカードの保存マーク・クリック/キーボード） */
@@ -424,15 +419,16 @@ if('IntersectionObserver' in window){
   setTimeout(()=>reveals.forEach(s=>s.classList.add('in')),1600);
 } else reveals.forEach(s=>s.classList.add('in'));
 
-/* ── 署名演出: スクロールで店が"温まる"（冷→熱・湯気が一度だけ。reduced-motionでOFF） ── */
-(function(){
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const cards = [...document.querySelectorAll('.shop-card, .rank-card')];
-  if(reduce || !('IntersectionObserver' in window)){ cards.forEach(c=>c.classList.add('warm')); return; }
-  const wio = new IntersectionObserver((es,o)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('warm'); o.unobserve(e.target); } }),{threshold:.25});
-  cards.forEach(c=>wio.observe(c));
-  setTimeout(()=>cards.forEach(c=>c.classList.add('warm')),2200);
-})();
+/* ── PR動画 facade → 再生（架空デモ。観てから行く体験） ── */
+function openFacade(f){
+  if(f.classList.contains('playing')) return;
+  f.classList.add('playing');
+  const v=document.createElement('span'); v.className='vplaying';
+  v.innerHTML='<span class="vp-bar"><i></i></span><span class="vp-cap">PR動画 再生中（架空デモ）</span>';
+  f.appendChild(v);
+}
+document.addEventListener('click',e=>{ const f=e.target.closest('.facade'); if(f && !e.target.closest('.sc-save')){ e.preventDefault(); openFacade(f); } });
+document.addEventListener('keydown',e=>{ const t=e.target; if((e.key==='Enter'||e.key===' ') && t.classList && t.classList.contains('facade')){ e.preventDefault(); openFacade(t); } });
 
 addEventListener('load',()=>document.body.classList.add('imgs-ready'));
 </script>

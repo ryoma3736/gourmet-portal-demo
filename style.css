@@ -421,9 +421,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    ════════════════════════════════════════════════════════════ */
 :root { --heat: #ff5a1f; --heat-glow: rgba(255,90,31,.42); }
 
-/* 署名演出: カードは初期"冷"→ビューインで"温"（写真が温まる） */
-.shop-card .cover, .rank-thumb .cover { filter: saturate(.78) contrast(1.0) brightness(.95); transition: filter .75s var(--ease-out); }
-.shop-card.warm .cover, .rank-card.warm .cover { filter: saturate(1.12) contrast(1.05) brightness(1.04); }
+/* （熱量演出は撤去。写真は通常の食欲グレードを使用） */
+.shop-card .cover, .rank-thumb .cover { filter: saturate(1.08) contrast(1.04) brightness(1.0); }
+
+/* ════════════════════════════════════════════════════════════
+   PR動画 facade（"観てから、行く" — 再生ボタン・尺・再生デモ）
+   ════════════════════════════════════════════════════════════ */
+.facade { cursor: pointer; }
+.facade .play { position: absolute; left: 50%; top: 50%; z-index: 3; transform: translate(-50%,-50%);
+  width: 54px; height: 54px; border-radius: 50%; background: rgba(28,20,14,.46); border: 1.5px solid rgba(255,255,255,.85);
+  display: grid; place-items: center; backdrop-filter: blur(2px); transition: transform var(--t-mid), background var(--t-mid); }
+.facade .play svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
+.facade:hover .play, .facade:focus-visible .play { transform: translate(-50%,-50%) scale(1.1); background: var(--cta); border-color: var(--cta); }
+.facade .dur { position: absolute; right: 9px; bottom: 9px; z-index: 3; font-size: 11px; font-weight: 700;
+  background: rgba(28,20,14,.82); color: #fff; padding: 3px 8px; border-radius: 6px; }
+.facade.playing .play, .facade.playing .dur { display: none; }
+.facade .vplaying { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  background: rgba(20,14,10,.74); color: #fff; }
+.facade .vplaying .vp-bar { width: 64%; height: 4px; border-radius: 2px; background: rgba(255,255,255,.3); overflow: hidden; }
+.facade .vplaying .vp-bar i { display: block; height: 100%; width: 0; background: var(--cta); animation: vpProg 12s linear forwards; }
+@keyframes vpProg { to { width: 100%; } }
+.facade .vplaying .vp-cap { font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+@media (prefers-reduced-motion: reduce){ .facade .vplaying .vp-bar i { animation: none; width: 40%; } }
 /* 湯気: 温まる瞬間に一度だけ立つ（署名の決め） */
 .shop-card .sc-thumb::after { content:""; position:absolute; left:50%; bottom:2px; width:58%; height:46%; z-index:2; pointer-events:none;
   background: radial-gradient(58% 80% at 50% 100%, rgba(255,247,238,.55), transparent 72%); opacity:0; transform: translateX(-50%); }
