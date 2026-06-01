@@ -309,7 +309,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   background: rgba(255,255,255,.92); display: grid; place-items: center; box-shadow: var(--sh-sm); transition: transform var(--t-fast), background var(--t-fast); }
 .sc-save svg { width: 17px; height: 17px; fill: none; stroke: var(--ink-mid); stroke-width: 1.8; stroke-linejoin: round; }
 .shop-card:hover .sc-save { transform: scale(1.08); }
+.sc-save { cursor: pointer; }
 .sc-save:hover svg { stroke: var(--cta); fill: var(--cta-soft); }
+.sc-save.saved svg { fill: var(--cta); stroke: var(--cta); }
+.sc-save:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; }
 .sc-body { padding: 14px 15px 15px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
 .sc-name { font-family: var(--f-display); font-weight: 700; font-size: var(--t-card); color: var(--ink); line-height: 1.35; transition: color var(--t-fast); }
 .shop-card:hover .sc-name { color: var(--cta); }

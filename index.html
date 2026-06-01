@@ -214,13 +214,14 @@
 <!-- 固定 footer-bar -->
 <nav class="footer-bar" aria-label="クイックアクション">
   <a href="list.html"><span class="fbi" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</a>
-  <a href="#"><span class="fbi" aria-hidden="true"><svg><use href="#i-bookmark"/></svg></span>お気に入り</a>
+  <a href="favorites.html"><span class="fbi" aria-hidden="true"><svg><use href="#i-bookmark"/></svg></span>お気に入り<sup data-fav-badge hidden style="margin-left:3px"></sup></a>
   <a href="#" class="accent"><span class="fbi" aria-hidden="true"><svg><use href="#i-list"/></svg></span>お店を掲載</a>
 </nav>
 
 <button class="page-top" id="pageTop" type="button" aria-label="ページトップへ戻る"><svg aria-hidden="true"><use href="#i-up"/></svg></button>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="favorites.js"></script>
 <script>
 /* ════════════════════════════════════════════════════════════
    画像: Unsplash(License) 厳選 + LoremFlickr(CC) フォールバック。
@@ -338,7 +339,7 @@ const cardHTML = (s,i,eager)=>`
     <span class="sc-thumb media">
       ${imgTag(s[7],360,234,s[8],'cover',s[0]+'（'+s[1]+'）',eager)}
       ${tagHTML(s[9])}
-      <span class="sc-save" aria-hidden="true">${svgUse('i-bookmark')}</span>
+      <span class="sc-save" role="button" tabindex="0" data-fav-id="${GPFav.slug(s[0])}" aria-label="${s[0]} をお気に入りに保存">${svgUse('i-bookmark')}</span>
     </span>
     <span class="sc-body">
       <span class="sc-name">${s[0]}</span>
@@ -352,6 +353,20 @@ const cardHTML = (s,i,eager)=>`
     </span>
   </a>`;
 document.getElementById('cardWrap').innerHTML=SHOPS.map((s,i)=>`<div class="swiper-slide">${cardHTML(s,i,i<4)}</div>`).join('');
+
+/* お気に入り保存（TOPカードの保存マーク・クリック/キーボード） */
+const cardWrapEl=document.getElementById('cardWrap');
+GPFav.reflect(cardWrapEl);
+cardWrapEl.addEventListener('click',e=>{
+  const sv=e.target.closest('.sc-save[data-fav-id]'); if(!sv)return;
+  e.preventDefault(); e.stopPropagation();
+  const s=SHOPS.find(x=>GPFav.slug(x[0])===sv.dataset.favId); if(!s)return;
+  GPFav.toggle({id:GPFav.slug(s[0]),name:s[0],genre:s[1],area:s[2],station:s[3],rating:s[5],reviews:s[6],kw:s[7],lock:s[8],blabel:s[4]});
+  GPFav.reflect(cardWrapEl);
+});
+cardWrapEl.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ') && e.target.closest('.sc-save[data-fav-id]')){ e.preventDefault(); e.target.click(); }
+});
 
 /* ── 気分タイル（2枚重ね） ── */
 document.getElementById('moodGrid').innerHTML=MOODS.map((m,i)=>`
