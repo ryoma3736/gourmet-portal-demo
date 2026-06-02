@@ -14,16 +14,9 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ヒーロー: text-clip ワードを順番にクロスフェード */
-  var words = [].slice.call(document.querySelectorAll('.hero__word'));
-  if (words.length > 1 && !reduce) {
-    var hi = 0;
-    setInterval(function () {
-      words[hi].classList.remove('is-active');
-      hi = (hi + 1) % words.length;
-      words[hi].classList.add('is-active');
-    }, 4000);
-  }
+  /* ヒーロー動画: reduced-motion ならポスター静止 */
+  var hv = document.querySelector('.hero__video');
+  if (hv && reduce) { try { hv.removeAttribute('autoplay'); hv.pause(); hv.addEventListener('play', function () { hv.pause(); }); } catch (e) {} }
 
   /* 横カルーセル矢印 */
   [].slice.call(document.querySelectorAll('.rail')).forEach(function (rail) {
