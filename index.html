@@ -104,29 +104,32 @@ if(y!==on){on=y;fh.classList.toggle('show',on);fh.setAttribute('aria-hidden',Str
 
 <main id="main">
 
-  <!-- ============ 1. ヒーロー（食欲・大判・高さ抑制） ============ -->
-  <section class="hero" aria-label="特集">
-    <div class="hero-stage">
-      <div class="hero-media media"><img class="ph cover" id="heroImg" src="" alt="" decoding="async" fetchpriority="high"></div>
-    </div>
-    <div class="inner hero-inner">
-      <div class="hero-copy">
-        <span class="hero-kicker"><span class="dot"></span>観てから、行く。</span>
-        <h1 class="hero-title">今日は、<em>どこで</em>食べる？</h1>
-        <p class="hero-lead">エリア・ジャンル・今日の気分から、<br>“食べたい一軒”が見つかる。</p>
-        <div class="hero-actions">
-          <a href="#prmovie" class="btn-cta"><span class="cta-play" aria-hidden="true"><svg><use href="#i-play"/></svg></span>PR動画を観る</a>
-          <a href="list.html" class="btn-ghost">お店を探す</a>
+  <!-- ============ 1. 検索/絞込（buzz §3.2: ヘッダー直下の主導線・エリア/ジャンル/気分） ============ -->
+  <section class="finder" aria-labelledby="t-find">
+    <div class="finder-bg media" aria-hidden="true"><img class="ph cover" id="finderBg" src="" alt="" decoding="async" fetchpriority="high"></div>
+    <div class="inner finder-inner">
+      <h1 class="finder-title" id="t-find">観て、<em>選んで</em>、行く。<span>エリア・ジャンル・今の気分から、PR動画で探す飲食ポータル</span></h1>
+      <form class="finder-form" id="finderForm" role="search">
+        <div class="ff-field ff-kw">
+          <span class="ff-lab">キーワード</span>
+          <input type="text" id="ffKw" placeholder="店名・料理・駅で探す" aria-label="キーワードで探す">
         </div>
-        <ul class="hero-stats" aria-hidden="true">
-          <li><b class="tnum">8,400</b>掲載店</li>
-          <li><b class="tnum">47</b>都道府県</li>
-          <li><b class="tnum">12万</b>件のクチコミ</li>
-        </ul>
-      </div>
-      <div class="hero-feature" id="heroFeature"></div>
+        <div class="ff-field">
+          <span class="ff-lab">エリアから選ぶ</span>
+          <select id="ffArea" aria-label="エリアから選ぶ"></select>
+        </div>
+        <div class="ff-field">
+          <span class="ff-lab">ジャンルから選ぶ</span>
+          <select id="ffGenre" aria-label="ジャンルから選ぶ"></select>
+        </div>
+        <div class="ff-field">
+          <span class="ff-lab">今の気分は？</span>
+          <select id="ffMood" aria-label="今の気分は？から選ぶ"></select>
+        </div>
+        <button class="ff-btn" type="submit"><span class="ff-ico" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</button>
+        <a class="ff-loc" href="list.html" aria-label="現在地から探す"><span class="ff-ico" aria-hidden="true"><svg><use href="#i-pin"/></svg></span>現在地</a>
+      </form>
     </div>
-    <div class="hero-dots" id="heroDots" role="tablist" aria-label="特集を切り替え"></div>
   </section>
 
   <!-- ============ 2. 人気の動画は？（PR動画カルーセル / buzz §3.1） ============ -->
@@ -168,21 +171,19 @@ if(y!==on){on=y;fh.classList.toggle('show',on);fh.setAttribute('aria-hidden',Str
     </div>
   </section>
 
-  <!-- ============ 6. エリアから ============ -->
-  <section class="section" aria-labelledby="t-area">
+  <!-- ============ 5. 食特集 Introduce（buzz: trending food feature carousel） ============ -->
+  <section class="section section--panel" id="feature" aria-labelledby="t-feat">
     <div class="inner">
-      <div class="head">
-        <span class="kicker">By Area</span>
-        <h2 class="title" id="t-area"><em>エリア</em>から探す</h2>
+      <div class="head head--row">
+        <div>
+          <span class="kicker">Introduce</span>
+          <h2 class="title" id="t-feat"><em>いま食べたい</em>を特集</h2>
+        </div>
+        <span class="swiper-nav"><button class="fp" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button><button class="fn" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button></span>
       </div>
-      <nav class="area-grid reveal" aria-label="エリアから探す">
-        <a href="#" class="area-chip">北海道</a><a href="#" class="area-chip">宮城・仙台</a>
-        <a href="#" class="area-chip">東京</a><a href="#" class="area-chip">横浜・神奈川</a>
-        <a href="#" class="area-chip">名古屋・愛知</a><a href="#" class="area-chip">京都</a>
-        <a href="#" class="area-chip">大阪</a><a href="#" class="area-chip">神戸・兵庫</a>
-        <a href="#" class="area-chip">広島</a><a href="#" class="area-chip">福岡</a>
-        <a href="#" class="area-chip">沖縄</a><a href="#" class="area-chip">金沢・北陸</a>
-      </nav>
+    </div>
+    <div class="inner">
+      <div class="swiper feat-swiper reveal"><div class="swiper-wrapper" id="featWrap"></div></div>
     </div>
   </section>
 
@@ -316,21 +317,16 @@ const tagHTML = t => t==='hot'?'<span class="tag hot">人気</span>':t==='new'?'
 document.getElementById('genreSel').innerHTML =
   '<option>ジャンル</option>' + GENRES.map(g=>`<option>${g[0]}</option>`).join('');
 
-/* ── ヒーロー（自動切替・キーボード可） ── */
-let hi=0, htimer;
-function setHero(i){
-  hi=(i+HERO.length)%HERO.length; const v=HERO[hi];
-  const img=document.getElementById('heroImg');
-  img.src=uURL(v[0],1600,1000,1)||lURL(v[0],1600,1000,v[3]);
-  img.alt=v[2]+'のおすすめ料理';
-  img.onerror=function(){this.onerror=null;this.removeAttribute('srcset');this.src=lURL(v[0],1600,1000,v[3]);};
-  document.getElementById('heroFeature').innerHTML=`<span class="hf-cap">特集</span><b>${v[1]}</b><span class="hf-shop">${v[2]}</span>`;
-  [...document.querySelectorAll('#heroDots .dot-btn')].forEach((d,j)=>{const on=j===hi;d.classList.toggle('active',on);d.setAttribute('aria-selected',on);});
-}
-document.getElementById('heroDots').innerHTML=HERO.map((v,i)=>`<button class="dot-btn${i===0?' active':''}" role="tab" aria-selected="${i===0}" data-i="${i}" aria-label="特集${i+1}「${v[1]}」"></button>`).join('');
-document.getElementById('heroDots').addEventListener('click',e=>{const b=e.target.closest('.dot-btn');if(b){setHero(+b.dataset.i);restart();}});
-function restart(){clearInterval(htimer);htimer=setInterval(()=>setHero(hi+1),6000);}
-setHero(0); restart();
+/* ── 検索/絞込 finder（エリア/ジャンル/気分 + 現在地・buzz §3.2） ── */
+const AREAS=["北海道","東北","関東","東京","横浜・神奈川","中部","名古屋・愛知","近畿","京都","大阪","神戸・兵庫","中国・四国","広島","九州・沖縄","福岡","金沢・北陸"];
+document.getElementById('ffArea').innerHTML='<option value="">エリアから選ぶ</option>'+AREAS.map(a=>`<option>${a}</option>`).join('');
+document.getElementById('ffGenre').innerHTML='<option value="">ジャンルから選ぶ</option>'+GENRES.map(g=>`<option>${g[0]}</option>`).join('');
+document.getElementById('ffMood').innerHTML='<option value="">今の気分は？</option>'+MOODS.map(m=>`<option>${m[0]}</option>`).join('');
+(function(){const b=document.getElementById('finderBg');if(b){b.src=uURL('steak',1600,900,1)||lURL('steak',1600,900,10);b.onerror=function(){this.onerror=null;this.removeAttribute('srcset');this.src=lURL('steak',1600,900,10);};}})();
+document.getElementById('finderForm').addEventListener('submit',function(e){e.preventDefault();
+  const q=new URLSearchParams();const kw=document.getElementById('ffKw').value.trim();const ar=document.getElementById('ffArea').value;const ge=document.getElementById('ffGenre').value;const mo=document.getElementById('ffMood').value;
+  if(kw)q.set('kw',kw);if(ar)q.set('area',ar);if(ge)q.set('genre',ge);if(mo)q.set('mood',mo);
+  location.href='list.html'+(q.toString()?'?'+q.toString():'');});
 
 /* ── ジャンル rail ── */
 document.getElementById('genreRail').innerHTML=GENRES.map((g,i)=>`
@@ -389,8 +385,13 @@ document.getElementById('moodGrid').innerHTML=MOODS.map((m,i)=>`
 document.getElementById('instaGrid').innerHTML=IG.map((kw,i)=>`
   <a href="#" class="insta-item media" aria-label="@gourmet_portal の投稿を見る">${imgTag(kw,360,360,60+i,'cover','')}<span class="ov" aria-hidden="true">${svgUse('i-ig')}</span></a>`).join('');
 
+/* ── 食特集 Introduce ── */
+const FEATURE=[["彩りサラダボウル","salad"],["窯焼きピッツァ","pizza"],["休日のパンケーキ","pancake"],["自家製クラフトバーガー","burger"],["旬の握り","sushi"],["深夜の濃厚ラーメン","ramen"],["手仕事の焼き菓子","bread"],["スパイス香るタコス","tacos"]];
+document.getElementById('featWrap').innerHTML=FEATURE.map((f,i)=>`<div class="swiper-slide"><a href="list.html" class="feat-card media" aria-label="${f[0]}の特集">${imgTag(f[1],360,440,500+i,'img1','')}${imgFlickr(f[1],360,440,560+i,'img2','')}<span class="feat-cap">${f[0]}</span></a></div>`).join('');
+
 /* ── Swiper ── */
 new Swiper('.card-swiper',{slidesPerView:'auto',spaceBetween:18,navigation:{nextEl:'.vn',prevEl:'.vp'},a11y:{enabled:true}});
+new Swiper('.feat-swiper',{slidesPerView:'auto',spaceBetween:16,navigation:{nextEl:'.fn',prevEl:'.fp'},a11y:{enabled:true}});
 
 /* ── page top ── */
 const pt=document.getElementById('pageTop');

@@ -567,3 +567,41 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   background: linear-gradient(180deg, transparent, rgba(0,0,0,.6)); text-shadow: 0 1px 8px rgba(0,0,0,.5); }
 @media (max-width: 767px){ .genre-rail { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px){ .genre-rail { grid-template-columns: 1fr; } }
+
+/* ════════════════════════════════════════════════════════════
+   検索/絞込 finder (buzz §3.2: ヘッダー直下の主導線・エリア/ジャンル/気分)
+   ════════════════════════════════════════════════════════════ */
+.finder { position: relative; overflow: hidden; background: #1a1a1a; }
+.finder-bg { position: absolute; inset: 0; z-index: 0; }
+.finder-bg .cover { filter: saturate(1.05) brightness(.5); }
+.finder::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.72)); }
+.finder-inner { position: relative; z-index: 2; padding-block: clamp(32px,5vw,62px); }
+.finder-title { color: #fff; font-family: var(--f-display); font-weight: 700; font-size: clamp(22px,3vw,34px); line-height: 1.4; text-wrap: balance; }
+.finder-title em { font-style: normal; color: #1a1a1a; background: var(--primary); padding: 0 .18em; box-shadow: .14em 0 0 var(--primary), -.14em 0 0 var(--primary); }
+.finder-title span { display: block; margin-top: 10px; font-family: var(--f-body); font-weight: 400; font-size: clamp(13px,1vw,15px); color: rgba(255,255,255,.9); }
+.finder-form { margin-top: clamp(18px,2.4vw,26px); display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; background: rgba(255,255,255,.97); padding: 16px; }
+.ff-field { display: flex; flex-direction: column; gap: 5px; flex: 1 1 150px; min-width: 0; }
+.ff-field.ff-kw { flex: 2 1 220px; }
+.ff-lab { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--ink-mid); }
+.ff-field input, .ff-field select { height: 44px; border: 1px solid var(--line-2); border-radius: 0; padding: 0 12px; font-size: 14px; font-family: var(--f-body); background: #fff; color: var(--ink); width: 100%; }
+.ff-field input:focus, .ff-field select:focus { outline: 2px solid var(--cta-deep); outline-offset: 1px; }
+.ff-btn { height: 44px; padding: 0 26px; border: none; border-radius: 0; background: var(--cta-deep); color: #fff; font-family: var(--f-latin); font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 7px; cursor: pointer; transition: background var(--t-fast); }
+.ff-btn:hover { background: #256619; }
+.ff-btn .ff-ico, .ff-loc .ff-ico { width: 18px; height: 18px; }
+.ff-btn .ff-ico svg, .ff-loc .ff-ico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ff-loc { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 16px; border: 1px solid var(--line-2); border-radius: 0; color: var(--ink); font-weight: 700; font-size: 13px; background: #fff; }
+.ff-loc:hover { background: var(--ground-2); }
+@media (max-width: 600px){ .ff-field, .ff-field.ff-kw { flex: 1 1 100%; } .ff-btn, .ff-loc { flex: 1 1 auto; justify-content: center; } }
+
+/* ── 食特集 Introduce carousel ── */
+.feat-swiper { overflow: visible; }
+.feat-swiper .swiper-slide { width: 240px; height: auto; }
+.feat-card { position: relative; display: block; aspect-ratio: 3/4; border-radius: 0; overflow: hidden; box-shadow: var(--sh-sm); transition: transform var(--t-mid), box-shadow var(--t-mid); }
+.feat-card:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
+.feat-card .img1, .feat-card .img2 { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.06) contrast(1.03); transition: opacity var(--t-mid), transform var(--t-slow); }
+.feat-card .img2 { opacity: 0; transform: scale(1.05); }
+.feat-card:hover .img1 { opacity: 0; transform: scale(1.05); }
+.feat-card:hover .img2 { opacity: 1; transform: scale(1.1); }
+.feat-card::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.7)); }
+.feat-cap { position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 2; color: #fff; font-family: var(--f-display); font-weight: 700; font-size: var(--t-card); text-shadow: 0 1px 10px rgba(0,0,0,.6); }
+@media (max-width: 480px){ .feat-swiper .swiper-slide { width: 70vw; } }
