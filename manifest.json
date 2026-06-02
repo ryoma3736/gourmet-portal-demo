@@ -3,7 +3,7 @@
   "short_name": "バズ グルメ",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#fffdf3",
+  "background_color": "#fff7df",
   "theme_color": "#E8C900",
   "icons": [
     {
