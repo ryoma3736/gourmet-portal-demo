@@ -18,6 +18,10 @@ img{display:block;max-width:100%;height:auto;}
 a{color:inherit;text-decoration:none;}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;}
 :focus-visible{outline:3px solid #0a66c2;outline-offset:2px;border-radius:6px;}
+.hdr__locate:focus-visible,.hdr__ic--locate:focus-visible{outline-color:#fff;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+.skip-link{position:fixed;top:-60px;left:8px;z-index:200;background:#000;color:#fff;padding:10px 16px;border-radius:8px;font-weight:700;transition:top .2s;}
+.skip-link:focus{top:8px;}
 
 /* ============ Header ============ */
 .hdr{position:fixed;inset:0 0 auto 0;height:var(--header-h);z-index:100;background:var(--accent);
@@ -29,7 +33,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .logo__txt{display:flex;flex-direction:column;font-family:var(--font-logo);line-height:.92;letter-spacing:.01em;
   -webkit-text-stroke:1px rgba(0,0,0,.25);}
 .logo__txt b{font-weight:400;font-size:clamp(15px,1.5vw,20px);color:#fff;}
-.logo small{font-size:9px;font-weight:700;letter-spacing:.18em;color:rgba(0,0,0,.5);align-self:flex-end;}
+.logo small{font-size:9px;font-weight:700;letter-spacing:.18em;color:rgba(0,0,0,.72);align-self:flex-end;}
 .hdr.scrolled .logo__txt b{color:#fff;}
 .hdr.scrolled .logo small{color:rgba(255,255,255,.7);}
 
@@ -60,8 +64,8 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .hero{position:relative;width:100%;aspect-ratio:16/9;margin-top:var(--header-h);background:#000;
   display:grid;place-items:center;overflow:hidden;}
 .hero__mask{position:relative;display:grid;place-items:center;width:100%;height:70%;padding:0 4%;}
-.hero__word{grid-area:1/1;font-family:var(--font-body);font-weight:900;
-  font-size:clamp(40px,12vw,168px);line-height:1.02;letter-spacing:.01em;text-align:center;
+.hero__word{grid-area:1/1;font-family:var(--font-body);font-weight:900;white-space:nowrap;
+  font-size:clamp(32px,11.3vw,150px);line-height:1.02;letter-spacing:-.02em;text-align:center;
   background-size:cover;background-position:center;-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;opacity:0;transition:opacity 1.1s ease;
   animation:heroKB 8s ease-out infinite alternate;}
@@ -118,17 +122,24 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 
 /* ============ 今の気分 (家型シーンbadge) ============ */
 .mood{background:radial-gradient(125% 100% at 50% -15%, var(--orange2) 0%, var(--orange) 55%, #f06a10 100%);}
-.mood__grid{display:grid;grid-template-columns:repeat(8,1fr);gap:clamp(8px,1vw,14px);}
-.scene{display:flex;flex-direction:column;align-items:center;text-decoration:none;transition:transform .18s;}
-.scene:hover{transform:translateY(-5px);}
+.mood__grid{display:grid;grid-template-columns:repeat(8,1fr);gap:clamp(10px,1.1vw,18px);align-items:start;}
+.scene{position:relative;display:flex;flex-direction:column;align-items:center;text-decoration:none;}
 .scene__house{position:relative;width:100%;aspect-ratio:1/1.12;
-  clip-path:polygon(50% 0%,100% 28%,100% 100%,0% 100%,0% 28%);
-  background:#fff;box-shadow:0 5px 12px rgba(120,50,0,.25);overflow:hidden;}
+  clip-path:polygon(50% 0%,100% 26%,100% 100%,0% 100%,0% 26%);
+  background:#fff;box-shadow:0 6px 14px rgba(110,45,0,.3);overflow:hidden;
+  transform:rotate(var(--rot,0deg));transition:transform .18s;}
+.scene:hover .scene__house{transform:rotate(var(--rot,0deg)) scale(1.07);}
 .scene__house img{width:100%;height:100%;object-fit:cover;}
-.scene__en{position:absolute;top:30%;left:0;right:0;text-align:center;color:#fff;font-weight:800;font-size:9px;letter-spacing:.06em;text-shadow:0 1px 3px rgba(0,0,0,.6);pointer-events:none;}
-.scene{position:relative;}
-.scene__ja{margin-top:7px;font-weight:700;font-size:clamp(10px,.95vw,13px);color:#3a2400;text-align:center;line-height:1.25;
-  background:#fff;border-radius:999px;padding:3px 8px;box-shadow:0 2px 5px rgba(120,50,0,.18);}
+.scene__house::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,rgba(0,0,0,0) 52%);}
+.scene__en{position:absolute;left:0;right:0;bottom:12%;z-index:2;text-align:center;color:#fff;font-weight:900;
+  font-size:clamp(9px,1vw,13px);letter-spacing:.04em;text-shadow:0 1px 4px rgba(0,0,0,.85);pointer-events:none;}
+.scene__ja{margin-top:8px;font-weight:700;font-size:clamp(9.5px,.9vw,12.5px);color:#3a2400;text-align:center;line-height:1.2;
+  background:#fff;border-radius:999px;padding:3px 9px;box-shadow:0 2px 5px rgba(120,50,0,.2);}
+.scene:nth-child(2n){margin-top:24px;--rot:-2.5deg;}
+.scene:nth-child(3n){margin-top:-6px;--rot:2deg;}
+.scene:nth-child(4n){margin-top:30px;--rot:1.5deg;}
+.scene:nth-child(5n){--rot:-1.5deg;}
+.scene:nth-child(7n){margin-top:14px;--rot:2.5deg;}
 
 /* ============ ジャンルタイル ============ */
 .gtile{flex:0 0 auto;width:clamp(124px,13vw,164px);scroll-snap-align:start;text-decoration:none;}
@@ -149,7 +160,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .ncard__title{padding:6px 12px 14px;font-weight:700;font-size:13.5px;line-height:1.4;color:var(--ink);}
 
 /* ============ Instagram ============ */
-.insta__head{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;font-weight:700;color:var(--ink);}
+.insta__head{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 18px;font-size:18px;font-weight:700;color:var(--ink);}
 .insta__head svg{width:24px;height:24px;}
 .insta__head b{color:var(--orange);}
 .insta__grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}

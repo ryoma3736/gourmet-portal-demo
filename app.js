@@ -56,10 +56,18 @@
     setTimeout(function () { t.remove(); }, 2000);
   }
   document.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-act]');
-    if (!el) return;
-    var act = el.getAttribute('data-act');
-    if (act === 'search') { e.preventDefault(); toast('検索（デモ）: キーワード・エリア・ジャンル・気分で探せます'); }
-    if (act === 'locate') { e.preventDefault(); toast('現在地から近くのお店を検索（デモ）'); }
+    var act = e.target.closest('[data-act]');
+    if (act) {
+      var a = act.getAttribute('data-act');
+      if (a === 'search') { e.preventDefault(); toast('検索（デモ）: キーワード・エリア・ジャンル・気分で探せます'); }
+      if (a === 'locate') { e.preventDefault(); toast('現在地から近くのお店を検索（デモ）'); }
+      return;
+    }
+    // デモリンク(店舗一覧等): 先頭ジャンプ防止
+    var demo = e.target.closest('[data-demo]');
+    if (demo) { e.preventDefault(); toast('店舗一覧・詳細はデモのため準備中です'); }
   });
+  // 検索フォーム: Enter送信もデモ動作
+  var sform = document.querySelector('.hdr__search');
+  if (sform) sform.addEventListener('submit', function (e) { e.preventDefault(); toast('検索（デモ）: キーワード・エリア・ジャンル・気分で探せます'); });
 })();
