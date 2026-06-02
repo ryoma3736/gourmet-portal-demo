@@ -1,7 +1,7 @@
 /* ============================================================
    GOURMET PORTAL — buzz-gourmet 忠実複製版（クリーンルーム）
    ------------------------------------------------------------
-   基準: docs/design/design-replication-spec.md §0.1(改訂2) 実測SSOT。
+   基準: docs/design/buzz-url-measured-2026-06-02.md (実物URL実測・唯一基準)。
    方針: レイアウト構造・デザイントークン値(色/寸法=機能的事実)のみ複製。
    GUARDRAILS:
    - 著作物(アセット/コピー/ロゴ/実店名/実動画ID/見出し画像)は複製しない（IPクリーン）
@@ -13,7 +13,7 @@
 
 :root {
   /* ============================================================
-     buzz-gourmet 忠実トークン (design-replication-spec §0.1 改訂2)
+     buzz-gourmet 忠実トークン (buzz-url-measured-2026-06-02 実測)
      変数名は維持・値のみ buzz実測へ。全CSSが自動再配色。
      ============================================================ */
   /* ── ベース（buzz: 白地・フラット） ── */
@@ -33,8 +33,8 @@
   --on-primary: #000000;        /* 黄上の黒文字 */
   --tan:      #b69e84;          /* 主役アクセント: リンクhover/タイトル/サブメニュー（装飾・大文字用・頻度35） */
   --tan-deep: #92785f;          /* 濃タン: サブメニューhover（頻度7） */
-  --cta:      #3f7e29;          /* buzz緑#5cba3c を §1.3 AA調整(白文字4.97:1・色相維持の最明AA緑)。decoration/CTA共通 */
-  --cta-deep: #2f6b1f;          /* hover/濃緑（白文字 高コントラスト） */
+  --cta:      #5cba3c;          /* MORE 緑（buzz実物 rgb 92,186,60 をそのまま再現）。※白文字AA fail=実物準拠の意図的逸脱 */
+  --cta-deep: #4a9e2f;          /* hover 濃緑 */
   --on-cta:   #ffffff;
   --cta-soft: rgba(92,186,60,.10);
   --section-orange: #ff6c00;    /* 「今の気分は？」セクション背景（§3.1/§1.1） */
@@ -53,7 +53,7 @@
   --container: 1200px;          /* .inner max-width */
   --pad: 15px;                  /* .inner 左右 padding（net 1170px） */
   --gutter: clamp(12px, 1.5vw, 20px);
-  --header-h: 70px;             /* .new-header（§4.4） */
+  --header-h: 60px;             /* buzz実測 .new-header 60px */
   --footerbar-h: 58px;
 
   /* type（buzz §2: Arial+Roboto+Hiragino / 本文14px） */
@@ -367,23 +367,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* ════════════════════════════════════════════════════════════
    5. 気分タイル（2枚重ね）
    ════════════════════════════════════════════════════════════ */
-.mood-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
-.mood-grid .mood-tile:first-child { grid-column: span 2; grid-row: span 2; }
-.mood-tile { position: relative; display: block; aspect-ratio: 3/2; min-height: 140px; border-radius: 0; overflow: hidden;
-  box-shadow: var(--sh-sm); transition: transform var(--t-mid), box-shadow var(--t-mid); }
-.mood-tile:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
-.mood-tile .img1, .mood-tile .img2 { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  filter: saturate(1.08) contrast(1.04) brightness(1.0); transition: opacity var(--t-mid), transform var(--t-slow); }
-.mood-tile .img2 { opacity: 0; transform: scale(1.05); }
-.mood-tile:hover .img1 { opacity: 0; transform: scale(1.05); }
-.mood-tile:hover .img2 { opacity: 1; transform: scale(1.1); }
-.mood-tile::after { content: ""; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.62)); }
-.mood-tile .m-label { position: absolute; left: 16px; right: 16px; bottom: 14px; z-index: 2; color: #fff;
-  font-family: var(--f-display); font-weight: 700; font-size: var(--t-card); line-height: 1.35; text-wrap: balance; text-shadow: 0 1px 10px rgba(28,20,14,.5); }
-.mood-tile .m-label::after { content: ""; display: block; width: 0; height: 2px; margin-top: 8px; background: var(--cta); transition: width var(--t-mid); }
-.mood-tile:hover .m-label::after { width: 36px; }
-.mood-grid .mood-tile:first-child .m-label { font-size: clamp(19px,2.4vw,27px); }
+/* mood: 約16タイルの密な正方形グリッド (buzz実物・暗overlay+白中央ラベル) */
+.mood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.mood-tile { position: relative; display: block; aspect-ratio: 1/1; border-radius: 0; overflow: hidden; box-shadow: var(--sh-sm); }
+.mood-tile .cover { transition: transform var(--t-slow); }
+.mood-tile:hover .cover { transform: scale(1.08); }
+.mood-tile::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(0,0,0,.42); transition: background var(--t-mid); }
+.mood-tile:hover::after { background: rgba(0,0,0,.26); }
+.mood-tile .m-label { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; text-align: center; padding: 8px;
+  color: #fff; font-family: var(--f-display); font-weight: 700; font-size: clamp(13px,1.05vw,16px); line-height: 1.4; text-shadow: 0 1px 8px rgba(0,0,0,.65); text-wrap: balance; }
+@media (max-width: 900px){ .mood-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px){ .mood-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
 
 /* ════════════════════════════════════════════════════════════
    6. エリア chip
@@ -517,8 +511,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .hsearch select { display: none; }
   .header-loc span { display: none; }
   .header-loc { padding: 0 11px; }
-  .mood-grid { grid-template-columns: repeat(2, 1fr); }
-  .mood-grid .mood-tile:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: 16/9; }
   .insta-grid { grid-template-columns: repeat(3, 1fr); }
   .cta-grid { grid-template-columns: repeat(2, 1fr); }
   .card-swiper .swiper-slide { width: 264px; }
@@ -535,10 +527,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* ════════════════════════════════════════════════════════════
    buzz §3.1 セクション override (P3) — 順序: 動画→人気の動画→今の気分(橙)→好きな投稿→IG
    ════════════════════════════════════════════════════════════ */
-/* 今の気分は？ — 橙背景 (#ff6c00) */
-.section--mood { background: var(--section-orange); }
-.section--mood .kicker { color: rgba(0,0,0,.62); }
-.section--mood .title { color: #1a1a1a; }            /* 橙上は黒文字 (7.40:1 AA) */
+/* 今の気分は？ — 実物に合わせ light 背景 + 密タイル(橙ベタは旧spec由来のため撤去) */
+.section--mood { background: var(--ground-2); }
+.section--mood .kicker { color: var(--ink-mid); }
+.section--mood .title { color: #1a1a1a; }
 .section--mood .title em { font-style: normal; color: #1a1a1a; background: var(--primary);
   box-shadow: .14em 0 0 var(--primary), -.14em 0 0 var(--primary); } /* 黄ハイライト見出し (buzz §0.1) */
 
@@ -551,8 +543,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .btn-more:hover { background: var(--cta-deep); transform: translateY(-2px); }
 
 /* ── 好きな投稿はどれ — ジャンルタイル (buzz cb_3: 2枚重ねホバー / 下部ラベルoverlay) ── */
-.genre-rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); overflow: visible; padding: 0; }
-.genre-tile { position: relative; display: block; aspect-ratio: 16/10; min-height: 104px; border-radius: 0; overflow: hidden;
+.genre-rail { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 8px; }
+.genre-rail::-webkit-scrollbar { display: none; }
+.genre-tile { position: relative; flex: 0 0 auto; width: clamp(132px,15vw,164px); display: block; aspect-ratio: 1/1; border-radius: 0; overflow: hidden;
   box-shadow: var(--sh-sm); transition: transform var(--t-mid), box-shadow var(--t-mid); }
 .genre-tile:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
 .genre-tile .img1, .genre-tile .img2 { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
@@ -605,3 +598,60 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .feat-card::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.7)); }
 .feat-cap { position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 2; color: #fff; font-family: var(--f-display); font-weight: 700; font-size: var(--t-card); text-shadow: 0 1px 10px rgba(0,0,0,.6); }
 @media (max-width: 480px){ .feat-swiper .swiper-slide { width: 70vw; } }
+
+/* ════════════════════════════════════════════════════════════
+   実物URL再現 (2026-06-02): minimal header + 検索モーダル + 全幅動画スライダー
+   ════════════════════════════════════════════════════════════ */
+.sr-only { position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+/* ── ヘッダー minimal (buzz: 白ロゴ + 円アイコン2個) ── */
+.site-header .brand .word { color:#fff; }
+.site-header .brand .mark { color:#fff; }
+.site-header .brand .en { color:rgba(255,255,255,.72); }
+.header-actions { margin-left:auto; display:flex; align-items:center; gap:10px; }
+.hbtn { width:40px; height:40px; border-radius:50%; border:none; cursor:pointer; display:grid; place-items:center;
+  background: radial-gradient(circle at 30% 28%, #ffa64d, #f47b2a); color:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.18); transition: transform var(--t-fast), filter var(--t-fast); }
+.hbtn:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.hbtn svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ── 検索モーダル ── */
+.search-modal { position:fixed; inset:0; z-index:3000; }
+.search-modal[hidden] { display:none; }
+.sm-backdrop { position:absolute; inset:0; background:rgba(0,0,0,.55); }
+.sm-panel { position:relative; z-index:1; width:min(560px,92vw); margin:clamp(60px,12vh,140px) auto 0;
+  background:#fff; padding:clamp(22px,3vw,32px); box-shadow:0 24px 60px -16px rgba(0,0,0,.4); }
+.sm-close { position:absolute; right:10px; top:10px; width:36px; height:36px; border:none; background:transparent; cursor:pointer; font-size:18px; color:var(--ink-mid); border-radius:50%; }
+.sm-close:hover { background:var(--ground-2); }
+.sm-title { font-family:var(--f-display); font-weight:700; font-size:20px; color:var(--ink); margin-bottom:16px; }
+.sm-form { display:flex; flex-direction:column; gap:13px; }
+.sm-field { display:flex; flex-direction:column; gap:5px; }
+.sm-field span { font-size:12px; font-weight:700; color:var(--ink-mid); }
+.sm-field input, .sm-field select { height:46px; border:1px solid var(--line-2); border-radius:0; padding:0 13px; font-size:14px; font-family:var(--f-body); background:#fff; color:var(--ink); width:100%; }
+.sm-field input:focus, .sm-field select:focus { outline:2px solid var(--primary); outline-offset:1px; }
+.sm-submit { margin-top:6px; height:50px; border:none; border-radius:0; background:var(--cta); color:#fff; font-family:var(--f-latin); font-weight:700; font-size:15px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; transition:background var(--t-fast); }
+.sm-submit:hover { background:var(--cta-deep); }
+.sm-submit .ff-ico { width:18px; height:18px; }
+.sm-submit .ff-ico svg { width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ── メイン動画スライダー (buzz主役・全幅16:9・autoplay) ── */
+.hero-slider { position:relative; background:#000; }
+.hs-slide { position:relative; display:block; width:100%; aspect-ratio:16/9; max-height:74vh; cursor:pointer; }
+.hs-slide .cover { filter:saturate(1.05) contrast(1.03); }
+.hs-shade { position:absolute; inset:0; z-index:1; background: linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 46%, transparent 72%), linear-gradient(0deg, rgba(0,0,0,.5), transparent 42%); }
+.hs-play { position:absolute; left:50%; top:46%; z-index:3; transform:translate(-50%,-50%); width:72px; height:72px; border-radius:50%; background:rgba(0,0,0,.5); border:2px solid rgba(255,255,255,.9); display:grid; place-items:center; transition:transform var(--t-mid), background var(--t-mid); }
+.hs-play svg { width:30px; height:30px; fill:#fff; }
+.hs-slide:hover .hs-play { transform:translate(-50%,-50%) scale(1.08); background:var(--cta); border-color:var(--cta); }
+.hs-meta { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:clamp(20px,4vw,48px); display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+.hs-genre { color:rgba(255,255,255,.9); font-size:13px; font-weight:700; letter-spacing:.04em; }
+.hs-name { color:#fff; font-family:var(--f-display); font-weight:700; font-size:clamp(22px,3.4vw,40px); line-height:1.25; text-shadow:0 2px 16px rgba(0,0,0,.5); }
+.hs-more { margin-top:6px; display:inline-block; background:var(--cta); color:#fff; font-family:var(--f-latin); font-weight:700; font-size:13px; letter-spacing:.04em; padding:9px 26px; }
+.hs-more:hover { background:var(--cta-deep); }
+.hs-arw { position:absolute; top:46%; z-index:5; transform:translateY(-50%); width:46px; height:46px; border:none; border-radius:50%; background:rgba(255,255,255,.85); color:#1a1a1a; cursor:pointer; display:grid; place-items:center; transition:background var(--t-fast); }
+.hs-arw:hover { background:#fff; }
+.hs-arw svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.hs-prev { left:14px; } .hs-next { right:14px; }
+.hs-dots { position:absolute; left:0; right:0; bottom:12px; z-index:5; display:flex; gap:7px; justify-content:center; }
+.hs-dots .swiper-pagination-bullet { width:9px; height:9px; background:rgba(255,255,255,.55); opacity:1; border-radius:50%; transition:width var(--t-fast); }
+.hs-dots .swiper-pagination-bullet-active { background:#fff; width:24px; border-radius:5px; }
+@media (max-width:600px){ .hs-arw { display:none; } .hs-slide { aspect-ratio:4/3; } }

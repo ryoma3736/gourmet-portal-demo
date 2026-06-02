@@ -67,20 +67,32 @@
 <header class="site-header">
   <div class="inner">
     <a href="#" class="brand" aria-label="グルメポータル トップ">
-      <span class="mark" aria-hidden="true"><svg><use href="#i-fire"/></svg></span>
+      <span class="mark" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
       <span class="word">グルメポータル</span>
       <span class="en">GOURMET&nbsp;PORTAL</span>
     </a>
-    <form class="hsearch" onsubmit="var v=this.querySelector('input').value.trim();location.href='list.html'+(v?'?kw='+encodeURIComponent(v):'');return false;" role="search">
-      <span class="hs-ico" aria-hidden="true"><svg><use href="#i-search"/></svg></span>
-      <input type="text" placeholder="店名・料理・駅で探す" aria-label="キーワードで探す">
-      <select aria-label="エリアで絞り込む"><option>エリア</option><option>北海道</option><option>東北</option><option>関東</option><option>中部</option><option>近畿</option><option>中国・四国</option><option>九州・沖縄</option></select>
-      <select id="genreSel" aria-label="ジャンルで絞り込む"><option>ジャンル</option></select>
-      <button class="btn-search" type="submit">探す</button>
-    </form>
-    <a href="#" class="header-loc" aria-label="現在地から探す" title="現在地から探す"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>現在地</span></a>
+    <div class="header-actions">
+      <button type="button" class="hbtn" id="searchOpen" aria-label="検索・絞り込み" aria-haspopup="dialog"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
+      <a href="list.html" class="hbtn" aria-label="現在地から探す" title="現在地から探す"><svg aria-hidden="true"><use href="#i-pin"/></svg></a>
+    </div>
   </div>
 </header>
+
+<!-- 検索/絞込モーダル (buzz: ヘッダー検索アイコンから開く・エリア/ジャンル/今の気分) -->
+<div class="search-modal" id="searchModal" role="dialog" aria-modal="true" aria-labelledby="sm-title" hidden>
+  <div class="sm-backdrop" data-sm-close></div>
+  <div class="sm-panel" role="document">
+    <button type="button" class="sm-close" data-sm-close aria-label="閉じる"><span aria-hidden="true">✕</span></button>
+    <h2 class="sm-title" id="sm-title">お店をさがす</h2>
+    <form class="sm-form" id="finderForm" role="search">
+      <label class="sm-field"><span>キーワード</span><input type="text" id="ffKw" placeholder="店名・料理・駅で探す"></label>
+      <label class="sm-field"><span>エリアから選ぶ</span><select id="ffArea"></select></label>
+      <label class="sm-field"><span>ジャンルから選ぶ</span><select id="ffGenre"></select></label>
+      <label class="sm-field"><span>今の気分は？</span><select id="ffMood"></select></label>
+      <button class="sm-submit" type="submit"><span class="ff-ico" aria-hidden="true"><svg><use href="#i-search"/></svg></span>この条件でさがす</button>
+    </form>
+  </div>
+</div>
 
 <!-- スクロール第2ヘッダー (buzz .fixed-header / rgba(0,0,0,.9) slideDown) -->
 <header class="fixed-header" id="fixedHeader" aria-hidden="true">
@@ -104,31 +116,14 @@ if(y!==on){on=y;fh.classList.toggle('show',on);fh.setAttribute('aria-hidden',Str
 
 <main id="main">
 
-  <!-- ============ 1. 検索/絞込（buzz §3.2: ヘッダー直下の主導線・エリア/ジャンル/気分） ============ -->
-  <section class="finder" aria-labelledby="t-find">
-    <div class="finder-bg media" aria-hidden="true"><img class="ph cover" id="finderBg" src="" alt="" decoding="async" fetchpriority="high"></div>
-    <div class="inner finder-inner">
-      <h1 class="finder-title" id="t-find">観て、<em>選んで</em>、行く。<span>エリア・ジャンル・今の気分から、PR動画で探す飲食ポータル</span></h1>
-      <form class="finder-form" id="finderForm" role="search">
-        <div class="ff-field ff-kw">
-          <span class="ff-lab">キーワード</span>
-          <input type="text" id="ffKw" placeholder="店名・料理・駅で探す" aria-label="キーワードで探す">
-        </div>
-        <div class="ff-field">
-          <span class="ff-lab">エリアから選ぶ</span>
-          <select id="ffArea" aria-label="エリアから選ぶ"></select>
-        </div>
-        <div class="ff-field">
-          <span class="ff-lab">ジャンルから選ぶ</span>
-          <select id="ffGenre" aria-label="ジャンルから選ぶ"></select>
-        </div>
-        <div class="ff-field">
-          <span class="ff-lab">今の気分は？</span>
-          <select id="ffMood" aria-label="今の気分は？から選ぶ"></select>
-        </div>
-        <button class="ff-btn" type="submit"><span class="ff-ico" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</button>
-        <a class="ff-loc" href="list.html" aria-label="現在地から探す"><span class="ff-ico" aria-hidden="true"><svg><use href="#i-pin"/></svg></span>現在地</a>
-      </form>
+  <!-- ============ 1. メイン動画スライダー（buzz主役・全幅16:9・autoplay） ============ -->
+  <h1 class="sr-only">グルメポータル — PR動画で探す飲食店ガイド（エリア・ジャンル・今の気分から）</h1>
+  <section class="hero-slider" aria-label="注目のPR動画">
+    <div class="swiper hs-swiper">
+      <div class="swiper-wrapper" id="heroWrap"></div>
+      <button class="hs-arw hs-prev" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+      <button class="hs-arw hs-next" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      <div class="hs-dots" id="heroDots"></div>
     </div>
   </section>
 
@@ -299,8 +294,11 @@ const GENRES = [
   ["フレンチ","wine"],["蕎麦","soba"],["天ぷら","tempura"]
 ];
 const MOODS = [
-  ["記念日・デートに","wine"],["がっつり、肉の夜","steak"],["ひとりで静かに","interior"],
-  ["接待・会食で外さない","kaiseki"],["みんなでワイワイ","izakaya"],["コスパで選ぶ","ramen"]
+  ["記念日・デートに","wine"],["がっつり肉の夜","steak"],["ひとりで静かに","interior"],
+  ["接待で外さない","kaiseki"],["みんなでワイワイ","izakaya"],["コスパで選ぶ","ramen"],
+  ["映え写真を撮りたい","pancake"],["深夜にこっそり","barbecue"],["朝から贅沢に","bread"],
+  ["女子会・おしゃべり","cheesecake"],["こだわりの一杯","coffee"],["スパイスが欲しい","curry"],
+  ["海の幸を満喫","sushi"],["個人店を開拓","soba"],["健康志向で軽め","salad"],["とにかく映える","tacos"]
 ];
 const IG = ["sushi","barbecue","pizza","steak","ramen","cheesecake"];
 const HERO = [
@@ -313,20 +311,32 @@ const HERO = [
 const starHTML = r => `<span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg></span><b class="tnum">${r}</b>`;
 const tagHTML = t => t==='hot'?'<span class="tag hot">人気</span>':t==='new'?'<span class="tag new">NEW</span>':'';
 
-/* ── ジャンル select 再構築 ── */
-document.getElementById('genreSel').innerHTML =
-  '<option>ジャンル</option>' + GENRES.map(g=>`<option>${g[0]}</option>`).join('');
+/* ヘッダー検索は廃止しモーダル化(ffGenre は finder block で populate) */
 
-/* ── 検索/絞込 finder（エリア/ジャンル/気分 + 現在地・buzz §3.2） ── */
+/* ── 検索/絞込（モーダル・エリア/ジャンル/気分） ── */
 const AREAS=["北海道","東北","関東","東京","横浜・神奈川","中部","名古屋・愛知","近畿","京都","大阪","神戸・兵庫","中国・四国","広島","九州・沖縄","福岡","金沢・北陸"];
 document.getElementById('ffArea').innerHTML='<option value="">エリアから選ぶ</option>'+AREAS.map(a=>`<option>${a}</option>`).join('');
 document.getElementById('ffGenre').innerHTML='<option value="">ジャンルから選ぶ</option>'+GENRES.map(g=>`<option>${g[0]}</option>`).join('');
 document.getElementById('ffMood').innerHTML='<option value="">今の気分は？</option>'+MOODS.map(m=>`<option>${m[0]}</option>`).join('');
-(function(){const b=document.getElementById('finderBg');if(b){b.src=uURL('steak',1600,900,1)||lURL('steak',1600,900,10);b.onerror=function(){this.onerror=null;this.removeAttribute('srcset');this.src=lURL('steak',1600,900,10);};}})();
 document.getElementById('finderForm').addEventListener('submit',function(e){e.preventDefault();
   const q=new URLSearchParams();const kw=document.getElementById('ffKw').value.trim();const ar=document.getElementById('ffArea').value;const ge=document.getElementById('ffGenre').value;const mo=document.getElementById('ffMood').value;
   if(kw)q.set('kw',kw);if(ar)q.set('area',ar);if(ge)q.set('genre',ge);if(mo)q.set('mood',mo);
   location.href='list.html'+(q.toString()?'?'+q.toString():'');});
+/* 検索モーダル 開閉 */
+(function(){const m=document.getElementById('searchModal'),ob=document.getElementById('searchOpen');if(!m||!ob)return;
+  function open(){m.hidden=false;document.body.style.overflow='hidden';const f=m.querySelector('input,select');if(f)f.focus();}
+  function close(){m.hidden=true;document.body.style.overflow='';ob.focus();}
+  ob.addEventListener('click',open);
+  m.addEventListener('click',function(e){if(e.target.closest('[data-sm-close]'))close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden)close();});})();
+/* ── メイン動画スライダー（全幅16:9・facade・autoplay・buzz主役） ── */
+document.getElementById('heroWrap').innerHTML=SHOPS.slice(0,6).map((s,i)=>`
+  <div class="swiper-slide"><div class="hs-slide media facade" role="button" tabindex="0" aria-label="${s[0]}（${s[1]}・${s[2]}）のPR動画を観る">
+    ${imgTag(s[7],1280,720,s[8]+40,'cover',s[0]+'のPR動画',i===0)}
+    <span class="hs-shade" aria-hidden="true"></span>
+    <span class="hs-play" aria-hidden="true">${svgUse('i-play')}</span>
+    <span class="hs-meta"><span class="hs-genre">${s[1]}・${s[2]} ${s[3]}駅</span><span class="hs-name">${s[0]}</span><a href="store.html" class="hs-more">MORE</a></span>
+  </div></div>`).join('');
 
 /* ── ジャンル rail ── */
 document.getElementById('genreRail').innerHTML=GENRES.map((g,i)=>`
@@ -375,9 +385,8 @@ cardWrapEl.addEventListener('keydown',e=>{
 
 /* ── 気分タイル（2枚重ね） ── */
 document.getElementById('moodGrid').innerHTML=MOODS.map((m,i)=>`
-  <a href="#" class="mood-tile media" aria-label="${m[0]}">
-    ${imgTag(m[1],440,300,300+i,'img1','')}
-    ${imgFlickr(m[1],440,300,400+i,'img2','')}
+  <a href="list.html?mood=${encodeURIComponent(m[0])}" class="mood-tile media" aria-label="${m[0]}">
+    ${imgTag(m[1],320,320,300+i,'cover','')}
     <span class="m-label">${m[0]}</span>
   </a>`).join('');
 
@@ -390,6 +399,7 @@ const FEATURE=[["彩りサラダボウル","salad"],["窯焼きピッツァ","pi
 document.getElementById('featWrap').innerHTML=FEATURE.map((f,i)=>`<div class="swiper-slide"><a href="list.html" class="feat-card media" aria-label="${f[0]}の特集">${imgTag(f[1],360,440,500+i,'img1','')}${imgFlickr(f[1],360,440,560+i,'img2','')}<span class="feat-cap">${f[0]}</span></a></div>`).join('');
 
 /* ── Swiper ── */
+new Swiper('.hs-swiper',{slidesPerView:1,loop:true,autoplay:{delay:5000,disableOnInteraction:false},navigation:{nextEl:'.hs-next',prevEl:'.hs-prev'},pagination:{el:'.hs-dots',clickable:true},a11y:{enabled:true}});
 new Swiper('.card-swiper',{slidesPerView:'auto',spaceBetween:18,navigation:{nextEl:'.vn',prevEl:'.vp'},a11y:{enabled:true}});
 new Swiper('.feat-swiper',{slidesPerView:'auto',spaceBetween:16,navigation:{nextEl:'.fn',prevEl:'.fp'},a11y:{enabled:true}});
 
@@ -414,7 +424,7 @@ function openFacade(f){
   v.innerHTML='<span class="vp-bar"><i></i></span><span class="vp-cap">PR動画 再生中（架空デモ）</span>';
   f.appendChild(v);
 }
-document.addEventListener('click',e=>{ const f=e.target.closest('.facade'); if(f && !e.target.closest('.sc-save')){ e.preventDefault(); openFacade(f); } });
+document.addEventListener('click',e=>{ const f=e.target.closest('.facade'); if(f && !e.target.closest('.sc-save, a')){ e.preventDefault(); openFacade(f); } });
 document.addEventListener('keydown',e=>{ const t=e.target; if((e.key==='Enter'||e.key===' ') && t.classList && t.classList.contains('facade')){ e.preventDefault(); openFacade(t); } });
 
 addEventListener('load',()=>document.body.classList.add('imgs-ready'));
