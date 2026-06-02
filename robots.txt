@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://ryoma3736.github.io/gourmet-portal-demo/sitemap.xml

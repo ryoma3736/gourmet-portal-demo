@@ -1,433 +1,285 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>グルメポータル｜今日は、どこで食べる？ — エリア・ジャンルから探せる飲食店ガイド</title>
-<meta name="description" content="エリア・ジャンル・今日の気分から、行きたい一軒が見つかる飲食店ポータル。写真と動画で“食べたい”を直感で選ぶ、新しいグルメガイド。">
-<meta name="theme-color" content="#e8c900">
-<link rel="canonical" href="https://ryoma3736.github.io/gourmet-portal-demo/index.html">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>バズ グルメ［BUZZ GOURMET］- PV紹介・飲食店掲載ポータル</title>
+<meta name="description" content="バズ グルメ（BUZZ GOURMET）。PV紹介・飲食店掲載ポータル。エリア・ジャンル・気分から動画で飲食店を探せるグルメポータル。">
+<meta property="og:title" content="バズ グルメ［BUZZ GOURMET］">
+<meta property="og:description" content="バズ グルメ（BUZZ GOURMET）。PV紹介・飲食店掲載ポータル。エリア・ジャンル・気分から動画で飲食店を探せるグルメポータル。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#E8C900">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.json">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="グルメポータル">
-<meta property="og:title" content="グルメポータル｜今日は、どこで食べる？">
-<meta property="og:description" content="エリア・ジャンル・今日の気分から、行きたい一軒が見つかる飲食店ポータル。">
-<meta property="og:url" content="https://ryoma3736.github.io/gourmet-portal-demo/index.html">
-<meta property="og:image" content="https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=1200&h=630&q=80">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="グルメポータル｜今日は、どこで食べる？">
-<meta name="twitter:description" content="エリア・ジャンル・今日の気分から、行きたい一軒が見つかる飲食店ポータル。">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=1200&h=630&q=80">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"グルメポータル","alternateName":"GOURMET PORTAL","url":"https://ryoma3736.github.io/gourmet-portal-demo/","inLanguage":"ja","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://ryoma3736.github.io/gourmet-portal-demo/list.html?kw={search_term_string}"},"query-input":"required name=search_term_string"}}
-</script>
-
-<!-- ════════════════════════════════════════════════════════════
-     GOURMET PORTAL — 明るい「食欲設計」版（クリーンルーム・完全オリジナル）
-     目的: 料理を旨そうに見せ、予約/来店に繋げる（=飲食ポータル本来の仕事）。
-     ガードレール: 参考サイトのアセット/コピー/ロゴ/実店名/実動画ID/見出し画像は複製しない。
-       写真=Unsplash(License)/LoremFlickr(CC)、データ=架空、ブランド独自、WCAG AA。
-     ════════════════════════════════════════════════════════════ -->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-<link rel="preconnect" href="https://loremflickr.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap">
 <link rel="stylesheet" href="style.css">
+<style>:root{--accent:#E8C900;--accent-ink:#1a1700;--tan:#B69E84;--green:#5CBA3C;--ink:#1b1b1b;--cream:#fffdf3;--dark:#171717;}</style>
 </head>
-
-<body>
-<a href="#main" class="skip-link">本文へスキップ</a>
-
-<!-- 自作インラインSVGアイコン -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
-  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
-  <symbol id="i-yen" viewBox="0 0 24 24"><path d="M12 4l-5 8m5-8l5 8m-5 0v8m-4-5h8m-8 3h8"/></symbol>
-  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
-  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
-  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6 12l6-6 6 6"/></symbol>
-  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 2c2.4 4 1.2 6.4-.5 8.2-1.5 1.6-2.7 3.4-1.3 5.6.6-1 1.4-1.7 2.1-2.2-.3 1.6.2 2.7 1 3.6 1.9-1.8 3-4.1 3-6.8C16 14.6 18 17 18 19.5 18 23 15.3 25 12 25S6 23 6 19.5C6 13.8 11 11 12 2Z"/></symbol>
-  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".7" fill="currentColor" stroke="none"/></symbol>
-  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></symbol>
-  <symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
-  <symbol id="i-partner" viewBox="0 0 24 24"><circle cx="8.5" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.4"/><path d="M3.5 19c0-3 2.4-4.6 5-4.6S13.5 16 13.5 19M14.5 19c0-2.4 1.6-3.8 3.5-3.8S21 16.6 21 19"/></symbol>
-  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></symbol>
-</svg>
-
-<!-- ============ ヘッダー ============ -->
-<header class="site-header">
-  <div class="inner">
-    <a href="#" class="brand" aria-label="グルメポータル トップ">
-      <span class="mark" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
-      <span class="word">グルメポータル</span>
-      <span class="en">GOURMET&nbsp;PORTAL</span>
-    </a>
-    <div class="header-actions">
-      <button type="button" class="hbtn" id="searchOpen" aria-label="検索・絞り込み" aria-haspopup="dialog"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
-      <a href="list.html" class="hbtn" aria-label="現在地から探す" title="現在地から探す"><svg aria-hidden="true"><use href="#i-pin"/></svg></a>
-    </div>
+<body id="top">
+<header class="hdr">
+  <a class="logo" href="#top" aria-label="バズ グルメ トップ"><span>バズ</span><b>グルメ</b><small>BUZZ GOURMET</small></a>
+  <div class="hdr__actions">
+    <button class="hdr__icon" data-act="search" aria-label="さがす（エリア・ジャンル・気分）"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg></button>
+    <button class="hdr__icon" data-act="locate" aria-label="現在地から近くのお店をさがす"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></button>
   </div>
 </header>
-
-<!-- 検索/絞込モーダル (buzz: ヘッダー検索アイコンから開く・エリア/ジャンル/今の気分) -->
-<div class="search-modal" id="searchModal" role="dialog" aria-modal="true" aria-labelledby="sm-title" hidden>
-  <div class="sm-backdrop" data-sm-close></div>
-  <div class="sm-panel" role="document">
-    <button type="button" class="sm-close" data-sm-close aria-label="閉じる"><span aria-hidden="true">✕</span></button>
-    <h2 class="sm-title" id="sm-title">お店をさがす</h2>
-    <form class="sm-form" id="finderForm" role="search">
-      <label class="sm-field"><span>キーワード</span><input type="text" id="ffKw" placeholder="店名・料理・駅で探す"></label>
-      <label class="sm-field"><span>エリアから選ぶ</span><select id="ffArea"></select></label>
-      <label class="sm-field"><span>ジャンルから選ぶ</span><select id="ffGenre"></select></label>
-      <label class="sm-field"><span>今の気分は？</span><select id="ffMood"></select></label>
-      <button class="sm-submit" type="submit"><span class="ff-ico" aria-hidden="true"><svg><use href="#i-search"/></svg></span>この条件でさがす</button>
-    </form>
+<section class="hero" aria-label="メインビジュアル">
+  <div class="hero__slide is-active">
+    <img src="assets/photos/ramen-000.jpg" width="900" height="675" alt="今夜は、湯気の向こうへ。" fetchpriority="high">
   </div>
-</div>
-
-<!-- スクロール第2ヘッダー (buzz .fixed-header / rgba(0,0,0,.9) slideDown) -->
-<header class="fixed-header" id="fixedHeader" aria-hidden="true">
-  <div class="inner">
-    <a href="#main" class="fh-brand" aria-label="グルメポータル トップへ">
-      <span class="mark" aria-hidden="true"><svg><use href="#i-fire"/></svg></span>
-      <span>グルメポータル</span>
-    </a>
-    <nav class="fh-nav" aria-label="セクションへ移動">
-      <a href="#prmovie">PR動画</a>
-      <a href="#genre">ジャンル</a>
-      <a href="list.html">お店を探す</a>
-    </nav>
+<div class="hero__slide">
+    <img src="assets/photos/sushi-004.jpg" width="900" height="602" alt="握りたての、しあわせ。" loading="lazy" decoding="async">
   </div>
-</header>
-<script>
-(function(){var fh=document.getElementById('fixedHeader');if(!fh)return;var on=false;
-addEventListener('scroll',function(){var y=(window.scrollY||document.documentElement.scrollTop)>420;
-if(y!==on){on=y;fh.classList.toggle('show',on);fh.setAttribute('aria-hidden',String(!on));}},{passive:true});})();
-</script>
-
-<main id="main">
-
-  <!-- ============ 1. メイン動画スライダー（buzz主役・全幅16:9・autoplay） ============ -->
-  <h1 class="sr-only">グルメポータル — PR動画で探す飲食店ガイド（エリア・ジャンル・今の気分から）</h1>
-  <section class="hero-slider" aria-label="注目のPR動画">
-    <div class="swiper hs-swiper">
-      <div class="swiper-wrapper" id="heroWrap"></div>
-      <button class="hs-arw hs-prev" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button>
-      <button class="hs-arw hs-next" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button>
-      <div class="hs-dots" id="heroDots"></div>
+<div class="hero__slide">
+    <img src="assets/photos/yakiniku-008.jpg" width="900" height="900" alt="炭火が呼んでいる。" loading="lazy" decoding="async">
+  </div>
+<div class="hero__slide">
+    <img src="assets/photos/dessert-020.jpg" width="900" height="900" alt="甘いごほうび時間。" loading="lazy" decoding="async">
+  </div>
+<div class="hero__slide">
+    <img src="assets/photos/cocktail-048.jpg" width="900" height="505" alt="今日のあてを探そう。" loading="lazy" decoding="async">
+  </div>
+  <div class="hero__scrim"></div>
+  <div class="hero__cap"><div class="lead">動画で“食べたい”が見つかる。</div><span class="sub">PV紹介・飲食店掲載ポータル</span></div>
+  <button class="hero__arrow prev" aria-label="前のスライド"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+  <button class="hero__arrow next" aria-label="次のスライド"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></button>
+  <div class="hero__dots" role="tablist" aria-label="スライド切り替え"><button aria-label="スライド1" aria-current="true"></button><button aria-label="スライド2" aria-current="false"></button><button aria-label="スライド3" aria-current="false"></button><button aria-label="スライド4" aria-current="false"></button><button aria-label="スライド5" aria-current="false"></button></div>
+</section>
+<main>
+<section class="section section--dark" aria-labelledby="h-pop">
+  <div class="sec-head sec-head--dark"><h2 id="h-pop">人気の動画は<span class="qmark">？</span></h2><span class="deco"></span></div>
+  <div class="rail">
+    <button class="rail__nav prev" aria-label="前へ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+    <div class="rail__track"><article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/ramen-001.jpg" width="900" height="654" alt="深夜にすする濃厚味噌 / 麺屋 そらき" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 12.4万回</span>
+      <span class="vcard__play"><span></span></span>
     </div>
-  </section>
-
-  <!-- ============ 2. 人気の動画は？（PR動画カルーセル / buzz §3.1） ============ -->
-  <section class="section" id="prmovie" aria-labelledby="t-new" style="scroll-margin-top:80px">
-    <div class="inner">
-      <div class="head head--row">
-        <div>
-          <span class="kicker">Popular Movie</span>
-          <h2 class="title" id="t-new"><em>人気の動画</em>は？</h2>
-        </div>
-        <span class="swiper-nav"><button class="vp" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button><button class="vn" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button></span>
-      </div>
+    <div class="vcard__body">
+      <div class="vcard__title">深夜にすする濃厚味噌</div>
+      <div class="vcard__meta"><span class="area">札幌</span><span>麺屋 そらき</span></div>
     </div>
-    <div class="inner">
-      <div class="swiper card-swiper reveal"><div class="swiper-wrapper" id="cardWrap"></div></div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/sushi-005.jpg" width="900" height="602" alt="大将おまかせ握り / 鮨 はまゆう" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 9.8万回</span>
+      <span class="vcard__play"><span></span></span>
     </div>
-    <div class="inner more-wrap"><a href="list.html?sort=rating" class="btn-more">MORE</a></div>
-  </section>
-
-  <!-- ============ 3. 今の気分は？（橙背景・2枚重ねタイル / buzz §3.1 #ff6c00） ============ -->
-  <section class="section section--mood" id="mood" aria-labelledby="t-mood">
-    <div class="inner">
-      <div class="head">
-        <span class="kicker">By Mood</span>
-        <h2 class="title" id="t-mood"><em>今の気分</em>は？</h2>
-      </div>
-      <div class="mood-grid reveal" id="moodGrid"></div>
+    <div class="vcard__body">
+      <div class="vcard__title">大将おまかせ握り</div>
+      <div class="vcard__meta"><span class="area">東京</span><span>鮨 はまゆう</span></div>
     </div>
-  </section>
-
-  <!-- ============ 4. 好きな投稿はどれ（ジャンルタイル / buzz §3.1） ============ -->
-  <section class="section" id="genre" aria-labelledby="t-genre">
-    <div class="inner">
-      <div class="head">
-        <span class="kicker">Genre</span>
-        <h2 class="title" id="t-genre"><em>好きな投稿</em>はどれ</h2>
-      </div>
-      <div class="genre-rail reveal" id="genreRail"></div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/yakiniku-009.jpg" width="900" height="598" alt="希少部位の炭火焼 / 炭火焼 とおか" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 21.0万回</span>
+      <span class="vcard__play"><span></span></span>
     </div>
-  </section>
-
-  <!-- ============ 5. 食特集 Introduce（buzz: trending food feature carousel） ============ -->
-  <section class="section section--panel" id="feature" aria-labelledby="t-feat">
-    <div class="inner">
-      <div class="head head--row">
-        <div>
-          <span class="kicker">Introduce</span>
-          <h2 class="title" id="t-feat"><em>いま食べたい</em>を特集</h2>
-        </div>
-        <span class="swiper-nav"><button class="fp" type="button" aria-label="前へ"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button><button class="fn" type="button" aria-label="次へ"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button></span>
-      </div>
+    <div class="vcard__body">
+      <div class="vcard__title">希少部位の炭火焼</div>
+      <div class="vcard__meta"><span class="area">大阪</span><span>炭火焼 とおか</span></div>
     </div>
-    <div class="inner">
-      <div class="swiper feat-swiper reveal"><div class="swiper-wrapper" id="featWrap"></div></div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/dessert-021.jpg" width="900" height="900" alt="とろける生チョコタルト / Pâtisserie Miel" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 7.2万回</span>
+      <span class="vcard__play"><span></span></span>
     </div>
-  </section>
-
-  <!-- ============ 7. Instagram ============ -->
-  <section class="section section--panel" aria-labelledby="t-ig">
-    <div class="inner">
-      <div class="head head--row">
-        <div>
-          <span class="kicker">Instagram</span>
-          <h2 class="title" id="t-ig"><em>@gourmet_portal</em></h2>
-        </div>
-        <a href="#" class="seeall">フォローする</a>
-      </div>
-      <div class="insta-grid reveal" id="instaGrid"></div>
+    <div class="vcard__body">
+      <div class="vcard__title">とろける生チョコタルト</div>
+      <div class="vcard__meta"><span class="area">横浜</span><span>Pâtisserie Miel</span></div>
     </div>
-  </section>
-
-  <!-- ============ CTA ============ -->
-  <section class="cta-band" aria-label="アクション">
-    <div class="inner">
-      <div class="cta-grid">
-        <a href="#" class="cta-item reveal">
-          <span class="ico" aria-hidden="true"><svg><use href="#i-list"/></svg></span>
-          <span class="lbl">お店を掲載する</span><span class="en">List your shop</span>
-        </a>
-        <a href="#" class="cta-item reveal" style="--d:.06s">
-          <span class="ico" aria-hidden="true"><svg><use href="#i-mail"/></svg></span>
-          <span class="lbl">お問い合わせ</span><span class="en">Contact</span>
-        </a>
-        <a href="#" class="cta-item reveal" style="--d:.12s">
-          <span class="ico" aria-hidden="true"><svg><use href="#i-ig"/></svg></span>
-          <span class="lbl">Instagram</span><span class="en">Follow us</span>
-        </a>
-        <a href="#" class="cta-item reveal" style="--d:.18s">
-          <span class="ico" aria-hidden="true"><svg><use href="#i-partner"/></svg></span>
-          <span class="lbl">代理店募集</span><span class="en">Partner</span>
-        </a>
-      </div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/japanese-016.jpg" width="900" height="675" alt="一日限定のラテアート / Café Lumi" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 5.5万回</span>
+      <span class="vcard__play"><span></span></span>
     </div>
-  </section>
-
+    <div class="vcard__body">
+      <div class="vcard__title">一日限定のラテアート</div>
+      <div class="vcard__meta"><span class="area">京都</span><span>Café Lumi</span></div>
+    </div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/seafood-040.jpg" width="900" height="675" alt="海鮮こぼれ丼 / 海鮮処 なぎさ" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 15.3万回</span>
+      <span class="vcard__play"><span></span></span>
+    </div>
+    <div class="vcard__body">
+      <div class="vcard__title">海鮮こぼれ丼</div>
+      <div class="vcard__meta"><span class="area">福岡</span><span>海鮮処 なぎさ</span></div>
+    </div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/curry-028.jpg" width="900" height="675" alt="とんがりスパイスカレー / 香食堂 タビ" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 6.1万回</span>
+      <span class="vcard__play"><span></span></span>
+    </div>
+    <div class="vcard__body">
+      <div class="vcard__title">とんがりスパイスカレー</div>
+      <div class="vcard__meta"><span class="area">名古屋</span><span>香食堂 タビ</span></div>
+    </div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/pizza-032.jpg" width="900" height="597" alt="窯焼きマルゲリータ / Trattoria Sole" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 4.4万回</span>
+      <span class="vcard__play"><span></span></span>
+    </div>
+    <div class="vcard__body">
+      <div class="vcard__title">窯焼きマルゲリータ</div>
+      <div class="vcard__meta"><span class="area">仙台</span><span>Trattoria Sole</span></div>
+    </div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/tempura-060.jpg" width="900" height="675" alt="あふれる海老天重 / 天ぷら こよみ" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 8.9万回</span>
+      <span class="vcard__play"><span></span></span>
+    </div>
+    <div class="vcard__body">
+      <div class="vcard__title">あふれる海老天重</div>
+      <div class="vcard__meta"><span class="area">東京</span><span>天ぷら こよみ</span></div>
+    </div>
+  </article>
+<article class="vcard">
+    <div class="vcard__media"><img src="assets/photos/okonomiyaki-068.jpg" width="900" height="675" alt="ふわとろ関西お好み / 粉もん たこ八" loading="lazy" decoding="async">
+      <span class="vcard__views">▶ 10.2万回</span>
+      <span class="vcard__play"><span></span></span>
+    </div>
+    <div class="vcard__body">
+      <div class="vcard__title">ふわとろ関西お好み</div>
+      <div class="vcard__meta"><span class="area">大阪</span><span>粉もん たこ八</span></div>
+    </div>
+  </article></div>
+    <button class="rail__nav next" aria-label="次へ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></button>
+  </div>
+</section>
+<section class="section mood" aria-labelledby="h-mood">
+  <div class="sec-head"><h2 id="h-mood">今の気分は<span class="qmark">？</span></h2><span class="deco"></span></div>
+  <div class="wrap"><div class="mood__grid"><a class="tile" href="#"><img src="assets/photos/yakiniku-010.jpg" width="900" height="598" alt="がっつり食べたい" loading="lazy" decoding="async">
+    <span class="tile__label">がっつり食べたい</span></a>
+<a class="tile" href="#"><img src="assets/photos/sashimi-064.jpg" width="900" height="675" alt="さっぱりしたい" loading="lazy" decoding="async">
+    <span class="tile__label">さっぱりしたい</span></a>
+<a class="tile" href="#"><img src="assets/photos/ramen-002.jpg" width="900" height="630" alt="ひとりで気軽に" loading="lazy" decoding="async">
+    <span class="tile__label">ひとりで気軽に</span></a>
+<a class="tile" href="#"><img src="assets/photos/steak-076.jpg" width="900" height="675" alt="記念日に" loading="lazy" decoding="async">
+    <span class="tile__label">記念日に</span></a>
+<a class="tile" href="#"><img src="assets/photos/parfait-072.jpg" width="900" height="597" alt="甘いものは別腹" loading="lazy" decoding="async">
+    <span class="tile__label">甘いものは別腹</span></a>
+<a class="tile" href="#"><img src="assets/photos/dessert-022.jpg" width="900" height="900" alt="映える一皿" loading="lazy" decoding="async">
+    <span class="tile__label">映える一皿</span></a>
+<a class="tile" href="#"><img src="assets/photos/hamburger-056.jpg" width="900" height="675" alt="とにかく肉" loading="lazy" decoding="async">
+    <span class="tile__label">とにかく肉</span></a>
+<a class="tile" href="#"><img src="assets/photos/seafood-041.jpg" width="900" height="675" alt="海の幸を" loading="lazy" decoding="async">
+    <span class="tile__label">海の幸を</span></a>
+<a class="tile" href="#"><img src="assets/photos/ramen-003.jpg" width="900" height="675" alt="あったまりたい" loading="lazy" decoding="async">
+    <span class="tile__label">あったまりたい</span></a>
+<a class="tile" href="#"><img src="assets/photos/cocktail-049.jpg" width="900" height="647" alt="昼からゆるり" loading="lazy" decoding="async">
+    <span class="tile__label">昼からゆるり</span></a>
+<a class="tile" href="#"><img src="assets/photos/teishoku-044.jpg" width="900" height="477" alt="ヘルシー志向" loading="lazy" decoding="async">
+    <span class="tile__label">ヘルシー志向</span></a>
+<a class="tile" href="#"><img src="assets/photos/bakery-052.jpg" width="900" height="675" alt="パンが好き" loading="lazy" decoding="async">
+    <span class="tile__label">パンが好き</span></a>
+<a class="tile" href="#"><img src="assets/photos/coffee-024.jpg" width="900" height="666" alt="コーヒー時間" loading="lazy" decoding="async">
+    <span class="tile__label">コーヒー時間</span></a>
+<a class="tile" href="#"><img src="assets/photos/okonomiyaki-069.jpg" width="900" height="603" alt="がっつり粉もん" loading="lazy" decoding="async">
+    <span class="tile__label">がっつり粉もん</span></a>
+<a class="tile" href="#"><img src="assets/photos/curry-029.jpg" width="900" height="675" alt="スパイス欲" loading="lazy" decoding="async">
+    <span class="tile__label">スパイス欲</span></a>
+<a class="tile" href="#"><img src="assets/photos/sushi-006.jpg" width="900" height="598" alt="とろける寿司" loading="lazy" decoding="async">
+    <span class="tile__label">とろける寿司</span></a>
+<a class="tile" href="#"><img src="assets/photos/pasta-036.jpg" width="900" height="672" alt="イタリアン気分" loading="lazy" decoding="async">
+    <span class="tile__label">イタリアン気分</span></a>
+<a class="tile" href="#"><img src="assets/photos/tempura-061.jpg" width="900" height="675" alt="サクサク揚げ物" loading="lazy" decoding="async">
+    <span class="tile__label">サクサク揚げ物</span></a></div></div>
+</section>
+<section class="section section--light" aria-labelledby="h-genre">
+  <div class="sec-head"><h2 id="h-genre">好きなジャンルは<span class="qmark">？</span></h2><span class="deco"></span></div>
+  <div class="rail">
+    <button class="rail__nav prev" aria-label="前へ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+    <div class="rail__track"><a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/ramen-000.jpg" width="900" height="675" alt="ラーメン" loading="lazy" decoding="async"></div>
+    <div class="genre__label">ラーメン</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/sushi-007.jpg" width="900" height="675" alt="寿司・海鮮" loading="lazy" decoding="async"></div>
+    <div class="genre__label">寿司・海鮮</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/yakiniku-011.jpg" width="900" height="675" alt="焼肉" loading="lazy" decoding="async"></div>
+    <div class="genre__label">焼肉</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/coffee-025.jpg" width="900" height="768" alt="カフェ" loading="lazy" decoding="async"></div>
+    <div class="genre__label">カフェ</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/izakaya-012.jpg" width="900" height="675" alt="居酒屋" loading="lazy" decoding="async"></div>
+    <div class="genre__label">居酒屋</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/dessert-023.jpg" width="900" height="900" alt="スイーツ" loading="lazy" decoding="async"></div>
+    <div class="genre__label">スイーツ</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/curry-030.jpg" width="900" height="675" alt="カレー" loading="lazy" decoding="async"></div>
+    <div class="genre__label">カレー</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/pizza-033.jpg" width="900" height="596" alt="イタリアン" loading="lazy" decoding="async"></div>
+    <div class="genre__label">イタリアン</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/teishoku-045.jpg" width="900" height="675" alt="定食" loading="lazy" decoding="async"></div>
+    <div class="genre__label">定食</div></a>
+<a class="genre__item" href="#">
+    <div class="genre__media"><img src="assets/photos/cocktail-050.jpg" width="900" height="675" alt="バー" loading="lazy" decoding="async"></div>
+    <div class="genre__label">バー</div></a></div>
+    <button class="rail__nav next" aria-label="次へ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></button>
+  </div>
+</section>
+<section class="section section--light" aria-labelledby="h-feat">
+  <div class="sec-head"><h2 id="h-feat">食特集</h2><span class="deco"></span></div>
+  <div class="wrap"><div class="feat"><a class="feat__card" href="#"><img src="assets/photos/ramen-001.jpg" width="900" height="654" alt="深夜の一杯、ベスト10" loading="lazy" decoding="async">
+    <div class="ov"><span class="feat__tag">特集</span><h3>深夜の一杯、ベスト10</h3><p>終電後でも染みる、夜営業の名店をPVでめぐる。</p></div></a>
+<a class="feat__card" href="#"><img src="assets/photos/steak-077.jpg" width="900" height="600" alt="記念日に行きたい予約必至の店" loading="lazy" decoding="async">
+    <div class="ov"><span class="feat__tag">特集</span><h3>記念日に行きたい予約必至の店</h3><p>大切な日に。雰囲気まで伝わる動画で選ぶ。</p></div></a>
+<a class="feat__card" href="#"><img src="assets/photos/parfait-073.jpg" width="900" height="675" alt="映えスイーツ巡礼" loading="lazy" decoding="async">
+    <div class="ov"><span class="feat__tag">特集</span><h3>映えスイーツ巡礼</h3><p>ひとくちで気分が上がる、話題のデザート。</p></div></a>
+<a class="feat__card" href="#"><img src="assets/photos/seafood-042.jpg" width="900" height="675" alt="海鮮どんぶり食べ比べ" loading="lazy" decoding="async">
+    <div class="ov"><span class="feat__tag">特集</span><h3>海鮮どんぶり食べ比べ</h3><p>産地直送のこぼれ盛り、PVで豪快に。</p></div></a></div></div>
+</section>
+<section class="section section--dark" aria-labelledby="h-news">
+  <div class="sec-head sec-head--dark"><h2 id="h-news">バズ グルメ NEWS</h2><span class="deco"></span></div>
+  <div class="wrap"><div class="news"><a class="news__row" href="#">
+    <div class="news__thumb"><img src="assets/photos/japanese-017.jpg" width="900" height="675" alt="新エリア「横浜」掲載スタート" loading="lazy" decoding="async"></div>
+    <span class="news__date">2026.05.30</span>
+    <span class="news__title">新エリア「横浜」掲載スタート</span></a>
+<a class="news__row" href="#">
+    <div class="news__thumb"><img src="assets/photos/ramen-002.jpg" width="900" height="630" alt="夏の冷やし麺フェア開催" loading="lazy" decoding="async"></div>
+    <span class="news__date">2026.05.24</span>
+    <span class="news__title">夏の冷やし麺フェア開催</span></a>
+<a class="news__row" href="#">
+    <div class="news__thumb"><img src="assets/photos/parfait-074.jpg" width="900" height="675" alt="“映え”動画コンテスト結果発表" loading="lazy" decoding="async"></div>
+    <span class="news__date">2026.05.18</span>
+    <span class="news__title">“映え”動画コンテスト結果発表</span></a>
+<a class="news__row" href="#">
+    <div class="news__thumb"><img src="assets/photos/sushi-004.jpg" width="900" height="602" alt="人気店オーナーインタビュー公開" loading="lazy" decoding="async"></div>
+    <span class="news__date">2026.05.10</span>
+    <span class="news__title">人気店オーナーインタビュー公開</span></a></div></div>
+</section>
+<section class="section section--dark" aria-labelledby="h-insta">
+  <div class="insta__head" id="h-insta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg><span>Instagram @buzz_gourmet</span></div>
+  <div class="wrap"><div class="insta__grid"><a href="#" aria-label="Instagram投稿"><img src="assets/photos/dessert-020.jpg" width="900" height="900" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/ramen-003.jpg" width="900" height="675" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/sushi-005.jpg" width="900" height="602" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/coffee-026.jpg" width="900" height="673" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/yakiniku-008.jpg" width="900" height="900" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/parfait-075.jpg" width="900" height="600" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/seafood-043.jpg" width="900" height="600" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/bakery-053.jpg" width="900" height="600" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/pizza-034.jpg" width="900" height="675" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/curry-031.jpg" width="900" height="602" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/steak-078.jpg" width="900" height="608" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a><a href="#" aria-label="Instagram投稿"><img src="assets/photos/sashimi-065.jpg" width="900" height="675" alt="Instagram 投稿写真" loading="lazy" decoding="async"></a></div></div>
+</section>
 </main>
-
-<footer class="site-footer">
-  <div class="inner">
-    <ul class="footer-links"><li><a href="#">利用規約</a></li><li><a href="#">プライバシーポリシー</a></li><li><a href="#">特定商取引法に基づく表記</a></li><li><a href="#">運営会社</a></li><li><a href="#">ヘルプ</a></li></ul>
-    <p class="copyright">© GOURMET PORTAL — 飲食店ガイド（架空デモ）</p>
+<footer class="foot">
+  <div class="foot__main">
+    <div class="foot__brand"><span class="logo"><span>バズ</span><b>グルメ</b></span>
+      <p>PV紹介・飲食店掲載ポータル。エリア・ジャンル・気分から、動画で“食べたい”が見つかるグルメポータル。</p></div>
+    <div class="foot__col"><h4>バズ グルメについて</h4>
+    <ul><li><a href="#">サイト紹介</a></li><li><a href="#">掲載をご希望の店舗様へ</a></li><li><a href="#">運営会社</a></li><li><a href="#">よくある質問</a></li></ul></div>
+<div class="foot__col"><h4>さがす</h4>
+    <ul><li><a href="#">エリアから</a></li><li><a href="#">ジャンルから</a></li><li><a href="#">今の気分から</a></li><li><a href="#">人気の動画</a></li></ul></div>
+<div class="foot__col"><h4>サポート</h4>
+    <ul><li><a href="#">利用規約</a></li><li><a href="#">プライバシーポリシー</a></li><li><a href="#">お問い合わせ</a></li></ul></div>
   </div>
+  <div class="foot__bar">© 2026 BUZZ GOURMET (demo). クリーンルーム再現・架空データ。</div>
 </footer>
-
-<!-- 固定 footer-bar -->
-<nav class="footer-bar" aria-label="クイックアクション">
-  <a href="list.html"><span class="fbi" aria-hidden="true"><svg><use href="#i-search"/></svg></span>探す</a>
-  <a href="favorites.html"><span class="fbi" aria-hidden="true"><svg><use href="#i-bookmark"/></svg></span>お気に入り<sup data-fav-badge hidden style="margin-left:3px"></sup></a>
-  <a href="#" class="accent"><span class="fbi" aria-hidden="true"><svg><use href="#i-list"/></svg></span>お店を掲載</a>
-</nav>
-
-<button class="page-top" id="pageTop" type="button" aria-label="ページトップへ戻る"><svg aria-hidden="true"><use href="#i-up"/></svg></button>
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="favorites.js"></script>
-<script>
-/* ════════════════════════════════════════════════════════════
-   画像: Unsplash(License) 厳選 + LoremFlickr(CC) フォールバック。
-   全 <img> に width/height（CLS=0）。著作物の複製なし。
-   コンテンツ（店名/評価/営業時間/価格）は世界観の一貫した架空データ。
-   ════════════════════════════════════════════════════════════ */
-const U = {
-  ramen:'1569718212165-3a8278d5f624', barbecue:'1529692236671-f1f6cf9683ba',
-  sushi:'1583623025817-d180a2221d0a', steak:'1546964124-0cce460f38ef',
-  pizza:'1513104890138-7c749659a591', coffee:'1495474472287-4d71bcdd2085',
-  cocktail:'1551024709-8f23befc6f87', izakaya:'1517248135467-4c7edcad34c4',
-  dumpling:'1496116218417-1a781b1c416c', cheesecake:'1565958011703-44f9829ba187',
-  soba:'1612929633738-8fe44f7ec841', tacos:'1565299624946-b28f40a0ae38',
-  kaiseki:'1580822184713-fc5400e7fe10', curry:'1455619452474-d2be8b1e70cd',
-  wine:'1510812431401-41d2bd2722f3', interior:'1414235077428-338989a2e8c0',
-  dining:'1424847651672-bf20a4b0982b', bread:'1509440159596-0249088772ff',
-  pancake:'1567620905732-2d1ec7ab7445', salad:'1512621776951-a57141f2eefd',
-  burger:'1568901346375-23c9450c58cd', tempura:'1606491956689-2ea866880c84'
-};
-const key = kw => kw.split(',')[0];
-const uURL = (kw,w,h,d=1) => U[key(kw)] ? `https://images.unsplash.com/photo-${U[key(kw)]}?auto=format&fit=crop&w=${w}&h=${h}&q=80&dpr=${d}` : '';
-const lURL = (kw,w,h,lock) => `https://loremflickr.com/${w}/${h}/${key(kw)},food?lock=${lock}`;
-const imgTag = (kw,w,h,lock,cls='cover',alt='',eager=false) => {
-  const u1=uURL(kw,w,h,1), u2=uURL(kw,w,h,2), l=lURL(kw,w,h,lock);
-  const ss = u1 ? ` srcset="${u1} 1x, ${u2} 2x"` : '';
-  const oe = u1 ? ` onerror="this.onerror=null;this.removeAttribute('srcset');this.src='${l}'"` : '';
-  const ld = eager ? ' fetchpriority="high"' : ' loading="lazy"';
-  return `<img class="ph ${cls}" src="${u1||l}"${ss} width="${w}" height="${h}" alt="${alt}" decoding="async"${ld}${oe}>`;
-};
-const imgFlickr = (kw,w,h,lock,cls,alt='') => `<img class="ph ${cls}" src="${lURL(kw,w,h,lock)}" width="${w}" height="${h}" alt="${alt}" decoding="async" loading="lazy">`;
-const svgUse = id => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
-
-/* ── 架空データ（一貫した世界観） ──
-   [店名, ジャンル, エリア, 駅, 価格帯, ★, クチコミ数, 画像kw, lock, タグ, 営業, ひとこと] */
-const SHOPS = [
-  ["炭火焼鳥 とり源","焼き鳥","東京","恵比寿","¥3,000〜","4.7","312","barbecue",11,"hot","17:00–24:00","備長炭で香ばしく、軍鶏の旨みを一本ずつ。"],
-  ["鮨 はる凪","寿司","東京","銀座","¥12,000〜","4.9","186","sushi",12,"","18:00–22:30","旬の握りをおまかせで。カウンター8席の隠れ家。"],
-  ["Trattoria Sole","イタリアン","横浜","元町","¥4,500〜","4.6","241","pizza",13,"new","11:30–22:00","薪窯ピッツァと自家製パスタ。港町の陽だまり。"],
-  ["麺屋 燈火","ラーメン","札幌","すすきの","¥1,000〜","4.8","528","ramen",14,"hot","11:00–翌2:00","濃厚味噌に焦がしバター。深夜まで賑わう一杯。"],
-  ["焼肉 蔓牛","焼肉","大阪","梅田","¥6,000〜","4.7","403","steak",15,"","17:00–23:30","希少部位を炭火で。肉好きが通う名店。"],
-  ["割烹 みかげ","和食","京都","祇園","¥10,000〜","4.8","132","kaiseki",16,"","17:30–22:00","季節の懐石を町家の個室で静かに。"],
-  ["BISTRO La Lune","ビストロ","神戸","三宮","¥5,000〜","4.5","198","wine",17,"new","18:00–24:00","自然派ワインと炭火フレンチの小さな店。"],
-  ["餃子と中華 鳳来","中華","福岡","天神","¥2,500〜","4.6","367","dumpling",18,"hot","11:30–23:00","羽根つき餃子と紹興酒。下町の活気そのまま。"],
-  ["珈琲と焼菓子 朱","カフェ","鎌倉","鎌倉","¥1,200〜","4.7","289","coffee",19,"","9:00–18:00","自家焙煎の一杯と、季節のチーズケーキ。"],
-  ["蕎麦切り 凪","蕎麦","金沢","香林坊","¥2,000〜","4.6","154","soba",20,"","11:00–15:00","石臼挽きの十割。昼だけの静かな蕎麦屋。"],
-  ["酒場 とりゐ","居酒屋","広島","八丁堀","¥3,500〜","4.5","276","izakaya",21,"","17:00–24:00","瀬戸内の魚と地酒。気取らない大衆酒場。"],
-  ["天ぷら 海と畑","天ぷら","名古屋","栄","¥7,000〜","4.7","167","tempura",22,"","11:30–21:30","ごま油でからりと。旬の素材を一品ずつ。"]
-];
-const GENRES = [
-  ["焼肉","steak"],["寿司","sushi"],["ラーメン","ramen"],["イタリアン","pizza"],["焼き鳥","barbecue"],
-  ["和食・割烹","kaiseki"],["カフェ","coffee"],["居酒屋","izakaya"],["中華","dumpling"],
-  ["フレンチ","wine"],["蕎麦","soba"],["天ぷら","tempura"]
-];
-const MOODS = [
-  ["記念日・デートに","wine"],["がっつり肉の夜","steak"],["ひとりで静かに","interior"],
-  ["接待で外さない","kaiseki"],["みんなでワイワイ","izakaya"],["コスパで選ぶ","ramen"],
-  ["映え写真を撮りたい","pancake"],["深夜にこっそり","barbecue"],["朝から贅沢に","bread"],
-  ["女子会・おしゃべり","cheesecake"],["こだわりの一杯","coffee"],["スパイスが欲しい","curry"],
-  ["海の幸を満喫","sushi"],["個人店を開拓","soba"],["健康志向で軽め","salad"],["とにかく映える","tacos"]
-];
-const IG = ["sushi","barbecue","pizza","steak","ramen","cheesecake"];
-const HERO = [
-  ["steak","炭火が呼ぶ、肉の夜。","蔓牛・大阪 梅田",10],
-  ["sushi","旬を、ひと握り。","鮨 はる凪・銀座",20],
-  ["ramen","深夜の、ご褒美の一杯。","麺屋 燈火・札幌",30],
-  ["pizza","薪窯から、港町の陽だまり。","Trattoria Sole・横浜",40]
-];
-
-const starHTML = r => `<span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg></span><b class="tnum">${r}</b>`;
-const tagHTML = t => t==='hot'?'<span class="tag hot">人気</span>':t==='new'?'<span class="tag new">NEW</span>':'';
-
-/* ヘッダー検索は廃止しモーダル化(ffGenre は finder block で populate) */
-
-/* ── 検索/絞込（モーダル・エリア/ジャンル/気分） ── */
-const AREAS=["北海道","東北","関東","東京","横浜・神奈川","中部","名古屋・愛知","近畿","京都","大阪","神戸・兵庫","中国・四国","広島","九州・沖縄","福岡","金沢・北陸"];
-document.getElementById('ffArea').innerHTML='<option value="">エリアから選ぶ</option>'+AREAS.map(a=>`<option>${a}</option>`).join('');
-document.getElementById('ffGenre').innerHTML='<option value="">ジャンルから選ぶ</option>'+GENRES.map(g=>`<option>${g[0]}</option>`).join('');
-document.getElementById('ffMood').innerHTML='<option value="">今の気分は？</option>'+MOODS.map(m=>`<option>${m[0]}</option>`).join('');
-document.getElementById('finderForm').addEventListener('submit',function(e){e.preventDefault();
-  const q=new URLSearchParams();const kw=document.getElementById('ffKw').value.trim();const ar=document.getElementById('ffArea').value;const ge=document.getElementById('ffGenre').value;const mo=document.getElementById('ffMood').value;
-  if(kw)q.set('kw',kw);if(ar)q.set('area',ar);if(ge)q.set('genre',ge);if(mo)q.set('mood',mo);
-  location.href='list.html'+(q.toString()?'?'+q.toString():'');});
-/* 検索モーダル 開閉 */
-(function(){const m=document.getElementById('searchModal'),ob=document.getElementById('searchOpen');if(!m||!ob)return;
-  function open(){m.hidden=false;document.body.style.overflow='hidden';const f=m.querySelector('input,select');if(f)f.focus();}
-  function close(){m.hidden=true;document.body.style.overflow='';ob.focus();}
-  ob.addEventListener('click',open);
-  m.addEventListener('click',function(e){if(e.target.closest('[data-sm-close]'))close();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden)close();});})();
-/* ── メイン動画スライダー（全幅16:9・facade・autoplay・buzz主役） ── */
-document.getElementById('heroWrap').innerHTML=SHOPS.slice(0,6).map((s,i)=>`
-  <div class="swiper-slide"><div class="hs-slide media facade" role="button" tabindex="0" aria-label="${s[0]}（${s[1]}・${s[2]}）のPR動画を観る">
-    ${imgTag(s[7],1280,720,s[8]+40,'cover',s[0]+'のPR動画',i===0)}
-    <span class="hs-shade" aria-hidden="true"></span>
-    <span class="hs-play" aria-hidden="true">${svgUse('i-play')}</span>
-    <span class="hs-meta"><span class="hs-genre">${s[1]}・${s[2]} ${s[3]}駅</span><span class="hs-name">${s[0]}</span><a href="store.html" class="hs-more">MORE</a></span>
-  </div></div>`).join('');
-
-/* ── ジャンル rail ── */
-document.getElementById('genreRail').innerHTML=GENRES.map((g,i)=>`
-  <a href="list.html?genre=${encodeURIComponent(g[0])}" class="genre-tile media" aria-label="${g[0]}を探す">
-    ${imgTag(g[1],360,260,200+i,'img1','')}
-    ${imgFlickr(g[1],360,260,260+i,'img2','')}
-    <span class="g-label">${g[0]}</span>
-  </a>`).join('');
-
-/* ── PR動画カード（横カルーセル・"人気の動画は？"） ── */
-const DUR = ['2:24','3:05','2:41','3:38','2:12','4:02','2:33','3:16','2:51','3:24','2:07','1:58'];
-const cardHTML = (s,i,eager)=>`
-  <article class="shop-card">
-    <span class="sc-thumb media facade" role="button" tabindex="0" aria-label="${s[0]}（${s[1]}）のPR動画を観る">
-      ${imgTag(s[7],360,234,s[8],'cover',s[0]+'（'+s[1]+'）のPR動画',eager)}
-      ${tagHTML(s[9])}
-      <span class="play" aria-hidden="true">${svgUse('i-play')}</span>
-      <span class="dur tnum">${DUR[i%DUR.length]}</span>
-      <span class="sc-save" role="button" tabindex="0" data-fav-id="${GPFav.slug(s[0])}" aria-label="${s[0]} をお気に入りに保存">${svgUse('i-bookmark')}</span>
-    </span>
-    <a href="store.html" class="sc-body">
-      <span class="sc-name">${s[0]}</span>
-      <span class="sc-meta"><span class="genre">${s[1]}</span><span class="sep">/</span>${s[2]} ${s[3]}駅</span>
-      <span class="sc-row">
-        <span class="rating">${starHTML(s[5])}<span class="rc tnum">(${s[6]})</span></span>
-        <span class="open"><span class="dot-open" aria-hidden="true"></span>営業中</span>
-      </span>
-      <span class="sc-foot"><span class="price">${s[4]}</span><span class="hours tnum">${s[10]}</span></span>
-    </a>
-  </article>`;
-document.getElementById('cardWrap').innerHTML=SHOPS.map((s,i)=>`<div class="swiper-slide">${cardHTML(s,i,i<4)}</div>`).join('');
-
-/* お気に入り保存（TOPカードの保存マーク・クリック/キーボード） */
-const cardWrapEl=document.getElementById('cardWrap');
-GPFav.reflect(cardWrapEl);
-cardWrapEl.addEventListener('click',e=>{
-  const sv=e.target.closest('.sc-save[data-fav-id]'); if(!sv)return;
-  e.preventDefault(); e.stopPropagation();
-  const s=SHOPS.find(x=>GPFav.slug(x[0])===sv.dataset.favId); if(!s)return;
-  GPFav.toggle({id:GPFav.slug(s[0]),name:s[0],genre:s[1],area:s[2],station:s[3],rating:s[5],reviews:s[6],kw:s[7],lock:s[8],blabel:s[4]});
-  GPFav.reflect(cardWrapEl);
-});
-cardWrapEl.addEventListener('keydown',e=>{
-  if((e.key==='Enter'||e.key===' ') && e.target.closest('.sc-save[data-fav-id]')){ e.preventDefault(); e.target.click(); }
-});
-
-/* ── 気分タイル（2枚重ね） ── */
-document.getElementById('moodGrid').innerHTML=MOODS.map((m,i)=>`
-  <a href="list.html?mood=${encodeURIComponent(m[0])}" class="mood-tile media" aria-label="${m[0]}">
-    ${imgTag(m[1],320,320,300+i,'cover','')}
-    <span class="m-label">${m[0]}</span>
-  </a>`).join('');
-
-/* ── Instagram ── */
-document.getElementById('instaGrid').innerHTML=IG.map((kw,i)=>`
-  <a href="#" class="insta-item media" aria-label="@gourmet_portal の投稿を見る">${imgTag(kw,360,360,60+i,'cover','')}<span class="ov" aria-hidden="true">${svgUse('i-ig')}</span></a>`).join('');
-
-/* ── 食特集 Introduce ── */
-const FEATURE=[["彩りサラダボウル","salad"],["窯焼きピッツァ","pizza"],["休日のパンケーキ","pancake"],["自家製クラフトバーガー","burger"],["旬の握り","sushi"],["深夜の濃厚ラーメン","ramen"],["手仕事の焼き菓子","bread"],["スパイス香るタコス","tacos"]];
-document.getElementById('featWrap').innerHTML=FEATURE.map((f,i)=>`<div class="swiper-slide"><a href="list.html" class="feat-card media" aria-label="${f[0]}の特集">${imgTag(f[1],360,440,500+i,'img1','')}${imgFlickr(f[1],360,440,560+i,'img2','')}<span class="feat-cap">${f[0]}</span></a></div>`).join('');
-
-/* ── Swiper ── */
-new Swiper('.hs-swiper',{slidesPerView:1,loop:true,autoplay:{delay:5000,disableOnInteraction:false},navigation:{nextEl:'.hs-next',prevEl:'.hs-prev'},pagination:{el:'.hs-dots',clickable:true},a11y:{enabled:true}});
-new Swiper('.card-swiper',{slidesPerView:'auto',spaceBetween:18,navigation:{nextEl:'.vn',prevEl:'.vp'},a11y:{enabled:true}});
-new Swiper('.feat-swiper',{slidesPerView:'auto',spaceBetween:16,navigation:{nextEl:'.fn',prevEl:'.fp'},a11y:{enabled:true}});
-
-/* ── page top ── */
-const pt=document.getElementById('pageTop');
-addEventListener('scroll',()=>pt.classList.toggle('show',scrollY>700),{passive:true});
-pt.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
-
-/* ── reveal（staggered・フェイルセーフ） ── */
-const reveals=[...document.querySelectorAll('.reveal')];
-if('IntersectionObserver' in window){
-  const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}}),{threshold:.08,rootMargin:'0px 0px -50px 0px'});
-  reveals.forEach(s=>io.observe(s));
-  setTimeout(()=>reveals.forEach(s=>s.classList.add('in')),1600);
-} else reveals.forEach(s=>s.classList.add('in'));
-
-/* ── PR動画 facade → 再生（架空デモ。観てから行く体験） ── */
-function openFacade(f){
-  if(f.classList.contains('playing')) return;
-  f.classList.add('playing');
-  const v=document.createElement('span'); v.className='vplaying';
-  v.innerHTML='<span class="vp-bar"><i></i></span><span class="vp-cap">PR動画 再生中（架空デモ）</span>';
-  f.appendChild(v);
-}
-document.addEventListener('click',e=>{ const f=e.target.closest('.facade'); if(f && !e.target.closest('.sc-save, a')){ e.preventDefault(); openFacade(f); } });
-document.addEventListener('keydown',e=>{ const t=e.target; if((e.key==='Enter'||e.key===' ') && t.classList && t.classList.contains('facade')){ e.preventDefault(); openFacade(t); } });
-
-addEventListener('load',()=>document.body.classList.add('imgs-ready'));
-</script>
+<button class="totop" aria-label="ページ上部へ戻る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 6-6 6 6"/></svg></button>
+<script src="app.js" defer></script>
 </body>
 </html>
