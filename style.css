@@ -113,18 +113,11 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 .mood{background:radial-gradient(125% 100% at 50% -15%, var(--orange2) 0%, var(--orange) 55%, #f06a10 100%);}
 .mood__grid{display:grid;grid-template-columns:repeat(8,1fr);gap:clamp(10px,1.1vw,18px);align-items:start;}
 .scene{position:relative;display:flex;flex-direction:column;align-items:center;text-decoration:none;}
-.scene__house{position:relative;width:100%;aspect-ratio:1/1.12;
-  clip-path:polygon(50% 0%,100% 26%,100% 100%,0% 100%,0% 26%);
-  background:#fff;box-shadow:0 6px 14px rgba(110,45,0,.3);overflow:hidden;
-  transform:rotate(var(--rot,0deg));transition:transform .18s;}
-.scene:hover .scene__house{transform:rotate(var(--rot,0deg)) scale(1.07);}
-.scene__house img{width:100%;height:100%;object-fit:cover;}
-/* 看板の庇(ストライプ) */
-.scene__house::before{content:"";position:absolute;left:0;right:0;top:25%;height:8%;z-index:1;
-  background:repeating-linear-gradient(90deg,#fff 0 7px,var(--orange) 7px 14px);box-shadow:0 2px 3px rgba(0,0,0,.25);}
-.scene__house::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.66) 0%,rgba(0,0,0,0) 52%);}
-.scene__en{position:absolute;left:0;right:0;bottom:12%;z-index:3;text-align:center;color:#fff;font-weight:900;
-  font-size:clamp(11px,1vw,13px);letter-spacing:.04em;text-shadow:0 1px 5px rgba(0,0,0,.9);pointer-events:none;}
+.scene__shop{position:relative;width:100%;aspect-ratio:100/116;border-radius:9px;overflow:hidden;
+  box-shadow:0 6px 14px rgba(110,45,0,.3);transform:rotate(var(--rot,0deg));transition:transform .18s;}
+.scene:hover .scene__shop{transform:rotate(var(--rot,0deg)) scale(1.06);}
+.scene__shop img{width:100%;height:100%;object-fit:cover;}
+.scene__frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 .scene__ja{margin-top:8px;font-weight:700;font-size:clamp(9.5px,.9vw,12.5px);color:#3a2400;text-align:center;line-height:1.2;
   background:#fff;border-radius:999px;padding:3px 9px;box-shadow:0 2px 5px rgba(120,50,0,.2);}
 .scene:nth-child(2n){margin-top:24px;--rot:-2.5deg;}
